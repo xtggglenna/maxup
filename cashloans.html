@@ -113,12 +113,13 @@
 
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
                     value="10" name="amount" for="rangeInput" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertValue(this.value)"/>
-
+<!-- 
                     <input id="range1" type="range" name="rangeInput" min="10" step="5" max="500" value="10" class="white" 
-                    onchange="updateTextInput(this.value);"  oninput="amount.value=rangeInput.value" onchange="myfunc()">
+                    onchange="updateTextInput(this.value);"   oninput="insertValue(this.value)" oninput="amount.value=rangeInput.value" > -->
                     </form>
                     </div>
                 </div>
+                <br>
 
                 <div class ="row"> 
                     <div class="col-lg-4 p-0"> 
@@ -131,20 +132,21 @@
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box2" type="text" value="1" name="amount" 
                     for="rangeInput" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertMonth(this.value)" />
 
-                    <input id="range2" type="range" name="rangeInput" min="1" step="1" max="12" value="1" 
-                    class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
+                    <!-- <input id="range2" type="range" name="rangeInput" min="1" step="1" max="12" value="1" 
+                    class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value"> -->
                     </form>
                     </div>
                 </div>
+                <br>
 
                 <div class="row">
                     <div class="col-lg-4 p-0">  
-                    <label>Need It Instantly? ($10)</label>
+                    <label>Need It Instantly?</label>
                     </div>
                     
                     <div class="col-lg-8">
                         <select class="form-select text-secondary col-lg-4" aria-label="Default select example">
-                            <option value="Yes" selected>Yes</option>
+                            <option value="Yes" selected>Yes (+$10)</option>
                             <option value="No">No</option>
                             <br>
                         </select>
@@ -163,9 +165,16 @@
                 <div>
                   <p>Loan Value: <a id="LoanVal"></a></p>
                   <p>Loan Term: <a id="LoanMo"></a></p>
-                  <p>Loan Interest:</p>
-                  <p>Monthly Payable Amount:</p>
-                  <p>Loan Payable Date:</p>
+                  <p>Loan Payable Date:
+                    <script>
+                        var dt = new Date();
+                        var d = dt.getDate();
+                        var m = dt.getMonth()+2;
+                        var y = dt.getFullYear(); 
+                        document.write(d+'/'+m+'/'+y);
+       
+                    </script>
+                </p>
                 </div>
             
             </div>
@@ -215,7 +224,6 @@
             var loanmonth = document.getElementById("LoanMo");
             loanmonth.innerHTML= newval2+' months';
         } 
-
 
     </script>
 
