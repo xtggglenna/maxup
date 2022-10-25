@@ -86,7 +86,7 @@
 
             <div class ="col-lg-10">
                 <input class="form-control" type="text" placeholder="Cash Loans" readonly>
-                <form>
+                <!-- <form>
                 <label>Loan Value (SGD $)</label>
                 <input oninput="rangeInput.value=amount.value" id="box" type="text" value="0" name="amount" for="rangeInput" 
                 onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" />
@@ -95,12 +95,7 @@
                 class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
                 <br>
                 <br>
-                <label>Need it instantly?</label>
-                <select class="form-select text-secondary col-lg-5" aria-label="Default select example">
-                    <option value="Edu" selected>Yes</option>
-                    <option value="Wed">No</option>
-                    <br>
-                </select>
+                
                 
                 </form>
                 <div class="container">
@@ -110,7 +105,7 @@
                         <button type="button" class="btn btn-primary">Submit</button>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
             </div>
         </div>
 
@@ -119,51 +114,89 @@
 
     <div class ="container mt-2 ms-6 ps-4 align-items-center">
         <div class="row">
-            <div class="col-lg-6"> 
+            <div class="col-lg-7"> 
                 <div class ="row"> 
-                    <div class="col-lg-6 p-0"> 
+                    <div class="col-lg-12 p-0"> 
                     <h4 class="m-0">Loan Value</h4>
                     </div>
                 </div>
+
+                </br> 
                 
                 <div class ="row"> 
-                    <div class="col-lg-2 p-0"> 
+                    <div class="col-lg-4 p-0"> 
                     <form class="p-0">
                     <label>Loan Value (SGD $)</label>
                     </div> 
 
-                    <div class="col-lg-4"> 
+                    <div class="col-lg-8"> 
 
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box" type="text" value="1000" name="amount" for="rangeInput" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value"/>
 
                     <input id="range" type="range" name="rangeInput" min="1000" step="100" max="10000" value="1000" class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
                     </form>
-                    
-                    
+                    </div>
                 </div>
 
                 <div class ="row"> 
-                    <div class="col-lg-2 p-0"> 
+                    <div class="col-lg-4 p-0"> 
                     <form class="p-0">
                     <label>Loan Term (Months)</label>
                     </div> 
 
-                    <div class="col-lg-4"> 
+                    <div class="col-lg-8"> 
 
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box" type="text" value="1" name="amount" for="rangeInput" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value"/>
 
                     <input id="range" type="range" name="rangeInput" min="1" step="1" max="12" value="1" class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
                     </form>
-                   
-                    <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 p-0">  
+                    <label>Need It Instantly?</label>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example">
+                            <option value="Yes" selected>Yes</option>
+                            <option value="No">No</option>
+                            <br>
+                        </select>
+                    </div>
                 </div>
             </div>
         
-            <div class="col-lg-6"> 
-                <p> hi</p>
+            <div class="col-lg-5"> 
+                <div class ="row"> 
+                    <div class="col-lg-12 p-0"> 
+                    <h4 class="m-0">Loan Details</h4>
+                    </div>
+                </div>
+
+                </br> 
+
+                Loan Value 
+                Loan Term
+                Loan Interest 
+
+                Monthly Amount Payable
+                Loan Payable Date
             </div>
+        </div>
     </div>
-    </div>
+
+
+    <div class="container d-grid gap-2 d-md-flex mt-2 ms-6 ps-4 justify-content-md-end">
+        <button class="btn btn-outline-danger me-md-2" type="button">Cancel</button>
+        <button class="btn btn-outline-success" type="button">Apply</button>
+      </div>
+
+  
+
+
+   
         
         
 
