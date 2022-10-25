@@ -177,7 +177,8 @@
 
                 </br> 
 
-                Loan Value 
+                <p onLoad="insertValue()"> Loan Value: </p> 
+               
                 Loan Term
                 Loan Interest 
 
@@ -192,22 +193,6 @@
         <button class="btn btn-outline-danger me-md-2" type="button">Cancel</button>
         <button class="btn btn-outline-success" type="button">Apply</button>
       </div>
-
-  
-
-
-   
-        
-        
-
-
-
-
-
-
-
-
-
 
   </main><!-- End #main -->
 
@@ -234,6 +219,11 @@
             var value2 = (0.95 / value1 * 100).toFixed(2);
             document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
           }
+
+        function insertValue(){ 
+            var ValueNum = document.getElementById("Box").value; } 
+
+
 
     </script>
 
