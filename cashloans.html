@@ -86,6 +86,31 @@
 
             <div class ="col-lg-10">
                 <input class="form-control" type="text" placeholder="Cash Loans" readonly>
+                <form>
+                <label>Loan Value (SGD $)</label>
+                <input oninput="rangeInput.value=amount.value" id="box" type="text" value="0" name="amount" for="rangeInput" 
+                onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" />
+                <br>
+                <input id="range" type="range" name="rangeInput" min="10" step="1" max="100" value="0" 
+                class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
+                <br>
+                <br>
+                <label>Need it instantly?</label>
+                <select class="form-select text-secondary col-lg-5" aria-label="Default select example">
+                    <option value="Edu" selected>Yes</option>
+                    <option value="Wed">No</option>
+                    <br>
+                </select>
+                
+                </form>
+                <div class="container">
+                    <div>
+                      <div>
+                        <br>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
 
