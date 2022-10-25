@@ -67,7 +67,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>LoanMe</h2>
+          <h2>LoanMe - Cash Loans</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">LoanMe</a></li>
@@ -79,25 +79,30 @@
     </section><!-- End Breadcrumbs -->
 
     <div class ="container mt-2 justify-content-between align-items-center"> 
-      <div class ="row"> 
-        <div class="col-lg-3 p-0"> 
+      <div> 
+        <div> 
           <h4 class="m-0">Loan Purpose</h4>
         </div>
+        <br>
+        <div>
+            <b><p>Instant Cash</p></b>
+        </div>
+        <div>
+            <b><p>Instant Cash Details</p></b>
+            <div>
 
-        <div class ="col-lg-9 p-0">  
-            <div clsas="dropdown"> 
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Loan Purpose
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item">Education</a>
-                <a class="dropdown-item">Wedding</a>
-                <a class="dropdown-item">Housing</a>
-                <a class="dropdown-item">Pregnancy</a>
-                <a class="dropdown-item">Travel</a>
-              </div> 
-            </div> 
-        </div> 
+                <form>
+                <label>Loan Value (SGD $)</label>
+                <input oninput="rangeInput.value=amount.value" id="box" type="text" value="0" name="amount" for="rangeInput" 
+                onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" />
+                <br>
+                <input id="range" type="range" name="rangeInput" min="10" step="1" max="100" value="0" 
+                class="white" onchange="updateTextInput(this.value);" oninput="amount.value=rangeInput.value">
+
+                <label>Need it instantly?</label>
+                </form>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -126,6 +131,17 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function updateTextInput(val) {
+            var value1 = document.getElementById("range").value;
+            document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
+          
+            var value2 = (0.95 / value1 * 100).toFixed(2);
+            document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
+          }
+
+    </script>
 
 </body>
 
