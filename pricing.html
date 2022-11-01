@@ -18,6 +18,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -56,9 +57,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="services.html">LoanMe</a></li>
-          <li><a class="active" href="pricing.html">Portfolio
-
-          </a></li>
+          <li><a class="active" href="pricing.html">Portfolio</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -98,7 +97,7 @@
                 <li>Your priority is to keep your portfolio balance up with inflation, but not to increase its real value</li><br><br>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">SELECT</a>
+                <a href="#" class="btn-buy"  data-toggle="modal" data-target="#exampleModal">SELECT</a>
               </div>
             </div>
           </div>
@@ -127,7 +126,7 @@
                 <li>Massa ultricies mi</li> -->
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">SELECT</a>
+                <a href="#" class="btn-buy"  data-toggle="modal" data-target="#exampleModal">SELECT</a>
               </div>
             </div>
           </div>
@@ -197,8 +196,11 @@
       </div>
     </div>
     <script>
+      
       function generateportfolio() {
+          
         document.getElementById('popportfolio').innerHTML += `
+        <div id="donutchart" style=" height: 500px;"></div> 
                   <div class="container">
                     <h3 class="display-4">Recommend Portfolio Weightage</h3>
                     <p class="lead">AAPL 0.2</p>
@@ -206,11 +208,261 @@
                     <p class="lead">TSLA 0.1</p>
                     <p class="lead">META 0.3</p>
                     <p class="lead">BABA 0.2</p>
+\                  
+                    <a href="#" class="nav-link scrollto active" data-toggle="modal" data-target="#accountModal">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        Confirm Order</button>
+                    </a>
                   </div>
-
         `
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Stock', 'Weightage'],
+            ['GOOG',     0.2],
+            ['GOOG',     0.2],
+            ['TSLA',      0.1],
+            ['META',  0.3],
+            ['BABA', 0.2]
+          ]);
+
+          var options = {
+            title: 'Portfolio allocation',
+            pieHole: 0.4,
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+          chart.draw(data, options);
+        }
       }
+
+     
     </script>
+    <!-- credit transfer -->
+    
+   
+    <div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Credit Transfer</h5>
+          </div>
+          <div class="modal-body" data-aos="fade-up">
+            <div class="row mt-5 justify-content-center" data-aos="fade-up">
+              <div class="col-lg-10">
+                <form class="php-email-form">
+                    <div class="form-group">
+                      <!-- user id -->
+                        <label for="userID">User ID</label>
+                        <input id="userID" type="text" class="form-control"/>
+                    </div>
+                      <!-- pin -->
+                    <div class="form-group">
+                        <label for="PIN">PIN</label>
+                        <input id="PIN" type="password" class="form-control"/>
+                    </div>
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label for="accountFrom">Account From</label>
+                      <input id="accountFrom" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="accountTo">Account To</label>
+                      <input id="accountTo" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="transactionAmount">Transaction Amount</label>
+                      <input id="transactionAmount" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="transactionReferenceNumber">Transaction Reference Number</label>
+                      <input id="transactionReferenceNumber" type="text" class="form-control"/>
+                  </div>
+                    <div class="form-group">
+                      <label for="narrative">Narrative</label>
+                      <input id="narrative" type="text" class="form-control"/>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a class="nav-link scrollto active " href="#cta-pricing" data-dismiss="modal"><button id="Send" type="button" class="btn btn-primary" >
+                      Confirm</button></a>
+                  </div>
+        </form>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+      var ApiURL = "http://tbankonline.com/SMUtBank_API/Gateway";
+      function getApiURL() {
+          return ApiURL;
+      }
+      
+      //UserID
+      var userID = "";
+      function getUserID() {
+          return userID;
+      }
+      function setUserID(x) {
+          userID = x;
+      }
+      
+      //PIN
+      var PIN = "";
+      function getPIN() {
+          return PIN;
+      }
+      function setPIN(x) {
+          PIN = x;
+      }
+      
+      
+          $(document).ready(function () {
+              
+              // init user credentials
+              document.getElementById("userID").value = getUserID();
+              document.getElementById("PIN").value = getPIN();
+      
+              /*----------------------------------------
+               * [Send] button clicked
+               */
+              $("#Send").click(function (event) {
+                  (function() {
+      
+                      // set service header values
+                      var serviceName = "creditTransfer";
+                      var userID = document.getElementById("userID").value;
+                      setUserID(userID);
+                      var PIN = document.getElementById("PIN").value;
+                      setPIN(PIN);
+                      
+                      // get and validate form values
+                      var accountFrom = document.getElementById("accountFrom").value;
+                      if (accountFrom === ""){
+                          alert("Account FROM cannot be blank.");
+                          return;  
+                      }
+                      var accountTo = document.getElementById("accountTo").value;
+                      if (accountTo === ""){
+                          alert("Account TO cannot be blank.");
+                          return;  
+                      }
+                      var transactionAmount = document.getElementById("transactionAmount").value;
+                      if (transactionAmount === ""){
+                          alert("Transaction Amount cannot be blank.");
+                          return;  
+                      }
+                      var transactionReferenceNumber = document.getElementById("transactionReferenceNumber").value;
+                      var narrative = document.getElementById("narrative").value;
+      
+                      // disable Send button
+                      document.getElementById("Send").disabled = true;
+                      OTP = "999999"
+                      // set request parameters
+                      var headerObj = {
+                          Header: {
+                              serviceName: serviceName,
+                              userID: userID,
+                              PIN: PIN,
+                              OTP: OTP
+                          }
+                      };
+                      var contentObj = {
+                          Content: {
+                              accountFrom: accountFrom,
+                              accountTo: accountTo,
+                              transactionAmount: transactionAmount,
+                              transactionReferenceNumber: transactionReferenceNumber,
+                              narrative: narrative
+                          }
+                      };
+                      var header = JSON.stringify(headerObj);
+                      var content = JSON.stringify(contentObj);
+      
+                      // setup http request
+                      var xmlHttp = new XMLHttpRequest();
+                      if (xmlHttp === null){
+                          alert("Browser does not support HTTP request.");
+                          return;
+                      }
+                      xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                      xmlHttp.timeout = 5000;
+      
+                      // setup http event handlers
+                      xmlHttp.onreadystatechange = function() {
+                          if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                              responseObj = JSON.parse(xmlHttp.responseText);
+                              serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                              globalErrorID = serviceRespHeader.GlobalErrorID;
+                              if (globalErrorID === "010041"){
+                                  // showOTPModal();
+                                  return;
+                              }
+                              else if (globalErrorID !== "010000"){
+                                  alert(serviceRespHeader.ErrorDetails);
+                                  return;
+                              }
+                              
+                              // get data
+                              transactionID = responseObj.Content.ServiceResponse.TransactionID._content_;
+                              balanceBefore = responseObj.Content.ServiceResponse.BalanceBefore._content_;
+                              balanceAfter = responseObj.Content.ServiceResponse.BalanceAfter._content_;
+      
+                              console.log(transactionID);
+                              console.log(balanceBefore);
+                              console.log(balanceAfter);
+                              // display data
+                              // document.getElementById("transactionID").value = transactionID;
+                              // document.getElementById("balanceBefore").value = addCommas(balanceBefore);
+                              // document.getElementById("balanceAfter").value = addCommas(balanceAfter);
+                              
+                              // enable Send button
+                              document.getElementById("Send").disabled = false;
+                          }
+                      };
+                      xmlHttp.ontimeout = function (e) {
+                          alert("Timeout invoking API.");
+                          return;
+                      };					
+      
+                      // send the http request
+                      xmlHttp.send();
+      
+                  })();
+              });
+      
+              /* ----------------------------------------
+               * error model close button clicked
+               */
+              $("#CloseError").click(function (event) {
+                  (function() {
+                      document.getElementById("Send").disabled = false;
+                  })();
+              });
+      
+              /* ----------------------------------------
+               * OTP model update button clicked
+               */
+              $("#UpdateOTP").click(function (event) {
+                  (function() {
+                      var OTP = document.getElementById("OTP").value;
+                      setOTP(OTP, function() { // ensure OTP set before clicking Send
+                          document.getElementById("Send").disabled = false;
+                          document.getElementById("Send").click();
+                      });
+                  })();
+              });
+      
+          });
+      
+      </script>
+
     <!-- generate portfolio -->
     <!-- <div class="jumbotron jumbotron-fluid" id = 'popportfolio'>
       
@@ -226,6 +478,7 @@
       <div class="container"> 
 
         <div class="text-center cta-pricing" id="popportfolio">
+          <!-- <div id="donutchart" style="width: 900px; height: 500px;"></div> -->
           <!-- <p> Select based on your risk preference</p>
           <a class="cta-btn" href="#">Submit</a> -->
         </div>
