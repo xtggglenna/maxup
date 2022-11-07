@@ -639,6 +639,12 @@ section {
   color: #574741;
 }
 
+.cta2 {
+  background: #ffffff;
+  padding: 60px 0;
+  color: #574741;
+}
+
 .cta h3 {
   font-size: 28px;
   font-weight: 700;
