@@ -96,9 +96,14 @@
 
                     <div class="col-lg-8"> 
 
+<<<<<<< Updated upstream
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
                      name="amount" onkeyup="insertValue(this.value)"/>
                     <small style="color:gray">Minimum amount $500</small>
+=======
+                    <input class="form-control" id="box1" type="text" value="" name="amount" onkeyup="insertValue(this.value)"/> 
+                    <small style="color:grey">Minimum Amount $500</small>
+>>>>>>> Stashed changes
                     </form>
                     </div>
                 </div>
@@ -109,7 +114,7 @@
                     <label>Term Loan (Year) </label>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear()">
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates()">
                             <option value="1" selected="selected">1 Year</option>
                             <option value="2">2 Years</option>
                             <option value="3">3 Years</option>
@@ -129,22 +134,28 @@
                 </div>
                 </br> 
                 <div>
-                  <p>Loan Value: <a id="LoanVal">$ 1000</a></p>
+                  <p>Loan Value: <a id="LoanVal"></a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
 
+<<<<<<< Updated upstream
                   <p>Interest Rate: <a id="intRate"></a></p>
 
                   <p>One time Processing Fee (0.1%): </p>
+=======
+                  <p>Interest Rate: <a id="intRate"> 3.50% </a> </p>
+
+                  <p>One time Processing Fee (0.1%): <a id="OTPF">test</a></p>
+>>>>>>> Stashed changes
 
                   <p>Monthly Repayment: </p>
-                    <script>
+                    <!-- <script>
                         var dt = new Date();
                         var d = dt.getDate();
                         var m = dt.getMonth()+1;
                         var y = dt.getFullYear(); 
                         document.write(d+'/'+m+'/'+y);
-                    </script>
+                    </script> -->
                 </p> 
                 </div>
             </div>
@@ -177,15 +188,26 @@
             var value1 = document.getElementById("range").value;
             document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
           
+<<<<<<< Updated upstream
             var value2 = (0.95 / value1 * 100).toFixed(2);
             document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
           }
+=======
+        //     var value2 = (0.95 / value1 * 100).toFixed(2);
+        //     document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
+        //   }
+        // var newval = document.getElementById("box1").value;
+>>>>>>> Stashed changes
 
-        function insertValue(){ 
+        function insertValue(newval){ 
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal");
             loanholder.innerhtml = ''; 
             loanholder.innerHTML=`$ `+newval;
+<<<<<<< Updated upstream
+=======
+            y.innerhtml='helloe'; 
+>>>>>>> Stashed changes
         } 
 
         function insertYear(){ 
@@ -198,10 +220,34 @@
         } 
 
         function intRates(){
+<<<<<<< Updated upstream
           var loan = document.getElementById("box1").value;
           document.getElementById("intRate").innerHTML="absc";
         }
+=======
+          var yr = document.getElementById("box2").value;
 
+          if(yr == "1" || yr =="2"){
+            document.getElementById("intRate").innerHTML= "3.50%"
+          } 
+          else if (yr == "3" || yr == "4" || yr =="5") {
+            document.getElementById("intRate").innerHTML= "3.00%"
+          }
+        }
+
+        // function onetimeprocfee(){ 
+        //   var x = document.getElementById("box1").value;
+        //   var y = document.getElementById("OTPF"); 
+        //   console.log(x,y); 
+        //   var result = x * 0.01 ; 
+        //   y.innerhtml=result; 
+        // }
+>>>>>>> Stashed changes
+
+        function dummy(){ 
+          var a = document.getElementById("OTPF"); 
+          a.innerhtml='happybirthday'
+        }
 
     </script>
 
