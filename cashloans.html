@@ -97,7 +97,8 @@
                     <div class="col-lg-8"> 
 
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
-                    value="1000" name="amount" onkeyup="insertValue(this.value)"/>
+                     name="amount" onkeyup="insertValue(this.value)"/>
+                    <small style="color:gray">Minimum amount $500</small>
                     </form>
                     </div>
                 </div>
@@ -131,8 +132,11 @@
                   <p>Loan Value: <a id="LoanVal">$ 1000</a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
+
                   <p>Interest Rate: <a id="intRate"></a></p>
+
                   <p>One time Processing Fee (0.1%): </p>
+
                   <p>Monthly Repayment: </p>
                     <script>
                         var dt = new Date();
@@ -193,7 +197,7 @@
             document.getElementById("LoanYr").innerHTML=valyr + " Year(s)";
         } 
 
-        function intRate(){
+        function intRates(){
           var loan = document.getElementById("box1").value;
           document.getElementById("intRate").innerHTML="absc";
         }
