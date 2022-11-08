@@ -96,14 +96,8 @@
 
                     <div class="col-lg-8"> 
 
-<<<<<<< Updated upstream
-                    <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
-                     name="amount" onkeyup="insertValue(this.value)"/>
-                    <small style="color:gray">Minimum amount $500</small>
-=======
                     <input class="form-control" id="box1" type="text" value="" name="amount" onkeyup="insertValue(this.value)"/> 
                     <small style="color:grey">Minimum Amount $500</small>
->>>>>>> Stashed changes
                     </form>
                     </div>
                 </div>
@@ -138,15 +132,9 @@
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
 
-<<<<<<< Updated upstream
-                  <p>Interest Rate: <a id="intRate"></a></p>
-
-                  <p>One time Processing Fee (0.1%): </p>
-=======
                   <p>Interest Rate: <a id="intRate"> 3.50% </a> </p>
 
                   <p>One time Processing Fee (0.1%): <a id="OTPF">test</a></p>
->>>>>>> Stashed changes
 
                   <p>Monthly Repayment: </p>
                     <!-- <script>
@@ -184,30 +172,21 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        function updateTextInput(val) {
-            var value1 = document.getElementById("range").value;
-            document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
+        // function updateTextInput(val) {
+        //     var value1 = document.getElementById("range").value;
+        //     document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
           
-<<<<<<< Updated upstream
-            var value2 = (0.95 / value1 * 100).toFixed(2);
-            document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
-          }
-=======
         //     var value2 = (0.95 / value1 * 100).toFixed(2);
         //     document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
         //   }
         // var newval = document.getElementById("box1").value;
->>>>>>> Stashed changes
 
         function insertValue(newval){ 
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal");
             loanholder.innerhtml = ''; 
             loanholder.innerHTML=`$ `+newval;
-<<<<<<< Updated upstream
-=======
             y.innerhtml='helloe'; 
->>>>>>> Stashed changes
         } 
 
         function insertYear(){ 
@@ -220,11 +199,6 @@
         } 
 
         function intRates(){
-<<<<<<< Updated upstream
-          var loan = document.getElementById("box1").value;
-          document.getElementById("intRate").innerHTML="absc";
-        }
-=======
           var yr = document.getElementById("box2").value;
 
           if(yr == "1" || yr =="2"){
@@ -242,7 +216,6 @@
         //   var result = x * 0.01 ; 
         //   y.innerhtml=result; 
         // }
->>>>>>> Stashed changes
 
         function dummy(){ 
           var a = document.getElementById("OTPF"); 
