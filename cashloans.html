@@ -79,7 +79,7 @@
 
     <div class ="container mt-2 ms-6 ps-4 align-items-center">
         <div class="row">
-            <div class="col-lg-7"> 
+            <div class="col-lg-6"> 
                 <div class ="row"> 
                     <div class="col-lg-12 p-0"> 
                     <h4 class="m-0">Loan Value</h4>
@@ -96,7 +96,7 @@
 
                     <div class="col-lg-8"> 
 
-                    <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);dummy()"/> 
+                    <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
                     <small style="color:grey">Minimum Amount $500</small>
                     </form>
                     </div>
@@ -108,7 +108,7 @@
                     <label>Term Loan (Year) </label>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();">
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();monthlyrepayment()" >
                             <option value="1" selected="selected">1 Year</option>
                             <option value="2">2 Years</option>
                             <option value="3">3 Years</option>
@@ -120,9 +120,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5"> 
+            <div class="col-lg-6"> 
                 <div class ="row"> 
-                    <div class="col-lg-12 p-0"> 
+                    <div class="col-lg-12 ps-2"> 
                     <h4 class="m-0">Loan Details</h4>
                     </div>
                 </div>
@@ -137,14 +137,8 @@
                   <p class="mb-0">One time Processing Fee: <a id="OTPF">$ 5.00</a></p>
                   <small style="color:grey; font-size: x-small;">1% of the Loan Amount</small>
 
-                  <p class="mt-2">Monthly Repayment: </p>
-                    <!-- <script>
-                        var dt = new Date();
-                        var d = dt.getDate();
-                        var m = dt.getMonth()+1;
-                        var y = dt.getFullYear(); 
-                        document.write(d+'/'+m+'/'+y);
-                    </script> -->
+                  <p class="mt-2">Monthly Repayment: <a id="MonRep"> </a> </p> 
+                  
                 </p> 
                 </div>
             </div>
@@ -173,15 +167,6 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        // function updateTextInput(val) {
-        //     var value1 = document.getElementById("range").value;
-        //     document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
-          
-        //     var value2 = (0.95 / value1 * 100).toFixed(2);
-        //     document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
-        //   }
-        // var newval = document.getElementById("box1").value;
-
         function insertValue(newval){ 
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal"); 
@@ -191,9 +176,6 @@
         function insertYear(){ 
             var newval2 = document.getElementById("box2"); 
             var valyr = newval2.value; 
-            
-            // var textyr = newval2.option[newval2.selectedIndex].text; 
-            // console.log(valyr, textyr)
             document.getElementById("LoanYr").innerHTML=valyr + " Year(s)";
         } 
 
@@ -201,27 +183,34 @@
           var yr = document.getElementById("box2").value;
 
           if(yr == "1" || yr =="2"){
-            document.getElementById("intRate").innerHTML= "3.50%"
-          } 
+            document.getElementById("intRate").innerHTML= "3.50%"} 
           else if (yr == "3" || yr == "4" || yr =="5") {
-            document.getElementById("intRate").innerHTML= "3.00%"
-          }
+            document.getElementById("intRate").innerHTML= "3.00%"}
         }
 
-        // function onetimeprocfee(){ 
-        //   var x = document.getElementById("box1").value;
-        //   var y = document.getElementById("OTPF"); 
-        //   console.log(x,y); 
-        //   var result = x * 0.01 ; 
-        //   y.innerhtml=result; 
-        // }
-
-        function dummy(){ 
+        function onetimeprocfee(){ 
           var x = document.getElementById("box1").value;
           // var a = document.getElementById("OTPF"); 
           var result = x * 0.01 ; 
           var twodp = result.toFixed(2); 
           document.getElementById("OTPF").innerHTML="$ " + twodp; 
+        }
+
+        function monthlyrepayment(){ 
+          var yr = document.getElementById("box2").value;
+          var principle = document.getElementById("box1").value;
+
+          var yrint = parseInt(yr) 
+          // interest = principle * annual int rate * year 
+          var int = 0.35; 
+          if(yr == "1" || yr =="2"){int=1.35} 
+          else if (yr == "3" || yr == "4" || yr =="5") {int=1.30}; 
+
+          // var calculate = ((principle * int)+principle)/(yrint*12); 
+          // var calculate = yrint*12;
+          var calculate = (principle*int)/(yrint*12); 
+
+          document.getElementById("MonRep").innerHTML="$ " + calculate.toFixed(2); 
         }
 
     </script>
