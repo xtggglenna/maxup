@@ -70,7 +70,7 @@
           <ol>
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">LoanMe</a></li>
-            <li>Cash Loans</li>
+            <li>Investment Loan</li>
           </ol>
         </div>
 
@@ -108,7 +108,7 @@
                     <label>Term Loan (Year) </label>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example">
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="loanyear">
                             <option value="1" selected>1 Year</option>
                             <option value="2">2 Year</option>
                             <option value="3">3 Year</option>
@@ -129,7 +129,10 @@
                 <div>
                   <p>Loan Value: <a id="LoanVal"></a></p>
                   <p>Loan Term: <a id="LoanMo"></a></p>
-                  <p>Loan Payable Date:
+                  <p>Interest Rate: </p>
+                  <p>One time Processing Fee (0.1%): </p>
+                  <p>Monthly Repayment: </p>
+                  <!-- <p>Loan Payable Date:
                     <script>
                         var dt = new Date();
                         var d = dt.getDate();
@@ -137,7 +140,7 @@
                         var y = dt.getFullYear(); 
                         document.write(d+'/'+m+'/'+y);
                     </script>
-                </p>
+                </p> -->
                 </div>
             </div>
         </div>
