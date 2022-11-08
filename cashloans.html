@@ -96,7 +96,7 @@
 
                     <div class="col-lg-8"> 
 
-                    <input class="form-control" id="box1" type="text" value="" name="amount" onkeyup="insertValue(this.value)"/> 
+                    <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);dummy()"/> 
                     <small style="color:grey">Minimum Amount $500</small>
                     </form>
                     </div>
@@ -108,7 +108,7 @@
                     <label>Term Loan (Year) </label>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates()">
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();">
                             <option value="1" selected="selected">1 Year</option>
                             <option value="2">2 Years</option>
                             <option value="3">3 Years</option>
@@ -128,15 +128,16 @@
                 </div>
                 </br> 
                 <div>
-                  <p>Loan Value: <a id="LoanVal"></a></p>
+                  <p>Loan Value: <a id="LoanVal">$ 500</a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
 
                   <p>Interest Rate: <a id="intRate"> 3.50% </a> </p>
 
-                  <p>One time Processing Fee (0.1%): <a id="OTPF">test</a></p>
+                  <p class="mb-0">One time Processing Fee: <a id="OTPF">$ 5.00</a></p>
+                  <small style="color:grey; font-size: x-small;">1% of the Loan Amount</small>
 
-                  <p>Monthly Repayment: </p>
+                  <p class="mt-2">Monthly Repayment: </p>
                     <!-- <script>
                         var dt = new Date();
                         var d = dt.getDate();
@@ -183,10 +184,8 @@
 
         function insertValue(newval){ 
             var newval = document.getElementById("box1").value;
-            var loanholder = document.getElementById("LoanVal");
-            loanholder.innerhtml = ''; 
+            var loanholder = document.getElementById("LoanVal"); 
             loanholder.innerHTML=`$ `+newval;
-            y.innerhtml='helloe'; 
         } 
 
         function insertYear(){ 
@@ -218,8 +217,11 @@
         // }
 
         function dummy(){ 
-          var a = document.getElementById("OTPF"); 
-          a.innerhtml='happybirthday'
+          var x = document.getElementById("box1").value;
+          // var a = document.getElementById("OTPF"); 
+          var result = x * 0.01 ; 
+          var twodp = result.toFixed(2); 
+          document.getElementById("OTPF").innerHTML="$ " + twodp; 
         }
 
     </script>
