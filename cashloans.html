@@ -137,7 +137,9 @@
                   <p class="mb-0">One time Processing Fee: <a id="OTPF">$ 5.00</a></p>
                   <small style="color:grey; font-size: x-small;">1% of the Loan Amount</small>
 
-                  <p class="mt-2">Monthly Repayment: <a id="MonRep"> </a> </p> 
+                  <p class="mt-2">Total Repayment: <a id="TotRep">$ 675.00 </a> </p> 
+
+                  <p class="mt-2">Monthly Repayment: <a id="MonRep">$ 56.25 </a> </p> 
                   
                 </p> 
                 </div>
@@ -208,9 +210,10 @@
 
           // var calculate = ((principle * int)+principle)/(yrint*12); 
           // var calculate = yrint*12;
-          var calculate = (principle*int)/(yrint*12); 
-
-          document.getElementById("MonRep").innerHTML="$ " + calculate.toFixed(2); 
+          var calculate = (principle*int)/(yrint); 
+          var calculate2 = (principle*int)/(yrint*12); 
+          document.getElementById("TotRep").innerHTML="$ " + calculate.toFixed(2);
+          document.getElementById("MonRep").innerHTML="$ " + calculate2.toFixed(2); 
         }
 
     </script>
