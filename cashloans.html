@@ -97,7 +97,7 @@
                     <div class="col-lg-8"> 
 
                     <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
-                    value="1000" name="amount" for="rangeInput" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertValue(this.value)"/>
+                    value="1000" name="amount" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertValue(this.value)"/>
                     </form>
                     </div>
                 </div>
@@ -108,14 +108,15 @@
                     <label>Term Loan (Year) </label>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example">
-                            <option value="1" selected>1 Year</option>
-                            <option value="2">2 Year</option>
-                            <option value="3">3 Year</option>
-                            <option value="4">4 Year</option>
-                            <option value="5">5 Year</option>
+                        <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear()">
+                            <option value="1 " selected="selected">1 Year</option>
+                            <option value="2 ">2 Years</option>
+                            <option value="3 ">3 Years</option>
+                            <option value="4 ">4 Years</option>
+                            <option value="5 ">5 Years</option>
                             <br>
                         </select>
+                      
                     </div>
                 </div>
             </div>
@@ -127,13 +128,14 @@
                 </div>
                 </br> 
                 <div>
-                  <p>Loan Value: <a id="LoanVal"></a></p>
-                  <p>Loan Term: <a id="LoanMo"></a></p>
+                  <p>Loan Value: <a id="LoanVal">$ 1000</a></p>
+                  
+                  <p>Loan Term: <a id="LoanYr">1 Year</a></p>
                   <p>Loan Payable Date:
                     <script>
                         var dt = new Date();
                         var d = dt.getDate();
-                        var m = dt.getMonth()+2;
+                        var m = dt.getMonth()+1;
                         var y = dt.getFullYear(); 
                         document.write(d+'/'+m+'/'+y);
                     </script>
@@ -176,14 +178,19 @@
         function insertValue(){ 
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal");
+            loanholder.innerhtml = ''; 
             loanholder.innerHTML=`$ `+newval;
         } 
 
-        function insertMonth(){ 
-            var newval2 = document.getElementById("box2").value;
-            var loanmonth = document.getElementById("LoanMo");
-            loanmonth.innerHTML= newval2+' months';
+        function insertYear(){ 
+            var newval2 = document.getElementById("box2"); 
+            var valyr = newval2.value; 
+            
+            // var textyr = newval2.option[newval2.selectedIndex].text; 
+            // console.log(valyr, textyr)
+            document.getElementById("LoanYr").innerHTML=valyr + " Year(s)";
         } 
+
 
     </script>
 
