@@ -96,8 +96,9 @@
 
                     <div class="col-lg-8"> 
 
-                    <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
-                    value="1000" name="amount" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertValue(this.value)"/>
+                    <!-- <input class="form-control" oninput="rangeInput.value=amount.value" id="box1" type="text" 
+                    value="1000" name="amount" onkeyup="updateTextInput(this.value);" oninput="amount.value=rangeInput.value" onchange="insertValue(this.value);" onchange="onetimeprocfee(this.value);"/> -->
+                    <input class="form-control" id="box1" type="text" value="1000" name="amount" onchange="insertValue(this.value)"/>
                     </form>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
                   <p>Interest Rate: </p>
-                  <p>One time Processing Fee (0.1%): </p>
+                  <p id="OTPF">One time Processing Fee (0.1%): </p>
                   <p>Monthly Repayment: </p>
                     <script>
                         var dt = new Date();
@@ -169,29 +170,36 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        function updateTextInput(val) {
-            var value1 = document.getElementById("range").value;
-            document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
+        // function updateTextInput(val) {
+        //     var value1 = document.getElementById("range").value;
+        //     document.getElementById('value1').innerHTML = "Roll Below:   " + value1;
           
-            var value2 = (0.95 / value1 * 100).toFixed(2);
-            document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
-          }
+        //     var value2 = (0.95 / value1 * 100).toFixed(2);
+        //     document.getElementById('value2').innerHTML = "Multiplier:  " + value2;
+        //   }
 
         function insertValue(){ 
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal");
-            loanholder.innerhtml = ''; 
+            var y = document.getElementById("OTPF"); 
+            var result = newval * 0.01 ;
             loanholder.innerHTML=`$ `+newval;
+            y.innerhtml=result
         } 
 
         function insertYear(){ 
             var newval2 = document.getElementById("box2"); 
             var valyr = newval2.value; 
-            
-            // var textyr = newval2.option[newval2.selectedIndex].text; 
-            // console.log(valyr, textyr)
             document.getElementById("LoanYr").innerHTML=valyr + " Year(s)";
         } 
+
+        // function onetimeprocfee(){ 
+        //   var x = document.getElementById("box1").value;
+        //   var y = document.getElementById("OTPF"); 
+        //   console.log(x,y); 
+        //   var result = x * 0.01 ; 
+        //   y.innerhtml=result; 
+        // }
 
 
     </script>
