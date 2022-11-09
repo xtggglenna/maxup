@@ -704,7 +704,7 @@ section {
   margin-bottom: 25px;
   text-align: center;
   border: 1px solid #ebe6e4;
-  height: 200px;
+  height: auto;
   position: relative;
   background: #faf9f8;
 }

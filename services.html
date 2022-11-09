@@ -82,17 +82,15 @@
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
-      <!-- <div class="container"> -->
+      <div class="container">
 
-        <div>
-          <div>
             <div class="icon-box" data-aos="fade-up">
               <div class="icon"><i class="bi bi-bank"></i></div>
               <h4 class="title"><a href="cashloans.html">Investment Loan</a></h4>
               <p class="description">Never worry about your investment capital anymore, loan with us now!</p>
-              <a href="cashloans.html">Click here to apply</a>
+              <a href="cashloans.html">Click here to Apply</a>
             </div>
-          </div>
+         
           <!-- <div class="col-lg-6 col-md-6">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="bi bi-cash"></i></div>
@@ -129,13 +127,105 @@
               <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
             </div>
           </div> -->
-        </div>
-
-      <!-- </div> -->
+       
+      </div>
     </section><!-- End Services Section -->
 
+    <!-- Testing Loan Section -->
+
+    <section id="services" class="services p-0">
+      <div class="container">
+
+        <div class="icon-box m-0" data-aos="fade-right">
+          <div class="row">
+
+            <div class="col-lg-6"> 
+              <div class ="row"> 
+                <div class="col-lg-12 p-0"> 
+                <h4 class="m-0">Loan Value</h4>
+                </div>
+              </div>
+
+            </br> 
+            
+            <div class ="row"> 
+                <div class="col-lg-5 p-0"> 
+                <form>
+                <label class="p-2">Loan Value (SGD $)</label>
+                </div> 
+
+                <div class="col-lg-7"> 
+                <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
+                <p style="color:grey; font-size: x-small; text-align:left;" class="ms-2 mt-1">Minimum Amount $500</p>
+                </form>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-5 p-0">  
+              <label class="p-2">Term Loan (Year) </label>
+              </div>
+              <div class="col-lg-7">
+                  <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();monthlyrepayment()" >
+                      <option value="1" selected="selected">1 Year</option>
+                      <option value="2">2 Years</option>
+                      <option value="3">3 Years</option>
+                      <option value="4">4 Years</option>
+                      <option value="5">5 Years</option>
+                      <br>
+                  </select>
+                
+              </div>
+          </div>
+            </div> 
+
+            <div class="col-lg-6 text-start"> 
+              
+                <div class ="row"> 
+                    <div class="col-lg-12 ps-2"> 
+                    <h4 class="m-0">Loan Details</h4>
+                    </div>
+                </div>
+
+                </br> 
+
+                <div>
+                  <p>Loan Value: <a id="LoanVal">$ 500</a></p>
+                  
+                  <p>Loan Term: <a id="LoanYr">1 Year</a></p>
+
+                  <p>Interest Rate: <a id="intRate"> 3.50% </a> </p>
+
+                  <p class="mb-0">One time Processing Fee: <a id="OTPF">$ 5.00</a></p>
+                  <small style="color:grey; font-size: x-small;">1% of the Loan Amount</small>
+
+                  <p class="mt-2">Total Repayment: <a id="TotRep">$ 675.00 </a> </p> 
+
+                  <p class="mt-2">Monthly Repayment: <a id="MonRep">$ 56.25 </a> </p>
+                </div>
+           
+            </div>
+
+          </div>
+
+          <div class="container d-grid gap-2 d-md-flex mt-2 ms-6 ps-4 justify-content-md-end">
+            <button class="btn btn-outline-danger me-md-2" type="button">Cancel</button>
+            <button class="btn btn-outline-success" type="button">Apply</button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+
+
     <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
+    <!-- <section id="features" class="features">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -199,7 +289,8 @@
         </div>
 
       </div>
-    </section><!-- End Features Section -->
+    </section> -->
+    <!-- End Features Section -->
 
   </main><!-- End #main -->
 
@@ -217,6 +308,56 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+    <script>
+        function insertValue(newval){ 
+            var newval = document.getElementById("box1").value;
+            var loanholder = document.getElementById("LoanVal"); 
+            loanholder.innerHTML=`$ `+newval;
+        } 
+
+        function insertYear(){ 
+            var newval2 = document.getElementById("box2"); 
+            var valyr = newval2.value; 
+            document.getElementById("LoanYr").innerHTML=valyr + " Year(s)";
+        } 
+
+        function intRates(){
+          var yr = document.getElementById("box2").value;
+
+          if(yr == "1" || yr =="2"){
+            document.getElementById("intRate").innerHTML= "3.50%"} 
+          else if (yr == "3" || yr == "4" || yr =="5") {
+            document.getElementById("intRate").innerHTML= "3.00%"}
+        }
+
+        function onetimeprocfee(){ 
+          var x = document.getElementById("box1").value;
+          // var a = document.getElementById("OTPF"); 
+          var result = x * 0.01 ; 
+          var twodp = result.toFixed(2); 
+          document.getElementById("OTPF").innerHTML="$ " + twodp; 
+        }
+
+        function monthlyrepayment(){ 
+          var yr = document.getElementById("box2").value;
+          var principle = document.getElementById("box1").value;
+
+          var yrint = parseInt(yr) 
+          // interest = principle * annual int rate * year 
+          var int = 0.35; 
+          if(yr == "1" || yr =="2"){int=1.35} 
+          else if (yr == "3" || yr == "4" || yr =="5") {int=1.30}; 
+
+          // var calculate = ((principle * int)+principle)/(yrint*12); 
+          // var calculate = yrint*12;
+          var calculate = (principle*int)/(yrint); 
+          var calculate2 = (principle*int)/(yrint*12); 
+          document.getElementById("TotRep").innerHTML="$ " + calculate.toFixed(2);
+          document.getElementById("MonRep").innerHTML="$ " + calculate2.toFixed(2); 
+        }
+
+    </script>
 
 </body>
 
