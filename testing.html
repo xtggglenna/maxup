@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset> 
+        <legend>Retrieve a user's id</legend>
+        <input type="text" id="usernameGet" placeholder="Username" /> 
+        <button type="bbutton" id="btnGet" onclick="getUserId()">Click</button> 
+    </fieldset>
+
+    <script> 
+        async function getUserId(){ 
+            const username = document.getElementById("usernameGet").value; 
+
+            if(!username){ 
+                alert("Please enter a user id"); 
+                return; 
+            }
+
+            const endpoint = new URL(`http://tbankonline.com/SMUtBank_API_Help/API%20Documentation.html`)
+        }
+    </script> 
+</body>
+</html>
