@@ -1,0 +1,269 @@
+<h2 class="page-header" style="color:#937851">Login Staff</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="user" class="col-sm-4 control-label">Username</label>
+                <div class="col-sm-4">
+                    <input id="user" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pw" class="col-sm-4 control-label">Password</label>
+                <div class="col-sm-4">
+                    <input id="pw" type="Password" class="form-control"/>
+                </div>                
+            </div>
+            <div class="form-group">
+                <label for="application" class="col-sm-4 control-label">Application</label>
+                <div class="col-sm-4">
+                    <input id="application" type="text" class="form-control"/>
+                </div>
+            </div>           
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BIC" class="col-sm-4 control-label">BIC</label>
+                <div class="col-sm-4">
+                    <input id="BIC" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BankAddress" class="col-sm-4 control-label">Bank Address</label>
+                <div class="col-sm-4">
+                    <input id="BankAddress" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BankBranch" class="col-sm-4 control-label">BankBranch</label>
+                <div class="col-sm-4">
+                    <input id="BankBranch" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BankID" class="col-sm-4 control-label">BankID</label>
+                <div class="col-sm-4">
+                    <input id="BankID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BankLogoLocation" class="col-sm-4 control-label">Bank Logo Location</label>
+                <div class="col-sm-4">
+                    <input id="BankLogoLocation" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BankName" class="col-sm-4 control-label">Bank Name</label>
+                <div class="col-sm-4">
+                    <input id="BankName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BaseCurrency" class="col-sm-4 control-label">Base Currency</label>
+                <div class="col-sm-4">
+                    <input id="BaseCurrency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Firstname" class="col-sm-4 control-label">First Name</label>
+                <div class="col-sm-4">
+                    <input id="Firstname" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="LastLoginTimestamp" class="col-sm-4 control-label">Last Login Time Stamp</label>
+                <div class="col-sm-4">
+                    <input id="LastLoginTimestamp" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Lastname" class="col-sm-4 control-label">Last Name</label>
+                <div class="col-sm-4">
+                    <input id="Lastname" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Usertype" class="col-sm-4 control-label">User Type</label>
+                <div class="col-sm-4">
+                    <input id="Usertype" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    
+    
+    $(document).ready(function () {
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "loginStaff";
+                var userID = "";
+                setUserID(userID);
+                var PIN = "";
+                setPIN(PIN);
+                
+                /// get and validate form values
+                var username = document.getElementById("user").value;
+                if (username === ""){
+                    showErrorModal("Username cannot be blank.");
+                    return;  
+                }
+                var password = document.getElementById("pw").value;
+                if (password === ""){
+                    showErrorModal("Password cannot be blank.");
+                    return;  
+                }
+                var application = document.getElementById("application").value;
+                if (application === ""){
+                    showErrorModal("Application cannot be blank.");
+                    return;  
+                }          
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                       username: username,
+                       password: password,
+                       application: application
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+                
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content+"&ConsumerID=Teller", true);
+                xmlHttp.timeout = 5000;
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data                      
+                        ServiceResponse = responseObj.Content.ServiceResponse;
+                        StaffLoginAuthenticateResponse = ServiceResponse["Staff_Login_Authenticate-Response"];
+                        
+                        BIC = StaffLoginAuthenticateResponse.BIC;
+                        BankAddress = StaffLoginAuthenticateResponse.BankAddress;
+                        BankBranch = StaffLoginAuthenticateResponse.BankBranch;
+                        BankID = StaffLoginAuthenticateResponse.BankID;
+                        BankLogoLocation = StaffLoginAuthenticateResponse.BankLogoLocation;
+                        BankName = StaffLoginAuthenticateResponse.BankName;
+                        BaseCurrency = StaffLoginAuthenticateResponse.BaseCurrency;
+                        Firstname = StaffLoginAuthenticateResponse.Firstname;
+                        LastLoginTimestamp = StaffLoginAuthenticateResponse.LastLoginTimestamp;
+                        Lastname = StaffLoginAuthenticateResponse.Lastname;
+                        Usertype = StaffLoginAuthenticateResponse.Usertype;
+                                             
+                        document.getElementById("BIC").value = BIC;
+                        document.getElementById("BankAddress").value = BankAddress;
+                        document.getElementById("BankBranch").value = BankBranch;
+                        document.getElementById("BankID").value = BankID;
+                        document.getElementById("BankLogoLocation").value = BankLogoLocation;
+                        document.getElementById("BankName").value = BankName ;
+                        document.getElementById("BaseCurrency").value = BaseCurrency;
+                        document.getElementById("Firstname").value = Firstname;
+                        document.getElementById("LastLoginTimestamp").value = LastLoginTimestamp;
+                        document.getElementById("Lastname").value = Lastname; 
+                        document.getElementById("Usertype").value = Usertype;
+                        
+     
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });       
+    });
+
+</script>

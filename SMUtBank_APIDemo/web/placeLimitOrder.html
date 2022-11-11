@@ -1,0 +1,260 @@
+<h2 class="page-header" style="color:#937851">Place Limit Order</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="settlementAccount" class="col-sm-4 control-label">Settlement Account</label>
+                <div class="col-sm-4">
+                    <input id="settlementAccount" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="symbol" class="col-sm-4 control-label">Symbol</label>
+                <div class="col-sm-4">
+                    <input id="symbol" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="buyOrSell" class="col-sm-4 control-label">Buy Or Sell</label>
+                <div class="col-sm-4">
+                    <input id="buyOrSell" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity" class="col-sm-4 control-label">Quantity</label>
+                <div class="col-sm-4">
+                    <input id="quantity" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="limitPrice" class="col-sm-4 control-label">Limit Price</label>
+                <div class="col-sm-4">
+                    <input id="limitPrice" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="expirationType" class="col-sm-4 control-label">Expiration Type</label>
+                <div class="col-sm-4">
+                    <input id="expirationType" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maturityDate" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturityDate" type="text" class="form-control"/>
+                </div>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="YYYY-MM-DD">See format</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="status" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="orderID" class="col-sm-4 control-label">Order ID</label>
+                <div class="col-sm-4">
+                    <input id="orderID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+         $('[data-toggle="tooltip"]').tooltip(); 
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "placeLimitOrder";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var settlementAccount = document.getElementById("settlementAccount").value;
+                if (settlementAccount === ""){
+                    showErrorModal("Settlement Account cannot be blank.");
+                    return;  
+                }
+                var symbol = document.getElementById("symbol").value;
+                if (symbol === ""){
+                    showErrorModal("Symbol cannot be blank.");
+                    return;  
+                }
+                var buyOrSell = document.getElementById("buyOrSell").value;
+                if (buyOrSell === ""){
+                    showErrorModal("Buy Or Sell cannot be blank.");
+                    return;  
+                }
+                var quantity = document.getElementById("quantity").value;
+                if (quantity === ""){
+                    showErrorModal("Quantity cannot be blank.");
+                    return;  
+                }
+                var limitPrice = document.getElementById("limitPrice").value;
+                if (limitPrice === ""){
+                    showErrorModal("Limit Price cannot be blank.");
+                    return;  
+                }
+                var expirationType = document.getElementById("expirationType").value;
+                if (expirationType === ""){
+                    showErrorModal("Expiration Type cannot be blank.");
+                    return;  
+                }
+                var maturityDate = document.getElementById("maturityDate").value;
+                if (maturityDate === ""){
+                    showErrorModal("Maturity Date cannot be blank.");
+                    return;  
+                }
+
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        settlementAccount: settlementAccount,
+                        symbol: symbol,
+                        buyOrSell: buyOrSell,
+                        quantity: quantity,
+                        limitPrice: limitPrice,
+                        expirationType: expirationType,
+                        maturityDate: maturityDate,
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // Get Data
+                        StockOrder = responseObj.Content.ServiceResponse.StockOrder.orderID;
+
+                        // display data
+                        document.getElementById("status").value = "Done";
+                        document.getElementById("orderID").value = StockOrder;
+                        
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

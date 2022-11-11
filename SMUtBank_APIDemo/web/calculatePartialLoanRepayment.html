@@ -1,0 +1,348 @@
+<h2 class="page-header" style="color:#937851">Calculate Partial Loan Repayment</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="repaymentAmount" class="col-sm-4 control-label">Repayment Amount</label>
+                <div class="col-sm-4">
+                    <input id="repaymentAmount" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="keepMaturityDate" class="col-sm-4 control-label">Keep Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="keepMaturityDate" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BalanceAfterRepayment" class="col-sm-4 control-label">Balance After Repayment</label>
+                <div class="col-sm-4">
+                    <input id="BalanceAfterRepayment" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BalanceBeforeRepayment" class="col-sm-4 control-label">Balance Before Repayment</label>
+                <div class="col-sm-4">
+                    <input id="BalanceBeforeRepayment" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="InterestRate" class="col-sm-4 control-label">Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="InterestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewInterest" class="col-sm-4 control-label">New Interest</label>
+                <div class="col-sm-4">
+                    <input id="NewInterest" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewLoanAmount" class="col-sm-4 control-label">New Loan Amount</label>
+                <div class="col-sm-4">
+                    <input id="NewLoanAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewLoanTerm" class="col-sm-4 control-label">New Loan Term</label>
+                <div class="col-sm-4">
+                    <input id="NewLoanTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="NewMaturityDate" class="col-sm-4 control-label">New Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="NewMaturityDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewMonthlyInstallment" class="col-sm-4 control-label">New Monthly Installment</label>
+                <div class="col-sm-4">
+                    <input id="NewMonthlyInstallment" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewMonthsRemaining" class="col-sm-4 control-label">New Months Remaining</label>
+                <div class="col-sm-4">
+                    <input id="NewMonthsRemaining" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OldLoanTerm" class="col-sm-4 control-label">Old Loan Term</label>
+                <div class="col-sm-4">
+                    <input id="OldLoanTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OldMaturityDate" class="col-sm-4 control-label">Old Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="OldMaturityDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OldMonthlyInstallment" class="col-sm-4 control-label">Old Monthly Installment</label>
+                <div class="col-sm-4">
+                    <input id="OldMonthlyInstallment" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label for="PenaltyAmount" class="col-sm-4 control-label">Penalty Amount</label>
+                <div class="col-sm-4">
+                    <input id="PenaltyAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PenaltyRate" class="col-sm-4 control-label">Penalty Rate</label>
+                <div class="col-sm-4">
+                    <input id="PenaltyRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RepaymentAmountAfterPenalty" class="col-sm-4 control-label">Repayment Amount After Penalty</label>
+                <div class="col-sm-4">
+                    <input id="RepaymentAmountAfterPenalty" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="SettlementAccountBalance" class="col-sm-4 control-label">Settlement Account Balance</label>
+                <div class="col-sm-4">
+                    <input id="SettlementAccountBalance" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="SettlementAccountID" class="col-sm-4 control-label">Settlement AccountID</label>
+                <div class="col-sm-4">
+                    <input id="SettlementAccountID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Status" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="Status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "calculatePartialLoanRepayment";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var accountID = document.getElementById("accountID").value;
+                if (accountID === ""){
+                    showErrorModal("Account ID cannot be blank.");
+                    return;  
+                }
+                var repaymentAmount = document.getElementById("repaymentAmount").value;
+                if (repaymentAmount === ""){
+                    showErrorModal("Repayment Amount cannot be blank.");
+                    return;  
+                }
+                var keepMaturityDate = document.getElementById("keepMaturityDate").value;
+                if (accountID === ""){
+                    showErrorModal("keep Maturity Date cannot be blank.");
+                    return;  
+                }
+
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        accountID: accountID,
+                        repaymentAmount: repaymentAmount,
+                        keepMaturityDate: keepMaturityDate
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        PartialRepaymentResponse = responseObj.Content.ServiceResponse.PartialRepaymentResponse;
+                        
+                        Status = PartialRepaymentResponse.Status;
+                        NewLoanAmount = PartialRepaymentResponse.NewLoanAmount;
+                        BalanceAfterRepayment = PartialRepaymentResponse.BalanceAfterRepayment;
+                        PenaltyRate = PartialRepaymentResponse.PenaltyRate;
+                        NewMaturityDate = PartialRepaymentResponse.NewMaturityDate;
+                        NewMonthsRemaining = PartialRepaymentResponse.NewMonthsRemaining;
+                        OldMonthlyInstallment = PartialRepaymentResponse.OldMonthlyInstallment;
+                        
+                        OldMaturityDate = PartialRepaymentResponse.OldMaturityDate;
+                        OldLoanTerm = PartialRepaymentResponse.OldLoanTerm;
+                        NewMonthlyInstallment = PartialRepaymentResponse.NewMonthlyInstallment;
+                        BalanceBeforeRepayment = PartialRepaymentResponse.BalanceBeforeRepayment;
+                        SettlementAccountBalance = PartialRepaymentResponse.SettlementAccountBalance;
+                        PenaltyAmount = PartialRepaymentResponse.PenaltyAmount;
+                        
+                        SettlementAccountID = PartialRepaymentResponse.SettlementAccountID;
+                        NewInterest = PartialRepaymentResponse.NewInterest;
+                        InterestRate = PartialRepaymentResponse.InterestRate;
+                        NewLoanTerm = PartialRepaymentResponse.NewLoanTerm;
+                        RepaymentAmountAfterPenalty = PartialRepaymentResponse.RepaymentAmountAfterPenalty;
+
+                        // display data
+                        document.getElementById("Status").value = Status;
+                        
+                        document.getElementById("NewLoanAmount").value = NewLoanAmount;
+                        document.getElementById("BalanceAfterRepayment").value = BalanceAfterRepayment;
+                        document.getElementById("PenaltyRate").value = PenaltyRate  ;
+                        document.getElementById("NewMaturityDate").value = NewMaturityDate  ;
+                        document.getElementById("NewMonthsRemaining").value = NewMonthsRemaining;
+                        document.getElementById("OldMonthlyInstallment").value = OldMonthlyInstallment;
+                        
+                        document.getElementById("OldMaturityDate").value = OldMaturityDate;
+                        document.getElementById("OldLoanTerm").value = OldLoanTerm;
+                        document.getElementById("NewMonthlyInstallment").value = NewMonthlyInstallment;
+                        document.getElementById("BalanceBeforeRepayment").value = BalanceBeforeRepayment;
+                        document.getElementById("SettlementAccountBalance").value = SettlementAccountBalance;
+                        
+                        document.getElementById("PenaltyAmount").value = PenaltyAmount;
+                        document.getElementById("SettlementAccountID").value = SettlementAccountID;
+                        document.getElementById("NewInterest").value = NewInterest;
+                        document.getElementById("InterestRate").value = InterestRate;
+                        document.getElementById("NewLoanTerm").value = NewLoanTerm;
+                        document.getElementById("RepaymentAmountAfterPenalty").value = RepaymentAmountAfterPenalty;
+      
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

@@ -1,0 +1,415 @@
+<h2 class="page-header" style="color:#937851">Get Customer Details</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth" class="col-sm-4 control-label">Date Of Birth</label>
+                <div class="col-sm-4">
+                    <input id="dateOfBirth" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="familyName" class="col-sm-4 control-label">Family Name</label>
+                <div class="col-sm-4">
+                    <input id="familyName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="givenName" class="col-sm-4 control-label">Give Name</label>
+                <div class="col-sm-4">
+                    <input id="givenName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="city" class="col-sm-4 control-label">City</label>
+                <div class="col-sm-4">
+                    <input id="city" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-sm-4 control-label">Country</label>
+                <div class="col-sm-4">
+                    <input id="country" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="postalCode" class="col-sm-4 control-label">Postal Code</label>
+                <div class="col-sm-4">
+                    <input id="postalCode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="state" class="col-sm-4 control-label">State</label>
+                <div class="col-sm-4">
+                    <input id="state" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="streetAddress1" class="col-sm-4 control-label">Street Address 1</label>
+                <div class="col-sm-4">
+                    <input id="streetAddress1" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="streetAddress2" class="col-sm-4 control-label">Street Address 2</label>
+                <div class="col-sm-4">
+                    <input id="streetAddress2" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="countryCode" class="col-sm-4 control-label">Country Code</label>
+                <div class="col-sm-4">
+                    <input id="countryCode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber" class="col-sm-4 control-label">Phone Number</label>
+                <div class="col-sm-4">
+                    <input id="phoneNumber" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="certificateExpiryDate" class="col-sm-4 control-label">Certificate Expiry Date</label>
+                <div class="col-sm-4">
+                    <input id="certificateExpiryDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="certificateIssuer" class="col-sm-4 control-label">Certificate Issuer</label>
+                <div class="col-sm-4">
+                    <input id="certificateIssuer" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="certificateNo" class="col-sm-4 control-label">Certificate No</label>
+                <div class="col-sm-4">
+                    <input id="certificateNo" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="certificateType" class="col-sm-4 control-label">Certificate Type</label>
+                <div class="col-sm-4">
+                    <input id="certificateType" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastMaintenanceTellerId" class="col-sm-4 control-label">Last Maintenance Teller ID</label>
+                <div class="col-sm-4">
+                    <input id="lastMaintenanceTellerId" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registrationDate" class="col-sm-4 control-label">Registration Date</label>
+                <div class="col-sm-4">
+                    <input id="registrationDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="areaCode" class="col-sm-4 control-label">Area Code</label>
+                <div class="col-sm-4">
+                    <input id="areaCode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="localNumber" class="col-sm-4 control-label">Local Number</label>
+                <div class="col-sm-4">
+                    <input id="localNumber" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bankID" class="col-sm-4 control-label">Bank ID</label>
+                <div class="col-sm-4">
+                    <input id="bankID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerType" class="col-sm-4 control-label">Customer Type</label>
+                <div class="col-sm-4">
+                    <input id="customerType" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-4 control-label">Email</label>
+                <div class="col-sm-4">
+                    <input id="email" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ethnicGroup" class="col-sm-4 control-label">Ethnic Group</label>
+                <div class="col-sm-4">
+                    <input id="ethnicGroup" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fax" class="col-sm-4 control-label">Fax</label>
+                <div class="col-sm-4">
+                    <input id="fax" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gender" class="col-sm-4 control-label">Gender</label>
+                <div class="col-sm-4">
+                    <input id="gender" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isBillingOrg" class="col-sm-4 control-label">Is Billing Org</label>
+                <div class="col-sm-4">
+                    <input id="isBillingOrg" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isMerchant" class="col-sm-4 control-label">Is Merchant</label>
+                <div class="col-sm-4">
+                    <input id="isMerchant" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nationality" class="col-sm-4 control-label">Nationality</label>
+                <div class="col-sm-4">
+                    <input id="nationality" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="occupation" class="col-sm-4 control-label">Occupation</label>
+                <div class="col-sm-4">
+                    <input id="occupation" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        
+        /*var input = document.getElementById("PIN");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("Send").click();
+          }
+        });*/
+            
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getCustomerDetails";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal(1);
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        CDMCustomer = responseObj.Content.ServiceResponse.CDMCustomer;
+                        customerID = CDMCustomer.customer.customerID;
+                        dateOfBirth = CDMCustomer.taxIdentifier;
+                        familyName = CDMCustomer.familyName;
+                        givenName = CDMCustomer.givenName;
+
+                        address = responseObj.Content.ServiceResponse.CDMCustomer.address;
+                        city = address.city;
+                        country = address.country;
+                        postalCode = address.postalCode;
+                        state = address.state;
+                        streetAddress1 = address.streetAddress1;
+                        streetAddress2 = address.streetAddress2;
+
+                        cellphone = responseObj.Content.ServiceResponse.CDMCustomer.cellphone;
+                        countryCode = cellphone.countryCode;
+                        phoneNumber = cellphone.phoneNumber;
+            
+                        certificate = responseObj.Content.ServiceResponse.CDMCustomer.certificate;
+                        certificateExpiryDate = certificate.certificateExpiryDate;
+                        certificateIssuer = certificate.certificateIssuer;
+                        certificateNo = certificate.certificateNo;
+                        certificateType = certificate.certificateType;
+
+                        maintenacehistory = responseObj.Content.ServiceResponse.CDMCustomer.maintenacehistory;
+                        lastMaintenanceTellerId = maintenacehistory.lastMaintenanceTellerId;
+                        registrationDate = maintenacehistory.registrationDate;
+
+                        phone = responseObj.Content.ServiceResponse.CDMCustomer.phone;
+                        areaCode = phone.areaCode;
+                        localNumber = phone.localNumber;
+                        
+                        profile = responseObj.Content.ServiceResponse.CDMCustomer.profile;
+                        bankID = profile.bankID;
+                        customerType = profile.customerType;
+                        email = profile.email;
+                        ethnicGroup = profile.ethnicGroup;
+                        fax = profile.fax;
+                        gender = profile.gender;
+                        isBillingOrg = profile.isBillingOrg;
+                        isMerchant = profile.isMerchant;
+                        nationality = profile.nationality;
+                        occupation = profile.occupation;
+
+                        // display data
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("dateOfBirth").value = dateOfBirth;
+                        document.getElementById("familyName").value = familyName;
+                        document.getElementById("givenName").value = givenName;
+                        document.getElementById("city").value = city;
+                        document.getElementById("country").value = country;
+                        document.getElementById("postalCode").value = postalCode;
+                        document.getElementById("state").value = state;
+                        document.getElementById("streetAddress1").value = streetAddress1;
+                        document.getElementById("streetAddress2").value = streetAddress2;
+                        document.getElementById("countryCode").value = countryCode;
+                        document.getElementById("phoneNumber").value = phoneNumber;
+                        document.getElementById("certificateExpiryDate").value = certificateExpiryDate;
+                        document.getElementById("certificateIssuer").value = certificateIssuer;
+                        document.getElementById("certificateNo").value = certificateNo;
+                        document.getElementById("certificateType").value = certificateType;
+                        document.getElementById("lastMaintenanceTellerId").value = lastMaintenanceTellerId;
+                        document.getElementById("registrationDate").value = registrationDate;
+                        document.getElementById("areaCode").value = areaCode;
+                        document.getElementById("localNumber").value = localNumber;
+                        document.getElementById("bankID").value = bankID;
+                        document.getElementById("customerType").value = getCustomerTypeName(customerType);
+                        document.getElementById("email").value = email;
+                        document.getElementById("ethnicGroup").value = ethnicGroup;
+                        document.getElementById("fax").value = fax;
+                        document.getElementById("gender").value = gender;
+                        document.getElementById("isBillingOrg").value = isBillingOrg;
+                        document.getElementById("isMerchant").value = isMerchant;
+                        document.getElementById("nationality").value = nationality;
+                        document.getElementById("occupation").value = occupation;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        
+
+    });
+
+</script>

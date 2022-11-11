@@ -1,0 +1,214 @@
+<h2 class="page-header" style="color:#937851">Get Stock Orders</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <hr style="margin-top: 0px; margin-bottom: 20px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- show table
+======================================== -->
+<div class="container">
+    <div class="row">
+        <h3 style="color:#937851">Output</h3>
+    </div>
+    <table class="table table-striped col-md-12 well">
+        <thead>
+            <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Buy Or Sell</th>
+                <th>Order ID</th>
+                <th>Initial Spot Price</th>
+                <th>Maturity Date</th>
+                <th>Settlement Account ID</th>
+                <th>Expiration Type</th>
+                <th>Order Status</th>
+                <th>Order Date</th>
+                <th>Price At Execution</th>
+                <th>Stock</th>
+                <th>Customer ID</th>
+                <th>Price At Order</th>
+                
+            </tr>
+        </thead>
+        <tbody id="stockorders_table">
+        </tbody>
+    </table>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getStockOrders";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+                $("#stockorders_table").html("");
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        StockOrderList = responseObj.Content.ServiceResponse.StockOrderList;
+                        StockOrder = StockOrderList.StockOrder;
+                        var recordCount = getRecordCount(StockOrderList);
+                        
+                        // display data
+                        var htmlcode = "";
+                        for(var i = 0; i < recordCount; i++){
+                            var so = (recordCount===1)?StockOrder:StockOrder[i];
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + so.orderType + "</td>";
+                            htmlcode += "<td>" + so.quantity + "</td>";
+                            htmlcode += "<td>" + so.buy_or_sell + "</td>";
+                            htmlcode += "<td>" + so.orderID + "</td>";
+                            htmlcode += "<td>" + so.initial_spot_price + "</td>";
+                            htmlcode += "<td>" + so.maturity_date + "</td>";
+                            htmlcode += "<td>" + so.settlementAccountID + "</td>";
+                            htmlcode += "<td>" + so.expiration_type + "</td>";
+                            htmlcode += "<td>" + so.order_status + "</td>";
+                            htmlcode += "<td>" + so.order_date + "</td>";
+                            htmlcode += "<td>" + so.price_at_execution + "</td>";
+                            htmlcode += "<td>" + getStockSymbolName(so.stockSymbol) + "</td>";
+                            htmlcode += "<td>" + so.customerID + "</td>";
+                            htmlcode += "<td>" + so.price_at_order + "</td>";
+                            htmlcode += "</tr>";
+                        }
+                        $("#stockorders_table").html(htmlcode);
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        /* ----------------------------------------
+         * get record count
+         */
+        function getRecordCount(StockOrderList) {
+            if (Object.keys(StockOrderList).length === 0){
+                showErrorModal("Customer has no Stock Orders.");
+                return 0;
+            }
+            if (StockOrderList.StockOrder.length === undefined)
+                return 1;
+            return StockOrderList.StockOrder.length;
+        }
+
+    });
+    
+    
+</script>

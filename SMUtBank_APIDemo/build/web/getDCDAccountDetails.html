@@ -1,0 +1,359 @@
+<h2 class="page-header" style="color:#937851">Get DCD Account Details</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interestRate" class="col-sm-4 control-label">Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="interestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="depositAmount" class="col-sm-4 control-label">Deposit Amount</label>
+                <div class="col-sm-4">
+                    <input id="depositAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productID" class="col-sm-4 control-label">Product ID</label>
+                <div class="col-sm-4">
+                    <input id="productID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interestPayoutAccount" class="col-sm-4 control-label">Interest Payout Account</label>
+                <div class="col-sm-4">
+                    <input id="interestPayoutAccount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="narrative" class="col-sm-4 control-label">Narrative</label>
+                <div class="col-sm-4">
+                    <input id="narrative" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="channel" class="col-sm-4 control-label">Channel</label>
+                <div class="col-sm-4">
+                    <input id="channel" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="depositTerm" class="col-sm-4 control-label">Deposit Term</label>
+                <div class="col-sm-4">
+                    <input id="depositTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="penaltyRate" class="col-sm-4 control-label">Penalty Rate</label>
+                <div class="col-sm-4">
+                    <input id="penaltyRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrencyName" class="col-sm-4 control-label">Base Currency Country's Name</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrencyName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrency" class="col-sm-4 control-label">Base Currency</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrencyName" class="col-sm-4 control-label">Quote Currency Country's Name</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrencyName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrency" class="col-sm-4 control-label">Quote Currency</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID2" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID2" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="strikeRate" class="col-sm-4 control-label">Strike Rate</label>
+                <div class="col-sm-4">
+                    <input id="strikeRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bankID" class="col-sm-4 control-label">Bank ID</label>
+                <div class="col-sm-4">
+                    <input id="bankID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maturityDate" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturityDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="spotRate" class="col-sm-4 control-label">Spot Rate</label>
+                <div class="col-sm-4">
+                    <input id="spotRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="feeDeductionAccount" class="col-sm-4 control-label">Fee Deduction Account</label>
+                <div class="col-sm-4">
+                    <input id="feeDeductionAccount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="settlementAccount" class="col-sm-4 control-label">Settlement Account</label>
+                <div class="col-sm-4">
+                    <input id="settlementAccount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="startDate" class="col-sm-4 control-label">Start Date</label>
+                <div class="col-sm-4">
+                    <input id="startDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="status" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        
+        /*var input = document.getElementById("PIN");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("Send").click();
+          }
+        });*/
+            
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                var serviceName = "getDCDAccountDetails";
+                
+                // get and validate form values
+                var accountID = document.getElementById("accountID").value;
+                if (accountID === ""){
+                    showErrorModal("Account ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var contentObj = {
+                    Content: {
+                        accountID: accountID,
+                    }
+                };
+                    
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal(1);
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        DCDAccountDetails = responseObj.Content.ServiceResponse.DCDAccountDetails;
+                        interestRate = DCDAccountDetails.interestRate;
+                        depositAmount = DCDAccountDetails.depositAmount;
+                        productID = DCDAccountDetails.productID;
+                        interestPayoutAccount = DCDAccountDetails.interestPayoutAccount;
+                        narrative = DCDAccountDetails.narrative;
+                        channel = DCDAccountDetails.channel;
+                        depositTerm = DCDAccountDetails.depositTerm;
+                        penaltyRate = DCDAccountDetails.penaltyRate;
+                        baseCurrency = DCDAccountDetails.baseCurrency;
+                        quoteCurrency = DCDAccountDetails.quoteCurrency;
+                        accountID2 = DCDAccountDetails.accountID;
+                        strikeRate = DCDAccountDetails.strikeRate;
+                        bankID = DCDAccountDetails.bankID;
+                        maturityDate = DCDAccountDetails.maturityDate;
+                        spotRate = DCDAccountDetails.spotRate;
+                        customerID = DCDAccountDetails.customerID;
+                        feeDeductionAccount = DCDAccountDetails.feeDeductionAccount;
+                        settlementAccount = DCDAccountDetails.settlementAccount;
+                        startDate = DCDAccountDetails.startDate;
+                        status2 = DCDAccountDetails.status;
+                        
+
+                        // display data
+                        document.getElementById("interestRate").value = interestRate;
+                        document.getElementById("depositAmount").value = depositAmount;
+                        document.getElementById("productID").value = productID;
+                        document.getElementById("interestPayoutAccount").value = interestPayoutAccount;
+                        document.getElementById("narrative").value = narrative;
+                        document.getElementById("channel").value = channel;
+                        document.getElementById("depositTerm").value = depositTerm;
+                        document.getElementById("penaltyRate").value = penaltyRate;
+                        document.getElementById("baseCurrencyName").value = getCurrencyListName(baseCurrency)
+                        document.getElementById("baseCurrency").value = baseCurrency;
+                        document.getElementById("quoteCurrencyName").value = getCurrencyListName(quoteCurrency)
+                        document.getElementById("quoteCurrency").value = quoteCurrency;
+                        document.getElementById("accountID2").value = accountID2;
+                        document.getElementById("strikeRate").value = strikeRate;
+                        document.getElementById("bankID").value = bankID;
+                        document.getElementById("maturityDate").value = maturityDate;
+                        document.getElementById("spotRate").value = spotRate;
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("feeDeductionAccount").value = feeDeductionAccount;
+                        document.getElementById("settlementAccount").value = settlementAccount;
+                        document.getElementById("startDate").value = startDate;
+                        document.getElementById("status").value = status2;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        
+
+    });
+
+</script>

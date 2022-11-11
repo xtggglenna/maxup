@@ -1,0 +1,326 @@
+<h2 class="page-header" style="color:#937851">Get FX Forward Contract</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="FX_ForwardID" class="col-sm-4 control-label">FX Forward ID</label>
+                <div class="col-sm-4">
+                    <input id="FX_ForwardID" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="open_date" class="col-sm-4 control-label">Open Date</label>
+                <div class="col-sm-4">
+                    <input id="open_date" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="period" class="col-sm-4 control-label">Period</label>
+                <div class="col-sm-4">
+                    <input id="period" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="amount" class="col-sm-4 control-label">Amount</label>
+                <div class="col-sm-4">
+                    <input id="amount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maturity_date" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturity_date" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="spot_rate" class="col-sm-4 control-label">Spot Rate</label>
+                <div class="col-sm-4">
+                    <input id="spot_rate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrencyAccountID" class="col-sm-4 control-label">Quote Currency Account ID</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrencyAccountID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrencyAccountID" class="col-sm-4 control-label">Base Currency Account ID</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrencyAccountID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrencyName" class="col-sm-4 control-label">Base Currency Country's Name</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrencyName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrency" class="col-sm-4 control-label">Base Currency</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="baseCurrencyInterestRate" class="col-sm-4 control-label">Base Currency Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="baseCurrencyInterestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrencyName" class="col-sm-4 control-label">Quote Currency Country's Name</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrencyName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrency" class="col-sm-4 control-label">Quote Currency</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="referenceNumber" class="col-sm-4 control-label">Reference Number</label>
+                <div class="col-sm-4">
+                    <input id="referenceNumber" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forward_rate" class="col-sm-4 control-label">Forward Rate</label>
+                <div class="col-sm-4">
+                    <input id="forward_rate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quoteCurrencyInterestRate" class="col-sm-4 control-label">Quote Currency Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="quoteCurrencyInterestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="FX_ForwardID2" class="col-sm-4 control-label">FX Forward ID</label>
+                <div class="col-sm-4">
+                    <input id="FX_ForwardID2" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="status2" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="status2" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        
+        /*var input = document.getElementById("PIN");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("Send").click();
+          }
+        });*/
+            
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                var serviceName = "getFXForwardContract";
+                
+                // get and validate form values
+                var FX_ForwardID = document.getElementById("FX_ForwardID").value;
+                if (FX_ForwardID === ""){
+                    showErrorModal("FX Forward ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var contentObj = {
+                    Content: {
+                        FX_ForwardID: FX_ForwardID,
+                    }
+                };
+                    
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal(1);
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        FXForwardContract = responseObj.Content.ServiceResponse.FXForwardContract.FXForwardContract;
+                        open_date = FXForwardContract.open_date;
+                        period = FXForwardContract.period;
+                        amount = FXForwardContract.amount;
+                        maturity_date = FXForwardContract.maturity_date;
+                        spot_rate = FXForwardContract.spot_rate;
+                        quoteCurrencyAccountID = FXForwardContract.quoteCurrencyAccountID;
+                        baseCurrencyAccountID = FXForwardContract.baseCurrencyAccountID;
+                        baseCurrency = FXForwardContract.baseCurrency;
+                        baseCurrencyInterestRate = FXForwardContract.baseCurrencyInterestRate;
+                        quoteCurrency = FXForwardContract.quoteCurrency;
+                        referenceNumber = FXForwardContract.referenceNumber;
+                        customerID = FXForwardContract.customerID;
+                        forward_rate = FXForwardContract.forward_rate;
+                        quoteCurrencyInterestRate = FXForwardContract.quoteCurrencyInterestRate;
+                        FX_ForwardID2 = FXForwardContract.FX_ForwardID;
+                        status2 = FXForwardContract.status;
+
+                        // display data
+                        document.getElementById("open_date").value = open_date;
+                        document.getElementById("period").value = period;
+                        document.getElementById("amount").value = amount;
+                        document.getElementById("maturity_date").value = maturity_date;
+                        document.getElementById("spot_rate").value = spot_rate;
+                        document.getElementById("quoteCurrencyAccountID").value = quoteCurrencyAccountID;
+                        document.getElementById("baseCurrencyAccountID").value = baseCurrencyAccountID;
+                        document.getElementById("baseCurrencyName").value = getCurrencyListName(baseCurrency)
+                        document.getElementById("baseCurrency").value = baseCurrency;
+                        document.getElementById("baseCurrencyInterestRate").value = baseCurrencyInterestRate
+                        document.getElementById("quoteCurrencyName").value = getCurrencyListName(quoteCurrency)
+                        document.getElementById("quoteCurrency").value = quoteCurrency;
+                        document.getElementById("referenceNumber").value = referenceNumber
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("forward_rate").value = forward_rate;
+                        document.getElementById("quoteCurrencyInterestRate").value = quoteCurrencyInterestRate;
+                        document.getElementById("FX_ForwardID2").value = FX_ForwardID2;
+                        document.getElementById("status2").value = status2;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        
+
+    });
+
+</script>

@@ -1,0 +1,546 @@
+<h2 class="page-header" style="color:#937851">Get Loan Account Details</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID" type="text" class="form-control"/>
+                </div>
+                <b>(deposit account number)</b>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interestRate" class="col-sm-4 control-label">Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="interestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productID" class="col-sm-4 control-label">Product ID</label>
+                <div class="col-sm-4">
+                    <input id="productID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="compoundInterestRateBasis" class="col-sm-4 control-label">Compound Interest Rate Basis</label>
+                <div class="col-sm-4">
+                    <input id="compoundInterestRateBasis" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rateChartCode" class="col-sm-4 control-label">Rate Chart Code</label>
+                <div class="col-sm-4">
+                    <input id="rateChartCode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateBasisForRate" class="col-sm-4 control-label">Date Basis For Rate</label>
+                <div class="col-sm-4">
+                    <input id="dateBasisForRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productName" class="col-sm-4 control-label">Product Name</label>
+                <div class="col-sm-4">
+                    <input id="productName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="currentStatus" class="col-sm-4 control-label">Current Status</label>
+                <div class="col-sm-4">
+                    <input id="currentStatus" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="narrative" class="col-sm-4 control-label">Narrative</label>
+                <div class="col-sm-4">
+                    <input id="narrative" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isServiceChargeWaived" class="col-sm-4 control-label">Is Service Charge Waived</label>
+                <div class="col-sm-4">
+                    <input id="isServiceChargeWaived" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="homeBranch" class="col-sm-4 control-label">Home Branch</label>
+                <div class="col-sm-4">
+                    <input id="homeBranch" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountOpenDate" class="col-sm-4 control-label">Account Open Date</label>
+                <div class="col-sm-4">
+                    <input id="accountOpenDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="writeOffFlag" class="col-sm-4 control-label">Write Off Flag</label>
+                <div class="col-sm-4">
+                    <input id="writeOffFlag" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ltvRatio" class="col-sm-4 control-label">ltvRatio</label>
+                <div class="col-sm-4">
+                    <input id="ltvRatio" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="penaltyRateBasis" class="col-sm-4 control-label">Penalty Rate Basis</label>
+                <div class="col-sm-4">
+                    <input id="penaltyRateBasis" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="writeOffDate" class="col-sm-4 control-label">Write Off Date</label>
+                <div class="col-sm-4">
+                    <input id="writeOffDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="installmentAmount" class="col-sm-4 control-label">Installment Amount</label>
+                <div class="col-sm-4">
+                    <input id="installmentAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loanClosureReason" class="col-sm-4 control-label">loan Closure Reason</label>
+                <div class="col-sm-4">
+                    <input id="loanClosureReason" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="repricingDate" class="col-sm-4 control-label">Re-pricing Date</label>
+                <div class="col-sm-4">
+                    <input id="repricingDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loanClosureDate" class="col-sm-4 control-label">Loan Closure Date</label>
+                <div class="col-sm-4">
+                    <input id="loanClosureDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="assetValue" class="col-sm-4 control-label">Asset Value</label>
+                <div class="col-sm-4">
+                    <input id="assetValue" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rescheduleOption" class="col-sm-4 control-label">Reschedule Option</label>
+                <div class="col-sm-4">
+                    <input id="rescheduleOption" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="agreementNumber" class="col-sm-4 control-label">Agreement Number</label>
+                <div class="col-sm-4">
+                    <input id="agreementNumber" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="title" class="col-sm-4 control-label">Title</label>
+                <div class="col-sm-4">
+                    <input id="title" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fixedTerm" class="col-sm-4 control-label">Fixed Term</label>
+                <div class="col-sm-4">
+                    <input id="fixedTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="repaymentMode" class="col-sm-4 control-label">Repayment Mode</label>
+                <div class="col-sm-4">
+                    <input id="repaymentMode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="repaymentGraceDay" class="col-sm-4 control-label">Repayment Grace Day</label>
+                <div class="col-sm-4">
+                    <input id="repaymentGraceDay" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="agreementSignDate" class="col-sm-4 control-label">Agreement Sign Date</label>
+                <div class="col-sm-4">
+                    <input id="agreementSignDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pledgeOrStopPaymentAmount" class="col-sm-4 control-label">Pledge Or Stop Payment Amount</label>
+                <div class="col-sm-4">
+                    <input id="pledgeOrStopPaymentAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loanTerm" class="col-sm-4 control-label">Loan Term</label>
+                <div class="col-sm-4">
+                    <input id="loanTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="writeOffAmount" class="col-sm-4 control-label">Write Off Amount</label>
+                <div class="col-sm-4">
+                    <input id="writeOffAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="loanPurpose" class="col-sm-4 control-label">Loan Purpose</label>
+                <div class="col-sm-4">
+                    <input id="loanPurpose" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="letterOfOfferDate" class="col-sm-4 control-label">Letter Of Offer Date</label>
+                <div class="col-sm-4">
+                    <input id="letterOfOfferDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="disburseAmount" class="col-sm-4 control-label">Disburse Amount</label>
+                <div class="col-sm-4">
+                    <input id="disburseAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="applicationID" class="col-sm-4 control-label">Application ID</label>
+                <div class="col-sm-4">
+                    <input id="applicationID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="isInterestWaived" class="col-sm-4 control-label">Is Interest Waived</label>
+                <div class="col-sm-4">
+                    <input id="isInterestWaived" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="assignedAccountForAccountManagementFeeDeduction" class="col-sm-4 control-label">Assigned Account For Account Management Fee Deduction</label>
+                <div class="col-sm-4">
+                    <input id="assignedAccountForAccountManagementFeeDeduction" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="penaltyRate" class="col-sm-4 control-label">Penalty Rate</label>
+                <div class="col-sm-4">
+                    <input id="penaltyRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="balance" class="col-sm-4 control-label">Balance</label>
+                <div class="col-sm-4">
+                    <input id="balance" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="maturityDate" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturityDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="currency" class="col-sm-4 control-label">Currency</label>
+                <div class="col-sm-4">
+                    <input id="currency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="maintenancehistory" class="col-sm-4 control-label">Maintenance history</label>
+                <div class="col-sm-4">
+                    <input id="maintenancehistory" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="officerID" class="col-sm-4 control-label">Officer ID</label>
+                <div class="col-sm-4">
+                    <input id="officerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="lastTransactionBranch" class="col-sm-4 control-label">Last Transaction Branch</label>
+                <div class="col-sm-4">
+                    <input id="lastTransactionBranch" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+	    <div class="form-group">
+                <label for="lastMaintenanceOfficer" class="col-sm-4 control-label">Last Maintenance Officer</label>
+                <div class="col-sm-4">
+                    <input id="lastMaintenanceOfficer" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getLoanAccountDetails";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var accountID = document.getElementById("accountID").value;
+                if (accountID === ""){
+                    showErrorModal("Account ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        accountID: accountID
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+			LendingAccount = responseObj.Content.ServiceResponse.LendingAccount;
+			interestRate = LendingAccount.interestRate;
+
+			product = responseObj.Content.ServiceResponse.LendingAccount.product;
+			productID = product.productID;
+			compoundInterestRateBasis = product.compoundInterestRateBasis;
+			rateChartCode = product.rateChartCode;
+			dateBasisForRate = product.dateBasisForRate;
+			productName = product.productName;
+
+			currentStatus = LendingAccount.currentStatus;
+			narrative = LendingAccount.narrative;
+			isServiceChargeWaived = LendingAccount.isServiceChargeWaived;
+			homeBranch = LendingAccount.homeBranch;
+			accountOpenDate = LendingAccount.accountOpenDate;
+
+			loanaccount = LendingAccount.loanaccount;
+			writeOffFlag = loanaccount.writeOffFlag;
+			ltvRatio = loanaccount.ltvRatio;
+			penaltyRateBasis = loanaccount.penaltyRateBasis;
+			writeOffDate = loanaccount.writeOffDate;
+			installmentAmount = loanaccount.installmentAmount;
+			loanClosureReason = loanaccount.loanClosureReason;
+			repricingDate = loanaccount.repricingDate;
+			loanClosureDate = loanaccount.loanClosureDate;
+			assetValue = loanaccount.assetValue;		    
+			rescheduleOption = loanaccount.rescheduleOption;
+			agreementNumber = loanaccount.agreementNumber;
+			title = loanaccount.title;
+			fixedTerm = loanaccount.fixedTerm;		    
+			repaymentMode = loanaccount.repaymentMode;
+			repaymentGraceDay = loanaccount.repaymentGraceDay;
+			agreementSignDate = loanaccount.agreementSignDate;
+			pledgeOrStopPaymentAmount = loanaccount.pledgeOrStopPaymentAmount;		    
+			loanTerm = loanaccount.loanTerm;
+			writeOffAmount = loanaccount.writeOffAmount;
+			loanPurpose = loanaccount.loanPurpose;
+			letterOfOfferDate = loanaccount.letterOfOfferDate;		    
+			disburseAmount = loanaccount.disburseAmount;
+			applicationID = loanaccount.applicationID;
+			isInterestWaived = loanaccount.isInterestWaived;
+
+			assignedAccountForAccountManagementFeeDeduction = responseObj.Content.ServiceResponse.LendingAccount.assignedAccountForAccountManagementFeeDeduction;
+			penaltyRate = LendingAccount.penaltyRate;
+			balance = LendingAccount.balance;
+			maturityDate = LendingAccount.maturityDate;
+			customerID = LendingAccount.customerID;
+
+			currency = LendingAccount.currency;
+			maintenancehistory = responseObj.Content.ServiceResponse.LendingAccount.maintenancehistory;
+			lastTransactionBranch = maintenancehistory.lastTransactionBranch;
+			lastMaintenanceOfficer = maintenancehistory.lastMaintenanceOfficer;
+			officerID = LendingAccount.officerID;
+		    
+		    
+
+                        // display data
+                        document.getElementById("interestRate").value = interestRate;
+                        document.getElementById("productID").value = productID;
+                        document.getElementById("compoundInterestRateBasis").value = compoundInterestRateBasis;
+                        document.getElementById("rateChartCode").value = rateChartCode;
+                        document.getElementById("dateBasisForRate").value = dateBasisForRate;
+                        document.getElementById("productName").value = productName;
+                        document.getElementById("currentStatus").value = currentStatus;
+                        document.getElementById("narrative").value = narrative;
+                        document.getElementById("isServiceChargeWaived").value = isServiceChargeWaived;
+                        document.getElementById("homeBranch").value = homeBranch;
+                        document.getElementById("accountOpenDate").value = accountOpenDate;                      
+                        document.getElementById("writeOffFlag").value = writeOffFlag;                       
+                        document.getElementById("ltvRatio").value = ltvRatio;                       
+                        document.getElementById("penaltyRateBasis").value = penaltyRateBasis;                                               
+                        document.getElementById("writeOffDate").value = writeOffDate;			
+                        document.getElementById("installmentAmount").value = installmentAmount;
+                        document.getElementById("loanClosureReason").value = loanClosureReason;
+                        document.getElementById("repricingDate").value = repricingDate;                        
+                        document.getElementById("loanClosureDate").value = loanClosureDate;
+                        document.getElementById("assetValue").value = assetValue;
+			
+			document.getElementById("rescheduleOption").value = rescheduleOption;			
+                        document.getElementById("agreementNumber").value = agreementNumber;
+                        document.getElementById("title").value = title;
+                        document.getElementById("fixedTerm").value = fixedTerm;                        
+                        document.getElementById("repaymentMode").value = repaymentMode;
+                        document.getElementById("repaymentGraceDay").value = repaymentGraceDay;
+			
+			
+			document.getElementById("agreementSignDate").value = agreementSignDate;			
+                        document.getElementById("pledgeOrStopPaymentAmount").value = pledgeOrStopPaymentAmount;
+                        document.getElementById("loanTerm").value = loanTerm;
+                        document.getElementById("writeOffAmount").value = writeOffAmount;                        
+                        document.getElementById("loanPurpose").value = loanPurpose;
+                        document.getElementById("letterOfOfferDate").value = letterOfOfferDate;
+			
+			document.getElementById("disburseAmount").value = disburseAmount;			
+                        document.getElementById("applicationID").value = applicationID;
+                        document.getElementById("isInterestWaived").value = isInterestWaived;
+                        document.getElementById("assignedAccountForAccountManagementFeeDeduction").value = assignedAccountForAccountManagementFeeDeduction;                        
+                        document.getElementById("penaltyRate").value = penaltyRate;
+                        document.getElementById("balance").value = balance;
+			
+			document.getElementById("maturityDate").value = maturityDate;			
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("currency").value = currency;
+                        document.getElementById("maintenancehistory").value = maintenancehistory;                        
+                        document.getElementById("officerID").value = officerID;
+                        document.getElementById("lastTransactionBranch").value = lastTransactionBranch;
+			document.getElementById("lastMaintenanceOfficer").value = lastMaintenanceOfficer;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

@@ -1,0 +1,197 @@
+<h2 class="page-header" style="color:#937851">Get Customer Appointments</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- show table
+======================================== -->
+<div class="container">
+    <div class="row">
+        <h3 style="color:#937851">Output</h3>
+    </div>
+    <table class="table table-striped col-md-12 well">
+        <thead>
+            <tr>
+                <th>date</th>
+                <th>branchID</th>
+                <th>bankID</th>
+                <th>purpose</th>
+                <th>appointmentID</th>
+                <th>timeslot</th>
+                <th>narrative</th>
+                <th>customerID</th>
+                <th>acceptedBy</th>
+                <th>relatedAccountID</th>
+            </tr>
+        </thead>
+        <tbody id="leaders_table">
+        </tbody>
+    </table>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    
+    
+    $(document).ready(function () {
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+        
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getCustomerAppointments";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);                             
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var header = JSON.stringify(headerObj);
+               
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+                xmlHttp.timeout = 5000;
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        ClientAppointmentList = responseObj.Content.ServiceResponse.ClientAppointmentList;
+                        ClientAppointment = ClientAppointmentList.ClientAppointment;
+                        var recordCount = getRecordCount(ClientAppointment);
+                        
+                        // display data
+                        var htmlcode = "";
+                        for(var i = 0; i < recordCount; i++){
+                            var l = (recordCount===1)?ClientAppointment:ClientAppointment[i];
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + l.date + "</td>";
+                            htmlcode += "<td>" + l.branchID + "</td>";
+                            htmlcode += "<td>" + l.bankID + "</td>";
+                            htmlcode += "<td>" + l.purpose + "</td>";
+                            htmlcode += "<td>" + l.appointmentID + "</td>";
+                            htmlcode += "<td>" + l.timeslot + "</td>";
+                            htmlcode += "<td>" + l.narrative + "</td>";
+                            htmlcode += "<td>" + l.customerID + "</td>";
+                            htmlcode += "<td>" + l.acceptedBy + "</td>";
+                            htmlcode += "<td>" + l.relatedAccountID + "</td>";
+                            htmlcode += "</tr>";
+                        }
+                        $("#leaders_table").html(htmlcode);
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        /* ----------------------------------------
+         * get record count
+         */
+        function getRecordCount(ClientAppointment) {
+            if (Object.keys(ClientAppointment).length === 0){
+                showErrorModal("There are no record.");
+                return 0;
+            }
+            if (ClientAppointment.length === undefined)
+                return 1;
+            return ClientAppointment.length;
+        }
+    });
+
+</script>

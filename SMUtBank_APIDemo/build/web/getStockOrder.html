@@ -1,0 +1,296 @@
+<h2 class="page-header" style="color:#937851">Get Stock Order</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="orderID" class="col-sm-4 control-label">Order ID</label>
+                <div class="col-sm-4">
+                    <input id="orderID" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="orderType" class="col-sm-4 control-label">Order Type</label>
+                <div class="col-sm-4">
+                    <input id="orderType" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity" class="col-sm-4 control-label">Quantity</label>
+                <div class="col-sm-4">
+                    <input id="quantity" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="buy_or_sell" class="col-sm-4 control-label">Buy Or Sell</label>
+                <div class="col-sm-4">
+                    <input id="buy_or_sell" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="orderID2" class="col-sm-4 control-label">Order ID</label>
+                <div class="col-sm-4">
+                    <input id="orderID2" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="initial_spot_price" class="col-sm-4 control-label">Initial Spot Price</label>
+                <div class="col-sm-4">
+                    <input id="initial_spot_price" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maturity_date" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturity_date" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="settlementAccountID" class="col-sm-4 control-label">Settlement Account ID</label>
+                <div class="col-sm-4">
+                    <input id="settlementAccountID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="expiration_type" class="col-sm-4 control-label">Expiration Type</label>
+                <div class="col-sm-4">
+                    <input id="expiration_type" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="order_status" class="col-sm-4 control-label">Order Status</label>
+                <div class="col-sm-4">
+                    <input id="order_status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="order_date" class="col-sm-4 control-label">Order Date</label>
+                <div class="col-sm-4">
+                    <input id="order_date" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price_at_execution" class="col-sm-4 control-label">Price At Execution</label>
+                <div class="col-sm-4">
+                    <input id="price_at_execution" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="stockSymbol" class="col-sm-4 control-label">Stock Symbol</label>
+                <div class="col-sm-4">
+                    <input id="stockSymbol" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price_at_order" class="col-sm-4 control-label">Price At Order</label>
+                <div class="col-sm-4">
+                    <input id="price_at_order" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        
+        /*var input = document.getElementById("PIN");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("Send").click();
+          }
+        });*/
+            
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                var serviceName = "getStockOrder";
+                
+                // get and validate form values
+                var orderID = document.getElementById("orderID").value;
+                if (orderID === ""){
+                    showErrorModal("Order ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var contentObj = {
+                    Content: {
+                        orderID: orderID,
+                    }
+                };
+                    
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal(1);
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        StockOrder = responseObj.Content.ServiceResponse.StockOrder.StockOrder
+                        orderType = StockOrder.orderType;
+                        quantity = StockOrder.quantity;
+                        buy_or_sell = StockOrder.buy_or_sell;
+                        orderID2 = StockOrder.orderID;
+                        initial_spot_price = StockOrder.initial_spot_price;
+                        maturity_date = StockOrder.maturity_date;
+                        settlementAccountID = StockOrder.settlementAccountID;
+                        expiration_type = StockOrder.expiration_type;
+                        order_status = StockOrder.order_status;
+                        order_date = StockOrder.order_date;
+                        price_at_execution = StockOrder.price_at_execution;
+                        stockSymbol = StockOrder.stockSymbol;
+                        customerID = StockOrder.customerID;
+                        price_at_order = StockOrder.price_at_order;
+
+                        // display data
+                        document.getElementById("orderType").value = orderType;
+                        document.getElementById("quantity").value = quantity;
+                        document.getElementById("buy_or_sell").value = buy_or_sell;
+                        document.getElementById("orderID2").value = orderID2;
+                        document.getElementById("initial_spot_price").value = initial_spot_price;
+                        document.getElementById("maturity_date").value = maturity_date;
+                        document.getElementById("settlementAccountID").value = settlementAccountID;
+                        document.getElementById("expiration_type").value = expiration_type;
+                        document.getElementById("order_status").value = order_status;
+                        document.getElementById("order_date").value = order_date;
+                        document.getElementById("price_at_execution").value = price_at_execution;
+                        document.getElementById("stockSymbol").value = getStockSymbolName(stockSymbol);
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("price_at_order").value = price_at_order;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        
+
+    });
+
+</script>

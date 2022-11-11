@@ -1,0 +1,358 @@
+<h2 class="page-header" style="color:#937851">Update Customer Preference</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="MSViaEmail" class="col-sm-4 control-label">MS ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="MSViaEmail" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="MSViaSnailMail" class="col-sm-4 control-label">MS ViaSnailMail</label>
+                <div class="col-sm-4">
+                    <input id="MSViaSnailMail" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RPViaEmail" class="col-sm-4 control-label">RP ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="RPViaEmail" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RPViaSMS" class="col-sm-4 control-label">RP ViaSMS</label>
+                <div class="col-sm-4">
+                    <input id="RPViaSMS" type="text" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="RMViaPhone" class="col-sm-4 control-label">RM ViaPhone</label>
+                <div class="col-sm-4">
+                    <input id="RMViaPhone" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RMViaEmail" class="col-sm-4 control-label">RM ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="RMViaEmail" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RMViaSMS" class="col-sm-4 control-label">RM ViaSMS</label>
+                <div class="col-sm-4">
+                    <input id="RMViaSMS" type="text" class="form-control"/>
+                </div>
+            </div>                                              
+        </form>
+        
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Add" type="button" class="btn btn-primary">Add</button>
+                    <button type="reset" id="clear" class="btn btn-default">Clear</button>
+                    <label id="lbl"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="AccountID" class="col-sm-4 control-label">AccountID</label>
+                <div class="col-sm-4">
+                    <input id="AccountID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TriggerType" class="col-sm-4 control-label">TriggerType</label>
+                <div class="col-sm-4">
+                    <input id="TriggerType" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Amount" class="col-sm-4 control-label">Amount</label>
+                <div class="col-sm-4">
+                    <input id="Amount" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TViaEmail" class="col-sm-4 control-label">Trigger ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="TViaEmail" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TViaSMS" class="col-sm-4 control-label">Trigger ViaSMS</label>
+                <div class="col-sm-4">
+                    <input id="TViaSMS" type="text" class="form-control"/>
+                </div>
+            </div>            
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="status" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+        var AccountID;
+        var TriggerType;
+        var Amount;
+        var TViaEmail;
+        var TViaSMS;
+        var TriggerList = [];
+        
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "updateCustomerPreference";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var MSViaEmail = document.getElementById("MSViaEmail").value;
+                if (MSViaEmail === ""){
+                    showErrorModal("MSViaEmail cannot be blank.");
+                    return;  
+                }
+                var MSViaSnailMail = document.getElementById("MSViaSnailMail").value;
+                if (MSViaSnailMail === ""){
+                    showErrorModal("MSViaSnailMail cannot be blank.");
+                    return;  
+                }
+                var RPViaEmail = document.getElementById("RPViaEmail").value;
+                if (RPViaEmail === ""){
+                    showErrorModal("RPViaEmail cannot be blank.");
+                    return;  
+                }
+                var RPViaSMS = document.getElementById("RPViaSMS").value;
+                if (RPViaSMS === ""){
+                    showErrorModal("RPViaSMS cannot be blank.");
+                    return;  
+                }
+                var RMViaPhone = document.getElementById("RMViaPhone").value;
+                if (RMViaPhone === ""){
+                    showErrorModal("RMViaPhone cannot be blank.");
+                    return;  
+                }
+                var RMViaEmail = document.getElementById("RMViaEmail").value;
+                if (RMViaEmail === ""){
+                    showErrorModal("RMViaEmail cannot be blank.");
+                    return;  
+                }
+                var RMViaSMS = document.getElementById("RMViaSMS").value;
+                if (RMViaSMS === ""){
+                    showErrorModal("RMViaSMS cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var msObj = {
+                        ViaEmail: MSViaEmail,
+                        ViaSnailMail: MSViaSnailMail                 
+                };
+                
+                var rpObj = {
+                        ViaEmail: RPViaEmail,
+                        ViaSMS: RPViaSMS                 
+                };
+                
+                var rmObj = {
+                        ViaPhone: RMViaPhone,
+                        ViaEmail: RMViaEmail,
+                        ViaSMS: RMViaSMS
+                };                            
+                
+                var contentObj = {
+                    Content: {
+                        MonthlyStatement: msObj,
+                        RedeemPromotion:  rpObj,
+                        RMModeOfCommunication: rmObj,
+                        TriggerList: TriggerList
+                    }
+                };
+             
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+                //document.getElementById("status").value = content;
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // display data
+                        document.getElementById("status").value = "Preference Updated.";
+
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+        
+        $("#Add").click(function (event) {
+            (function() {
+                document.getElementById("lbl").textContent  = "";  
+                
+                AccountID = document.getElementById("AccountID").value;
+                if (AccountID === ""){
+                    showErrorModal("AccountID cannot be blank.");
+                    return;  
+                }
+                TriggerType = document.getElementById("TriggerType").value;
+                if (TriggerType === ""){
+                    showErrorModal("TriggerType cannot be blank.");
+                    return;  
+                }
+                Amount = document.getElementById("Amount").value;
+                if (Amount === ""){
+                    showErrorModal("Amount cannot be blank.");
+                    return;  
+                }
+                TViaEmail = document.getElementById("TViaEmail").value;
+                if (TViaEmail === ""){
+                    showErrorModal("TViaEmail cannot be blank.");
+                    return;  
+                }
+                TViaSMS = document.getElementById("TViaSMS").value;
+                if (TViaSMS === ""){
+                    showErrorModal("TViaSMS cannot be blank.");
+                    return;                     
+                }
+                
+                TriggerList.push({
+                        AccountID: AccountID,
+                        TriggerType: TriggerType,
+                        Amount: Amount,
+                        ViaEmail: TViaEmail,
+                        ViaSMS: TViaSMS
+                    })    
+                    
+                document.getElementById("lbl").textContent  = "added";    
+            })();
+        });
+        
+        
+        $("#clear").click(function (event) {
+            (function() {
+                document.getElementById("lbl").textContent  = "";    
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

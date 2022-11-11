@@ -1,0 +1,410 @@
+<h2 class="page-header" style="color:#937851">Get Deposit Account Details</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID" type="text" class="form-control"/>
+                </div>
+                <b>(deposit account number)</b>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountOpenDate" class="col-sm-4 control-label">Account Open Date</label>
+                <div class="col-sm-4">
+                    <input id="accountOpenDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="assignedAccountForAccountManagementFeeDeduction" class="col-sm-4 control-label">Assigned Account for Fee Deduction</label>
+                <div class="col-sm-4">
+                    <input id="assignedAccountForAccountManagementFeeDeduction" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="balance" class="col-sm-4 control-label">Balance</label>
+                <div class="col-sm-4">
+                    <input id="balance" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="currency" class="col-sm-4 control-label">Currency</label>
+                <div class="col-sm-4">
+                    <input id="currency" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="currentStatus" class="col-sm-4 control-label">Current Status</label>
+                <div class="col-sm-4">
+                    <input id="currentStatus" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="homeBranch" class="col-sm-4 control-label">Home Branch</label>
+                <div class="col-sm-4">
+                    <input id="homeBranch" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interestRate" class="col-sm-4 control-label">Interest Rate</label>
+                <div class="col-sm-4">
+                    <input id="interestRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isServiceChargeWaived" class="col-sm-4 control-label">Is Service Charge Waived</label>
+                <div class="col-sm-4">
+                    <input id="isServiceChargeWaived" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maturityDate" class="col-sm-4 control-label">Maturity Date</label>
+                <div class="col-sm-4">
+                    <input id="maturityDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="narrative" class="col-sm-4 control-label">Narrative</label>
+                <div class="col-sm-4">
+                    <input id="narrative" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="officerID" class="col-sm-4 control-label">Officer ID</label>
+                <div class="col-sm-4">
+                    <input id="officerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="penaltyRate" class="col-sm-4 control-label">Penalty Rate</label>
+                <div class="col-sm-4">
+                    <input id="penaltyRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="compoundInterestRateBasis" class="col-sm-4 control-label">Compound Interest Rate Basis</label>
+                <div class="col-sm-4">
+                    <input id="compoundInterestRateBasis" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateBasisForRate" class="col-sm-4 control-label">Date Basis For Rate</label>
+                <div class="col-sm-4">
+                    <input id="dateBasisForRate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productID" class="col-sm-4 control-label">Product ID</label>
+                <div class="col-sm-4">
+                    <input id="productID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productName" class="col-sm-4 control-label">Product Name</label>
+                <div class="col-sm-4">
+                    <input id="productName" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rateChartCode" class="col-sm-4 control-label">Rate Chart Code</label>
+                <div class="col-sm-4">
+                    <input id="rateChartCode" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountCloseDate" class="col-sm-4 control-label">Account Close Date</label>
+                <div class="col-sm-4">
+                    <input id="accountCloseDate" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accrueInterestAmount" class="col-sm-4 control-label">Accrue Interest Amount</label>
+                <div class="col-sm-4">
+                    <input id="accrueInterestAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="depositTerm" class="col-sm-4 control-label">Deposit Term</label>
+                <div class="col-sm-4">
+                    <input id="depositTerm" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dueInterestAmount" class="col-sm-4 control-label">Due Interest Amount</label>
+                <div class="col-sm-4">
+                    <input id="dueInterestAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interestPayoutAccount" class="col-sm-4 control-label">Interest Payout Account</label>
+                <div class="col-sm-4">
+                    <input id="interestPayoutAccount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isRestricted" class="col-sm-4 control-label">Is Restricted</label>
+                <div class="col-sm-4">
+                    <input id="isRestricted" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="minimumAmount" class="col-sm-4 control-label">Minimum Amount</label>
+                <div class="col-sm-4">
+                    <input id="minimumAmount" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="minorStatus" class="col-sm-4 control-label">Minor Status</label>
+                <div class="col-sm-4">
+                    <input id="minorStatus" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="parentAccountFlag" class="col-sm-4 control-label">Parent Account Flag</label>
+                <div class="col-sm-4">
+                    <input id="parentAccountFlag" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastMaintenanceOfficer" class="col-sm-4 control-label">Last Maintenance Officer</label>
+                <div class="col-sm-4">
+                    <input id="lastMaintenanceOfficer" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastTransactionBranch" class="col-sm-4 control-label">Last Transaction Branch</label>
+                <div class="col-sm-4">
+                    <input id="lastTransactionBranch" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getDepositAccountDetails";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var accountID = document.getElementById("accountID").value;
+                if (accountID === ""){
+                    showErrorModal("Account ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        accountID: accountID
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        depositAccount = responseObj.Content.ServiceResponse.DepositAccount;
+                        accountOpenDate = depositAccount.accountOpenDate;
+                        assignedAccountForAccountManagementFeeDeduction = depositAccount.assignedAccountForAccountManagementFeeDeduction;
+                        balance = depositAccount.balance;
+                        currency = depositAccount.currency;
+                        currentStatus = depositAccount.currentStatus;
+                        customerID = depositAccount.customerID;
+                        homeBranch = depositAccount.homeBranch;
+                        interestRate = depositAccount.interestRate;
+                        isServiceChargeWaived = depositAccount.isServiceChargeWaived;
+                        maturityDate = depositAccount.maturityDate;
+                        narrative = depositAccount.narrative;
+                        officerID = depositAccount.officerID;
+                        penaltyRate = depositAccount.penaltyRate;
+
+                        product = responseObj.Content.ServiceResponse.DepositAccount.product;
+                        compoundInterestRateBasis = product.compoundInterestRateBasis;
+                        dateBasisForRate = product.dateBasisForRate;
+                        productID = product.productID;
+                        productName = product.productName;
+                        rateChartCode = product.rateChartCode;
+
+                        casaaccount = responseObj.Content.ServiceResponse.DepositAccount.casaaccount;
+                        accountCloseDate = casaaccount.accountCloseDate;
+                        accrueInterestAmount = casaaccount.accrueInterestAmount;
+                        depositTerm = casaaccount.depositTerm;
+                        dueInterestAmount = casaaccount.dueInterestAmount;
+                        interestPayoutAccount = casaaccount.interestPayoutAccount;
+                        isRestricted = casaaccount.isRestricted;
+                        minimumAmount = casaaccount.minimumAmount;
+                        minorStatus = casaaccount.minorStatus;
+                        parentAccountFlag = casaaccount.parentAccountFlag;
+
+                        maintenancehistory = responseObj.Content.ServiceResponse.DepositAccount.maintenancehistory;
+                        lastMaintenanceOfficer = maintenancehistory.lastMaintenanceOfficer;
+                        lastTransactionBranch = maintenancehistory.lastTransactionBranch;
+
+                        // display data
+                        document.getElementById("accountOpenDate").value = accountOpenDate;
+                        document.getElementById("assignedAccountForAccountManagementFeeDeduction").value = assignedAccountForAccountManagementFeeDeduction;
+                        document.getElementById("balance").value = addCommas(balance);
+                        document.getElementById("currency").value = currency;
+                        document.getElementById("currentStatus").value = currentStatus;
+                        document.getElementById("customerID").value = customerID;
+                        document.getElementById("homeBranch").value = homeBranch;
+                        document.getElementById("interestRate").value = addCommas(interestRate);
+                        document.getElementById("isServiceChargeWaived").value = isServiceChargeWaived;
+                        document.getElementById("maturityDate").value = maturityDate;
+                        document.getElementById("narrative").value = narrative;
+                        document.getElementById("officerID").value = officerID;
+                        document.getElementById("penaltyRate").value = addCommas(penaltyRate);
+                        document.getElementById("compoundInterestRateBasis").value = compoundInterestRateBasis;
+                        document.getElementById("dateBasisForRate").value = dateBasisForRate;
+                        document.getElementById("productID").value = productID;
+                        document.getElementById("productName").value = productName;
+                        document.getElementById("rateChartCode").value = rateChartCode;
+                        document.getElementById("accountCloseDate").value = accountCloseDate;
+                        document.getElementById("accrueInterestAmount").value = accrueInterestAmount;
+                        document.getElementById("depositTerm").value = depositTerm;
+                        document.getElementById("dueInterestAmount").value = dueInterestAmount;
+                        document.getElementById("interestPayoutAccount").value = interestPayoutAccount;
+                        document.getElementById("isRestricted").value = isRestricted;
+                        document.getElementById("minimumAmount").value = addCommas(minimumAmount);
+                        document.getElementById("minorStatus").value = minorStatus;
+                        document.getElementById("parentAccountFlag").value = parentAccountFlag;
+                        document.getElementById("lastMaintenanceOfficer").value = lastMaintenanceOfficer;
+                        document.getElementById("lastTransactionBranch").value = lastTransactionBranch;
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

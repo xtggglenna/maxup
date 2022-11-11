@@ -1,0 +1,286 @@
+<h2 class="page-header" style="color:#937851">Get Transaction History</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="accountID" class="col-sm-4 control-label">Account ID</label>
+                <div class="col-sm-4">
+                    <input id="accountID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="startDate" class="col-sm-4 control-label">Start Date</label>
+                <div class="col-sm-4">
+                    <input id="startDate" type="text" class="form-control"/>
+                </div>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="YYYY-MM-DD HH:MM:SS">See format</a>
+            </div>
+            <div class="form-group">
+                <label for="endDate" class="col-sm-4 control-label">End Date</label>
+                <div class="col-sm-4">
+                    <input id="endDate" type="text" class="form-control"/>
+                </div>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="YYYY-MM-DD HH:MM:SS">See format</a>
+            </div>
+            <div class="form-group">
+                <label for="numRecordsPerPage" class="col-sm-4 control-label">Number of Records Per Page</label>
+                <div class="col-sm-4">
+                    <input id="numRecordsPerPage" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pageNum" class="col-sm-4 control-label">Page Number</label>
+                <div class="col-sm-4">
+                    <input id="pageNum" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <hr style="margin-top: 0px; margin-bottom: 20px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- show table
+======================================== -->
+<div class="container">
+    <div class="row">
+        <h3 style="color:#937851">Output</h3>
+    </div>
+    <table class="table table-striped col-md-12 well">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Transaction ID</th>
+                <th>Transaction Name</th>
+                <th>Bank ID From</th>
+                <th>Account From</th>
+                <th>Transaction Amount</th>
+                <th>Bank ID To</th>
+                <th>Account To</th>
+                <th>Exchange Rate</th>
+                <th>Currency</th>
+                <th>Quote Currency</th>
+                <th>Reference Number</th>
+                <th>Narrative</th>
+            </tr>
+        </thead>
+        <tbody id="account_table">
+        </tbody>
+    </table>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+    });
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getTransactionHistory";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                
+                // get and validate form values
+                var accountID = document.getElementById("accountID").value;
+                if (accountID === ""){
+                    showErrorModal("Account ID cannot be blank.");
+                    return;  
+                }
+                var startDate = document.getElementById("startDate").value;
+                if (startDate === ""){
+                    showErrorModal("Start Date cannot be blank.");
+                    return;  
+                }
+                var endDate = document.getElementById("endDate").value;
+                if (endDate === ""){
+                    showErrorModal("End Date cannot be blank.");
+                    return;  
+                }
+                var numRecordsPerPage = document.getElementById("numRecordsPerPage").value;
+                if (numRecordsPerPage === ""){
+                    showErrorModal("Number of Records Per Page cannot be blank.");
+                    return;  
+                }
+                var pageNum = document.getElementById("pageNum").value;
+                if (pageNum === ""){
+                    showErrorModal("Page Number cannot be blank.");
+                    return;  
+                }
+                
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+                $("#account_table").html("");
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        accountID: accountID,
+                        startDate: startDate,
+                        endDate: endDate,
+                        numRecordsPerPage: numRecordsPerPage,
+                        pageNum: pageNum
+                    }
+                };
+                
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        CDMTransactionDetail = responseObj.Content.ServiceResponse.CDMTransactionDetail;
+                        transaction_Detail = CDMTransactionDetail.transaction_Detail;
+                        var recordCount = getRecordCount(CDMTransactionDetail);
+                        
+                        // display data
+                        var htmlcode = "";
+                        for(var i = 0; i < recordCount; i++){
+                            var d = (recordCount===1)?transaction_Detail:transaction_Detail[i];
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + d.transactionDate + "</td>";
+                            htmlcode += "<td>" + d.transactionID + "</td>";
+                            htmlcode += "<td>" + getTransactionTypeName(d.transactionType) + "</td>";
+                            htmlcode += "<td>" + d.bankID_from + "</td>";
+                            htmlcode += "<td>" + d.accountFrom + "</td>";
+                            htmlcode += "<td>" + d.transactionAmount + "</td>";
+                            htmlcode += "<td>" + d.bankID_to + "</td>";
+                            htmlcode += "<td>" + d.accountTo + "</td>";
+                            htmlcode += "<td>" + d.exchangeRate + "</td>";
+                            htmlcode += "<td>" + d.currency + "</td>";
+                            htmlcode += "<td>" + d.quoteCurrency + "</td>";
+                            htmlcode += "<td>" + d.transactionReferenceNumber + "</td>";
+                            htmlcode += "<td>" + d.narrative + "</td>";
+                            htmlcode += "</tr>";
+                        }
+                        $("#account_table").html(htmlcode);
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        /* ----------------------------------------
+         * get record count
+         */
+        function getRecordCount(CDMTransactionDetail) {
+            if (Object.keys(CDMTransactionDetail).length === 0){
+                showErrorModal("Customer has no transaction history.");
+                return 0;
+            }
+            if (CDMTransactionDetail.transaction_Detail.length === undefined)
+                return 1;
+            return CDMTransactionDetail.transaction_Detail.length;
+        }
+
+    });
+    
+    
+</script>

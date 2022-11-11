@@ -1,0 +1,250 @@
+<h2 class="page-header" style="color:#937851">Get Customer Appointment</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="appointmentID" class="col-sm-4 control-label">AppointmentID</label>
+                <div class="col-sm-4">
+                    <input id="appointmentID" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="acceptedBy" class="col-sm-4 control-label">Accepted By</label>
+                <div class="col-sm-4">
+                    <input id="acceptedBy" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OutputappointmentID" class="col-sm-4 control-label">AppointmentID</label>
+                <div class="col-sm-4">
+                    <input id="OutputappointmentID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bankID" class="col-sm-4 control-label">BankID</label>
+                <div class="col-sm-4">
+                    <input id="bankID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="branchID" class="col-sm-4 control-label">BranchID</label>
+                <div class="col-sm-4">
+                    <input id="branchID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerID" class="col-sm-4 control-label">CustomerID</label>
+                <div class="col-sm-4">
+                    <input id="customerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date" class="col-sm-4 control-label">Date</label>
+                <div class="col-sm-4">
+                    <input id="date" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="narrative" class="col-sm-4 control-label">Narrative</label>
+                <div class="col-sm-4">
+                    <input id="narrative" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="purpose" class="col-sm-4 control-label">Purpose</label>
+                <div class="col-sm-4">
+                    <input id="purpose" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="relatedAccountID" class="col-sm-4 control-label">Related AccountID</label>
+                <div class="col-sm-4">
+                    <input id="relatedAccountID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="timeslot" class="col-sm-4 control-label">Time Slot</label>
+                <div class="col-sm-4">
+                    <input id="timeslot" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getCustomerAppointment";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var appointmentID = document.getElementById("appointmentID").value;
+                if (appointmentID === ""){
+                    showErrorModal("appointmentID cannot be blank.");
+                    return;  
+                }
+                              
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        appointmentID: appointmentID
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // display data
+                        ClientAppointment = responseObj.Content.ServiceResponse.ClientAppointment.ClientAppointment;
+                        acceptedBy = ClientAppointment.acceptedBy;
+                        outputappointmentID = ClientAppointment.appointmentID;
+                        bankID = ClientAppointment.bankID;
+                        branchID = ClientAppointment.branchID;                   
+                        customerID = ClientAppointment.customerID;
+                        date = ClientAppointment.date;
+                        narrative = ClientAppointment.narrative;
+                        purpose = ClientAppointment.purpose;
+                        relatedAccountID = ClientAppointment.relatedAccountID;
+                        timeslot = ClientAppointment.timeslot;
+                        
+                        document.getElementById("acceptedBy").value = acceptedBy ;
+                        document.getElementById("OutputappointmentID").value = outputappointmentID ;
+                        document.getElementById("bankID").value = bankID ;
+                        document.getElementById("branchID").value = branchID ;
+                        document.getElementById("customerID").value = customerID ;
+                        document.getElementById("date").value = date ;
+                        document.getElementById("narrative").value = narrative ;
+                        document.getElementById("purpose").value = purpose ;
+                        document.getElementById("relatedAccountID").value = relatedAccountID ;
+                        document.getElementById("timeslot").value = timeslot ;
+
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>

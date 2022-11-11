@@ -1,0 +1,278 @@
+<h2 class="page-header" style="color:#937851">Get Customer Preference</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="CustomerID" class="col-sm-4 control-label">CustomerID</label>
+                <div class="col-sm-4">
+                    <input id="CustomerID" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="MSViaEmail" class="col-sm-4 control-label">Monthly Statement ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="MSViaEmail" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="MSViaSnailMail" class="col-sm-4 control-label">Monthly Statement ViaSnailMail</label>
+                <div class="col-sm-4">
+                    <input id="MSViaSnailMail" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RMViaEmail" class="col-sm-4 control-label">RM ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="RMViaEmail" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RMViaPhone" class="col-sm-4 control-label">RM ViaPhone</label>
+                <div class="col-sm-4">
+                    <input id="RMViaPhone" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RMViaSMS" class="col-sm-4 control-label">RM ViaSMS</label>
+                <div class="col-sm-4">
+                    <input id="RMViaSMS" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RPViaEmail" class="col-sm-4 control-label">RP ViaEmail</label>
+                <div class="col-sm-4">
+                    <input id="RPViaEmail" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RPViaSMS" class="col-sm-4 control-label">RP ViaSMS</label>
+                <div class="col-sm-4">
+                    <input id="RPViaSMS" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- show table
+======================================== -->
+<div class="container">
+    <div class="row">
+        <h3 style="color:#937851">Output</h3>
+    </div>
+    <table class="table table-striped col-md-12 well">
+        <thead>
+            <tr>
+                <th>Trigger Type</th>
+                <th>AccountID</th>
+                <th>ViaEmail</th>
+                <th>Amount</th>
+                <th>ViaSMS</th>
+            </tr>
+        </thead>
+        <tbody id="leaders_table">
+        </tbody>
+    </table>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getCustomerPreference";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                                          
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                
+                var header = JSON.stringify(headerObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // display data
+                        Preference = responseObj.Content.ServiceResponse.Preference;
+                        RMModeOfCommunication = Preference.RMModeOfCommunication;
+                        MonthlyStatement = Preference.MonthlyStatement;
+                        Trigger = Preference.TriggerList.Trigger;
+                        CustomerID = Preference.CustomerID
+                        RedeemPromotion = Preference.RedeemPromotion
+                        
+                        RMViaPhone = RMModeOfCommunication.ViaPhone;
+                        RMViaEmail = RMModeOfCommunication.ViaEmail;
+                        RMViaSMS = RMModeOfCommunication.ViaSMS;
+                        
+                        MSViaEmail = MonthlyStatement.ViaEmail;
+                        MSViaSnailMail = MonthlyStatement.ViaSnailMail;                       
+                                             
+                        RPViaEmail = RedeemPromotion.ViaEmail;
+                        RPViaSMS = RedeemPromotion.ViaSMS;
+                        
+                        // get data
+                        TriggerList = responseObj.Content.ServiceResponse.Preference.TriggerList.Trigger;
+                        var recordCount = getRecordCount(TriggerList);
+                                              
+                        // display data
+                        var htmlcode = "";
+                        for(var i = 0; i < recordCount; i++){
+                            var l = (recordCount===1)?TriggerList:TriggerList[i];
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + l.TriggerType + "</td>";
+                            htmlcode += "<td>" + l.AccountID + "</td>";
+                            htmlcode += "<td>" + l.ViaEmail + "</td>";
+                            htmlcode += "<td>" + l.Amount + "</td>";
+                            htmlcode += "<td>" + l.ViaSMS + "</td>";
+                            htmlcode += "</tr>";
+                        }
+                        $("#leaders_table").html(htmlcode);
+                                         
+                        document.getElementById("CustomerID").value = CustomerID ;
+                        
+                        document.getElementById("RMViaPhone").value = RMViaPhone ;
+                        document.getElementById("RMViaEmail").value = RMViaEmail ;
+                        document.getElementById("RMViaSMS").value = RMViaSMS ;
+
+                        document.getElementById("MSViaEmail").value = MSViaEmail ;
+                        document.getElementById("MSViaSnailMail").value = MSViaSnailMail ;
+                                                                  
+                        document.getElementById("RPViaEmail").value = RPViaEmail; 
+                        document.getElementById("RPViaSMS").value = RPViaSMS;
+
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        /* ----------------------------------------
+         * get record count
+         */
+        function getRecordCount(TriggerList) {
+            if (Object.keys(TriggerList).length === 0){
+                showErrorModal("There are no record.");
+                return 0;
+            }
+            if (TriggerList.length === undefined)
+                return 1;
+            return TriggerList.length;
+        }
+
+    });
+
+</script>

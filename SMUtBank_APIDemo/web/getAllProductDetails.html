@@ -1,0 +1,210 @@
+<h2 class="page-header" style="color:#937851">Get All Product Details</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bankID" class="col-sm-4 control-label">Bank ID</label>
+                <div class="col-sm-4">
+                    <input id="bankID" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <hr style="margin-top: 0px; margin-bottom: 20px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- show table
+======================================== -->
+<div class="container">
+    <div class="row">
+        <h3 style="color:#937851">Output</h3>
+    </div>
+    <table class="table table-striped col-md-12 well">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Min Opening Balance ID</th>
+                <th>Penalty Rate ID</th>
+                <th>Product ID</th>
+                <th>Max Ltv Ratio</th>
+                <th>Repayment Penalty Threshold ID</th>
+                <th>Term ID</th>
+                <th>Interest Rate</th>
+            </tr>
+        </thead>
+        <tbody id="productdetail_table">
+        </tbody>
+    </table>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        //document.getElementById("userID").value = getUserID();
+        //document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "getAllProductDetails";
+                var userID = "";
+                setUserID(userID);
+                var PIN = "";
+                setPIN(PIN);
+                
+                // get and validate form values
+                var bankID = document.getElementById("bankID").value;
+                if (bankID === ""){
+                    showErrorModal("Bank ID cannot be blank.");
+                    return;  
+                }
+                
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+                $("#productdetail_table").html("");
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        bankID: bankID
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // get data
+                        ServiceResponse = responseObj.Content.ServiceResponse;
+                        ProductList = ServiceResponse["Product_ParametersList_Read-Response"];
+                        ProductList2 = ProductList.ProductList;
+                        Product = ProductList2.Product;
+                        var recordCount = getRecordCount(ProductList2);
+                        
+                        // display data
+                        var htmlcode = "";
+                        for(var i = 0; i < recordCount; i++){
+                            var b = (recordCount===1)?Product:Product[i];
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + b.ProductName + "</td>";
+                            htmlcode += "<td>" + b.MinOpeningBalance + "</td>";
+                            htmlcode += "<td>" + b.PenaltyRate + "</td>";
+                            htmlcode += "<td>" + b.ProductID + "</td>";
+                            htmlcode += "<td>" + b.MaxLtvRatio + "</td>";
+                            htmlcode += "<td>" + b.RepaymentPenaltyThreshold + "</td>";
+                            htmlcode += "<td>" + b.Term + "</td>";
+                            htmlcode += "<td>" + b.InterestRate + "</td>";
+                            htmlcode += "</tr>";
+                        }
+                        $("#productdetail_table").html(htmlcode);
+                        
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+        
+        /* ----------------------------------------
+         * get record count
+         */
+        function getRecordCount(ProductList2) {
+            if (Object.keys(ProductList2).length === 0){
+                showErrorModal("Bank ID has no product details.");
+                return 0;
+            }
+            if (ProductList2.Product.length === undefined)
+                return 1;
+            return ProductList2.Product.length;
+        }
+
+    });
+    
+    
+</script>

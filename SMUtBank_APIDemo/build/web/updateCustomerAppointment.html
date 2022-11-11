@@ -1,0 +1,222 @@
+<h2 class="page-header" style="color:#937851">Update Customer Affinities</h2>
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Input</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="Send" type="button" class="btn btn-primary">Send</button>
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userID" class="col-sm-4 control-label">User ID</label>
+                <div class="col-sm-4">
+                    <input id="userID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PIN" class="col-sm-4 control-label">PIN</label>
+                <div class="col-sm-4">
+                    <input id="PIN" type="password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="appointmentID" class="col-sm-4 control-label">Appointment ID</label>
+                <div class="col-sm-4">
+                    <input id="appointmentID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="purpose" class="col-sm-4 control-label">Purpose</label>
+                <div class="col-sm-4">
+                    <input id="purpose" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="relatedAccountID" class="col-sm-4 control-label">Related AccountID</label>
+                <div class="col-sm-4">
+                    <input id="relatedAccountID" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="narrative" class="col-sm-4 control-label">Narrative</label>
+                <div class="col-sm-4">
+                    <input id="narrative" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="acceptedBy" class="col-sm-4 control-label">AcceptedBy</label>
+                <div class="col-sm-4">
+                    <input id="acceptedBy" type="text" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h3 style="color:#937851">Output</h3>
+        </div>
+        <form class="form-horizontal well" style="padding-bottom: 0px;">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="reset" class="btn btn-default">Clear</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="status" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-4">
+                    <input id="status" type="text" class="form-control" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- javascript libraries
+======================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        // init user credentials
+        document.getElementById("userID").value = getUserID();
+        document.getElementById("PIN").value = getPIN();
+
+        /*----------------------------------------
+         * [Send] button clicked
+         */
+        $("#Send").click(function (event) {
+            (function() {
+
+                // set service header values
+                var serviceName = "updateCustomerAffinities";
+                var userID = document.getElementById("userID").value;
+                setUserID(userID);
+                var PIN = document.getElementById("PIN").value;
+                setPIN(PIN);
+                
+                // get and validate form values
+                var appointmentID = document.getElementById("appointmentID").value;
+                if (appointmentID === ""){
+                    showErrorModal("appointmentID cannot be blank.");
+                }
+                var purpose = document.getElementById("purpose").value;
+                if (purpose === ""){
+                    showErrorModal("purpose cannot be blank.");
+                }
+                var relatedAccountID = document.getElementById("relatedAccountID").value;
+                if (relatedAccountID === ""){
+                    showErrorModal("relatedAccountID cannot be blank.");
+                    return;  
+                }
+                var narrative = document.getElementById("narrative").value;
+                if (narrative === ""){
+                    showErrorModal("narrative cannot be blank.");
+                    return;  
+                }
+                var acceptedBy = document.getElementById("acceptedBy").value;
+                if (acceptedBy === ""){
+                    showErrorModal("acceptedBy cannot be blank.");
+                    return;  
+                }
+                         
+                // disable Send button
+                document.getElementById("Send").disabled = true;
+
+                // set request parameters
+                var headerObj = {
+                    Header: {
+                        serviceName: serviceName,
+                        userID: userID,
+                        PIN: PIN,
+                        OTP: OTP
+                    }
+                };
+                var contentObj = {
+                    Content: {
+                        appointmentID: appointmentID,
+                        purpose: purpose,
+                        relatedAccountID: relatedAccountID,
+                        narrative: narrative,
+                        acceptedBy: acceptedBy
+                    }
+                };
+                var header = JSON.stringify(headerObj);
+                var content = JSON.stringify(contentObj);
+
+                // setup http request
+                var xmlHttp = new XMLHttpRequest();
+                if (xmlHttp === null){
+                    alert("Browser does not support HTTP request.");
+                    return;
+                }
+                xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                xmlHttp.timeout = 5000;
+
+                // setup http event handlers
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        responseObj = JSON.parse(xmlHttp.responseText);
+                        serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                        globalErrorID = serviceRespHeader.GlobalErrorID;
+                        if (globalErrorID === "010041"){
+                            showOTPModal();
+                            return;
+                        }
+                        else if (globalErrorID !== "010000"){
+                            showErrorModal(serviceRespHeader.ErrorDetails);
+                            return;
+                        }
+                        
+                        // display data
+                        document.getElementById("status").value = "Appointment Updated.";
+
+                        // enable Send button
+                        document.getElementById("Send").disabled = false;
+                    }
+                };
+                xmlHttp.ontimeout = function (e) {
+                    showErrorModal("Timeout invoking API.");
+                    return;
+                };					
+
+                // send the http request
+                xmlHttp.send();
+
+            })();
+        });
+
+        /* ----------------------------------------
+         * error model close button clicked
+         */
+        $("#CloseError").click(function (event) {
+            (function() {
+                document.getElementById("Send").disabled = false;
+            })();
+        });
+
+        /* ----------------------------------------
+         * OTP model update button clicked
+         */
+        $("#UpdateOTP").click(function (event) {
+            (function() {
+                var OTP = document.getElementById("OTP").value;
+                setOTP(OTP, function() { // ensure OTP set before clicking Send
+                    document.getElementById("Send").disabled = false;
+                    document.getElementById("Send").click();
+                });
+            })();
+        });
+
+    });
+
+</script>
+
