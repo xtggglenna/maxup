@@ -57,8 +57,8 @@
     $(document).ready(function () {
         
         // init user credentials
-        document.getElementById("userID").value = getUserID();
-        document.getElementById("PIN").value = getPIN();
+        document.getElementById("userID").value = "X"
+        document.getElementById("PIN").value = "X"
 
         /*----------------------------------------
          * [Send] button clicked
@@ -68,15 +68,16 @@
 
                 // set service header values
                 var serviceName = "requestOTP";
-                var userID = document.getElementById("userID").value;
-                setUserID(userID);
-                var PIN = document.getElementById("PIN").value;
-                setPIN(PIN);
+                var userID = "DBEAGRP6"
+                var PIN = "150217"
                 
                 
                 // disable Send button
                 //document.getElementById("Send").disabled = true;
-
+                function getApiURL(){
+                        var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+                        return ApiURL;
+                    }
                 // set request parameters
                 var headerObj = {
                     Header: {
