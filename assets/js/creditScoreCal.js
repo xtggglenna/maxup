@@ -263,6 +263,8 @@ function calculate_score() {
   // console.log(total);
   // var myDiv = document.getElementById("recommend");
   // myDiv.setAttribute("type", "hidden");
+
+  return total
 }
 
 function recommend() {

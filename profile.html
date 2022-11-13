@@ -92,53 +92,95 @@
             <article class="entry entry-single">
 
               <h2 class="entry-title">
-                <a href="blog-single.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
+                <span id = "customername"> </span>
               </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
-                </ul>
-              </div>
-
               <div class="entry-content">
-
+                <div class = "row">
+                    <div class = "col-md-3" style = "margin: auto">
+                      Address 
+                    </div>
+                    <div class = "col-md-9">
+                      <input class="form-control" type="text" id = "address" aria-label="Disabled input example" disabled readonly>
+                    </div>
+                </div>
+                <br>
+                <div class = "row">
+                  <div class = "col-md-3" style = "margin: auto">
+                    Email
+                  </div>
+                  <div class = "col-md-9">
+                    <input class="form-control" type="text" id = "email" aria-label="Disabled input example" disabled readonly>
+                  </div>
               </div>
+            </br>
+              <div class = "row">
+                <div class = "col-md-3" style = "margin: auto">
+                  Date Of Birth 
+                </div>
+                <div class = "col-md-3">
+                  <input class="form-control" type="text" id = "dob" aria-label="Disabled input example" disabled readonly>
+                </div>
+                <div class = "col-md-3" style = "margin: auto">
+                  Gender
+                </div>
+                <div class = "col-md-3">
+                  <input class="form-control" type="text" id = "gender" aria-label="Disabled input example" disabled readonly>
+                </div>
+            </div>
+          </br>
+            <div class = "row">
+              <div class = "col-md-3" style = "margin: auto">
+                Credit Score
+              </div>
+              <div class = "col-md-9">
+                <input class="form-control" type="text" id = "credit_score_info" value = "Yet to complete credit score survey" aria-label="Disabled input example" disabled readonly>
+              </div>
+          </div>
 
-              <div class="entry-footer">
-                <i class="bi bi-folder"></i>
-                <ul class="cats">
-                  <li><a href="#">Business</a></li>
-                </ul>
-
-                <i class="bi bi-tags"></i>
-                <ul class="tags">
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
-                </ul>
               </div>
 
             </article><!-- End blog entry -->
 
             <div class="blog-author d-flex align-items-center">
-              <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
               <div>
-                <h4>Jane Smith</h4>
-                <div class="social-links">
-                  <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-                  <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-                  <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
-                </div>
-                <p>
-                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
-                </p>
+                <h4>Bank Balance</h4>
+                <br>
+                <table id = "bankdetails" class = "table">
+               
+                </table>
+                <span ></span>
+              </div>
+            </div><!-- End blog author bio -->
+            <div class="blog-author d-flex align-items-center">
+              <div>
+                <h4>Current Loans</h4>
+                <br>
+                <span id = "currentloans"><i> No loans at the moment, start loaning by completing this <a href = "creditsurvey.html"> credit survey now </a> </i> </span>
               </div>
             </div><!-- End blog author bio -->
 
-
+            <div class="blog-author d-flex align-items-center">
+              <div>
+                <h4>Past Loan Transactions</h4>
+                <br>
+                <table id = "bankdetails" class = "table">
+               
+                </table>
+                <span ></span>
+              </div>
+            </div><!-- End blog author bio -->
+            
+            
+            <div class="blog-author d-flex align-items-center">
+              <div>
+                <h4>Portfolios</h4>
+                <br>
+                <table id = "bankdetails" class = "table">
+               
+                </table>
+                <span ></span>
+              </div>
+            </div><!-- End blog author bio -->
           </div><!-- End blog entries list -->
 
           <div class="col-lg-4">
@@ -320,13 +362,146 @@
 </body>
 
 <script>
-    if(sessionStorage.getItem("profilesetup") != "true"){
-        window.location.href = "setupprofile.html";
-    }
-
     function logout(){
         sessionStorage.clear();
         window.location.href = "index.html";
+    }
+
+    function getBank(){
+
+               var serviceName = "getCustomerAccounts";
+
+               var userID = sessionStorage.getItem("userID")
+               var PIN = sessionStorage.getItem("pin")
+               var headerObj = {
+
+                   Header: {
+
+                       serviceName: serviceName,
+
+                       userID: userID,
+
+                       PIN: PIN,
+
+                       OTP: "999999"
+
+                   }
+
+               };
+
+               var header = JSON.stringify(headerObj);
+
+
+
+               // setup http request
+
+               var xmlHttp = new XMLHttpRequest();
+
+               if (xmlHttp === null){
+
+                   alert("Browser does not support HTTP request.");
+
+                   return;
+
+               }
+
+               xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+
+               xmlHttp.timeout = 5000;
+
+
+
+               // setup http event handlers
+
+               xmlHttp.onreadystatechange = function() {
+
+                   if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
+                       responseObj = JSON.parse(xmlHttp.responseText);
+
+                       serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+
+                       globalErrorID = serviceRespHeader.GlobalErrorID;
+
+                       if (globalErrorID === "010041"){
+
+                           return;
+
+                       }
+
+                       else if (globalErrorID !== "010000"){
+
+                           showErrorModal(serviceRespHeader.ErrorDetails);
+
+                           return;
+
+                       }
+
+                       
+
+                       // get data
+
+                       AccountList = responseObj.Content.ServiceResponse.AccountList;
+
+                       account = AccountList.account;
+
+                       var recordCount = getRecordCount(AccountList);
+                       
+                       var htmlcode = "<tr>    <th> Account Number </th>   <th> Currency </th>  <th> Balance </th>  <th> Interest Rate </th>           <th> Opening Date </th>        <th> Status </th>                  </tr>"
+
+                        for(var i = 0; i < recordCount; i++){
+                            var acc = (recordCount===1)?account:account[i];
+                            if(acc.productID == "101"){
+                             sessionStorage.setItem("bankaccount"+i,  acc.accountID)
+                            htmlcode += "<tr>";
+                            htmlcode += "<td>" + acc.accountID + "</td>";
+                            htmlcode += "<td>" + acc.currency + "</td>";
+                            htmlcode += "<td>" + (acc.balance) + "</td>";
+                            htmlcode += "<td>" + acc.interestRate + "</td>";
+                            htmlcode += "<td>" + acc.accountOpenDate + "</td>";
+                            htmlcode += "<td>" + acc.currentStatus + "</td>";
+                            htmlcode += "</tr>";
+                          }
+                        }
+
+                        document.getElementById("bankdetails").innerHTML = htmlcode;
+                   }
+
+               };
+
+               xmlHttp.ontimeout = function (e) {
+
+                   showErrorModal("Timeout invoking API.");
+
+                   return;
+
+               };                                        
+
+
+
+               // send the http request
+
+               xmlHttp.send();
+
+               function getRecordCount(AccountList) {
+
+                if (Object.keys(AccountList).length === 0){
+
+                    showErrorModal("Customer has no accounts.");
+
+                    return 0;
+
+                }
+
+                if (AccountList.account.length === undefined)
+
+                    return 1;
+
+                return AccountList.account.length;
+
+                }
+
+           
     }
 
     function check(){
@@ -341,7 +516,152 @@
           document.getElementById("navbar_profile").style.display = "none";
           document.getElementById("logout").style.display = "none";
         }
+
+      if(sessionStorage.getItem("creditscore") != null){
+        document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
+        document.getElementById("currentloans").innerHTML = "Start applying for <a href = 'services.html'> loans now </a>"
+      }
     }
+
+    if(sessionStorage.getItem("profilesetup") != "true"){
+        window.location.href = "setupprofile.html";
+    }
+
+    else{
+      
+    userID = sessionStorage.getItem("userID")
+    pin = sessionStorage.getItem("pin")
+
+    
+  function getApiURL(){
+    var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+    return ApiURL;
+  }
+
+    var headerObj = {
+      Header:{
+        serviceName: "getCustomerDetails",
+        userID : userID,
+        PIN: pin,
+        OTP: "999999"
+      }
+    }
+
+    var header = JSON.stringify(headerObj)
+
+
+  // setup http request
+
+  var xmlHttp = new XMLHttpRequest();
+
+  if (xmlHttp === null){
+
+      alert("Browser does not support HTTP request.");
+
+  }
+
+  xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+
+  xmlHttp.timeout = 5000;
+
+
+
+  // setup http event handlers
+
+  xmlHttp.onreadystatechange = function() {
+
+      if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
+          responseObj = JSON.parse(xmlHttp.responseText);
+
+          serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+
+          globalErrorID = serviceRespHeader.GlobalErrorID;
+
+          if (globalErrorID === "010041"){
+            console.log("hi")
+
+              return;
+
+          }
+
+          else if (globalErrorID !== "010000"){
+
+              showErrorModal(serviceRespHeader.ErrorDetails);
+              console.log("hi")
+              return;
+
+          }
+          
+          // get data
+          
+          
+          CDMCustomer = responseObj.Content.ServiceResponse.CDMCustomer;
+          console.log(CDMCustomer)
+          customerID = CDMCustomer.customer.customerID;
+          dateOfBirth = CDMCustomer.dateOfBirth;
+          familyName = CDMCustomer.familyName;
+          givenName = CDMCustomer.givenName;
+          address = responseObj.Content.ServiceResponse.CDMCustomer.address;
+          city = address.city;
+          country = address.country;
+          postalCode = address.postalCode;
+          state = address.state;
+          streetAddress1 = address.streetAddress1;
+          streetAddress2 = address.streetAddress2;
+          cellphone = responseObj.Content.ServiceResponse.CDMCustomer.cellphone;
+          countryCode = cellphone.countryCode;
+          phoneNumber = cellphone.phoneNumber;
+          certificate = responseObj.Content.ServiceResponse.CDMCustomer.certificate;
+          certificateExpiryDate = certificate.certificateExpiryDate;
+          certificateIssuer = certificate.certificateIssuer;
+          certificateNo = certificate.certificateNo;
+          certificateType = certificate.certificateType;
+          maintenacehistory = responseObj.Content.ServiceResponse.CDMCustomer.maintenacehistory;
+          lastMaintenanceTellerId = maintenacehistory.lastMaintenanceTellerId;
+          registrationDate = maintenacehistory.registrationDate;
+          phone = responseObj.Content.ServiceResponse.CDMCustomer.phone;
+          areaCode = phone.areaCode;
+          localNumber = phone.localNumber;
+          profile = responseObj.Content.ServiceResponse.CDMCustomer.profile;
+          bankID = profile.bankID;
+          customerType = profile.customerType;
+          email = profile.email;
+          ethnicGroup = profile.ethnicGroup;
+          fax = profile.fax;
+          gender = profile.gender;
+          isBillingOrg = profile.isBillingOrg;
+          isMerchant = profile.isMerchant;
+          nationality = profile.nationality;
+          occupation = profile.occupation;
+
+          document.getElementById("customername").innerHTML  = givenName +" " +  familyName
+          document.getElementById("address").value = country + ", " + city + ", " + postalCode + ", " + streetAddress1+ ", " + streetAddress2
+          document.getElementById("email").value = email
+          document.getElementById("gender").value = gender
+          document.getElementById("dob").value = dateOfBirth
+        }
+      };
+
+        xmlHttp.ontimeout = function (e) {
+
+            showErrorModal("Timeout invoking API.");
+
+            return;
+
+        };                                        
+
+
+
+        // send the http request
+
+        xmlHttp.send();
+
+        getBank();
+    }
+
+
+
 </script>
 </html>
 

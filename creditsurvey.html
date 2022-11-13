@@ -27,6 +27,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <script src="assets/js/creditScoreCal.js"></script>
 
   <!-- =======================================================
   * Template Name: Flattern - v4.9.1
@@ -36,7 +37,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body onload = "check()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
@@ -50,12 +51,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <!-- <li><a href="about.html">About</a></li> -->
+          <li><a  href="index.html">Home</a></li>
+          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+          <li id = "navbar_profile"><a class="active" href="profile.html">My Profile</a></li> 
           <li><a href="services.html">LoanMe</a></li>
           <li><a href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
-          <li><a class="active" href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li id = "logout"><a onclick = "logout()">Logout </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -110,40 +113,65 @@
 
         <div class="row mt-5 justify-content-center" data-aos="fade-up">
           <div class="col-lg-10">
-            <form action="forms/credit.php" method="post" role="form" class="php-email-form">
+            <form action="#" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                     Enter Your Annual Income <br>
-                  <input type="number" name="annual_income" class="form-control" id="annual_income"  required>
+                  <input type="number" name="annual_income" class="form-control" id="annualIncome"  required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
                     Home Ownership
-                    <select class="form-select" aria-label="Default select example" >
-                        <option value="1">MORTGAGE</option>
-                        <option value="2">RENT</option>
-                        <option value="3">OWN</option>
+                    <select class="form-select" aria-label="Default select example" id = "homeOwnership">
+                        <option value="MORTGAGE">MORTGAGE</option>
+                        <option value="OWN">RENT</option>
+                        <option value="RENT">OWN</option>
                       </select>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                     Monthly Debt <br>
-                  <input type="number" name="monthly_credit" class="form-control" id="monthly_credit"  required>
+                  <input type="number" name="monthly_credit" class="form-control" id="monthlyDebt"  required>
                 </div>
                 <div class="col-md-6 form-group">
-                    Mortgage Accounts <br>
-                  <input type="number" name="monthly_credit" class="form-control" id="mortgage_account"  required>
+                    Monthly Credit Limit <br>
+                  <input type="number" name="monthly_credit" class="form-control" id="monthlyCreditLimit"  required>
                 </div>
               </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                    Mortage Account(s) <br>
+                  <input type="number" name="mortage_accounts" class="form-control" id="mortAcc"  required>
+                </div>
+
+                <div class="col-md-6 form-group">
+                  Credit Score<br>
+                  <input type="number" name="credit_score" class="form-control" id="creditScore"  disabled>
+                </div>
+
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+
+              <div class="row">
+                <div class="col-md-6 form-group" >
+                    <select class="form-select" aria-label="Default select example" id = "numberOfMonths" hidden>
+                      <option value=12 >12 months</option>
+                      <option value=24>24 months</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <input type="number" name="credit_score" class="form-control" id="loanAmount"  required value = 0 hidden>
+                  </div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+
+              <div class="text-center"><button type="submit" onclick = "calculate_credit()">Calculate my Credit Score</button></div>
+            </br>
+              <div id = "recommendbtn" class="text-center" style = "display:none"><button type="submit" onclick = "recommend()">Recommend</button></div>
+          </br>
+              <div id = "submitbtn" class="text-center" style = "display:none"><button type="submit" onclick = "submitscore()">Submit</button></div>
+              <div id = "recommend">
+
+              </div>
             </form>
           </div>
 
@@ -170,5 +198,38 @@
   <script src="assets/js/main.js"></script>
 
 </body>
+
+<script>
+  function calculate_credit(){
+    creditscore = calculate_score()
+    if(creditscore < 600){
+      document.getElementById("recommendbtn").style.display = "block";
+    }
+    else{
+      document.getElementById("submitbtn").style.display = "block";
+      document.getElementById("recommendbtn").style.display = "none";
+      document.getElementById("recommend").style.display = "none";
+    }
+  }
+
+  function submitscore(){
+    creditscore = calculate_score()
+    sessionStorage.setItem("creditscore", creditscore)
+  }
+
+  function check(){
+        if(sessionStorage.getItem("username") != null){
+            document.getElementById("navbar_signin").style.display = "none";
+            document.getElementById("navbar_profile").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+        }
+
+        else{
+          document.getElementById("navbar_signin").style.display = "block";
+          document.getElementById("navbar_profile").style.display = "none";
+          document.getElementById("logout").style.display = "none";
+        }
+    }
+</script>
 
 </html>

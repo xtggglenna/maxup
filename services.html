@@ -36,7 +36,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body onload = "check()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
@@ -50,16 +50,17 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <!-- <li><a href="about.html">About</a></li> -->
-          <li><a class="active" href="services.html">LoanMe</a></li>
+          <li><a  href="index.html">Home</a></li>
+          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+          <li><a class ="active" href="services.html">LoanMe</a></li>
           <li><a href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
           <li><a href="contact.html">Contact</a></li>
+          <li id = "logout"><a onclick = "logout()">Logout </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
     </div>
   </header><!-- End Header -->
 
@@ -356,6 +357,20 @@
           document.getElementById("TotRep").innerHTML="$ " + calculate.toFixed(2);
           document.getElementById("MonRep").innerHTML="$ " + calculate2.toFixed(2); 
         }
+
+        function check(){
+        if(sessionStorage.getItem("username") != null){
+            document.getElementById("navbar_signin").style.display = "none";
+            document.getElementById("navbar_profile").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+        }
+
+        else{
+          document.getElementById("navbar_signin").style.display = "block";
+          document.getElementById("navbar_profile").style.display = "none";
+          document.getElementById("logout").style.display = "none";
+        }
+    }
 
     </script>
 
