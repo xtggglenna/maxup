@@ -35,7 +35,7 @@
     <div class="bigbox">
         <h4>Please confirm your loan details</h4> 
             <br> 
-        <div class="container">
+        <!-- <div class="container">
             <div class="row text-start"> 
             <div class="col-lg-5 p-0">
                 <p>Loan Value: <br> <a id="LoanVal"></a></p>
@@ -53,8 +53,10 @@
                 <p class="mt-2">Monthly Repayment: <br> <a id="MonRep"></a></p>
             </div>
             </div>
-        </div> 
+        </div>  -->
+        <p>Loan Value: <a id="LoanVal"></a></p>
         
+        <p>Loan Term: <a id="LoanYear"></a></p>
     </div>
 
             <!-- <h1 id="captchaHeading">
@@ -79,16 +81,15 @@
     <script> 
     // call text box 
     var inputTest = localStorage.getItem('valueToPass');
+    var inputTest2 = localStorage.getItem('yearToPass'); 
     var loanholder = document.getElementById("LoanVal"); 
     loanholder.innerHTML=inputTest;
+    document.getElementById("LoanYear").innerHTML=inputTest2; 
 
-    var inputTest2 = localStorage.getItem('yearToPass'); 
-    var valyr = document.getElementById("LoanYr"); 
-    valyr.innterHTML=inputTest2;
   
     // Clear the localStorage
-    localStorage.removeItem( 'valueToPass' );
-    localStorage.removeItem( 'yearToPass' );
+    // localStorage.removeItem( 'valueToPass' );
+    // localStorage.removeItem( 'yearToPass' );
   </script> 
 
 </body>

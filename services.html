@@ -291,12 +291,8 @@
     var inputTest2 = document.getElementById("box2");
     var numyear = inputTest2.value;   
 
-    // var newval2 = document.getElementById("box2"); 
-    // var valyr = newval2.value; 
-    // document.getElementById("LoanYr").innerHTML=valyr + " Year(s)"
-
     localStorage.setItem('valueToPass', 'S$ '+inputTest); 
-    localStorage.setItem('yearToPass', numyear + ' year(s)'); 
+    localStorage.setItem('yearToPass', numyear +' year(s)'); 
     window.location="captcha.html"; 
   })
 
