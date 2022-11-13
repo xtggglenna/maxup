@@ -42,10 +42,13 @@ userText.addEventListener('keyup', function(e) {
 submitButton.addEventListener('click', function() {
     if (userText.value === c) {
         output.classList.add("correctCaptcha");
-        output.innerHTML = "Correct!";
+        // output.innerHTML = "Correct!";
+        alert("Congratulations! Your Loan Application is Successful!");
+        window.location.href = "myloandetails.html"; 
     } else {
         output.classList.add("incorrectCaptcha");
         output.innerHTML = "Incorrect, please try again";
+        // alert("Your Loan Application has been rejected. Please try again.");
     }
 });
 // This event listener is stimulated whenever the user press the "Refresh" button
