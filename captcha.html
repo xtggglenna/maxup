@@ -79,12 +79,16 @@
     <script> 
     // call text box 
     var inputTest = localStorage.getItem('valueToPass');
-    var displayData = inputTest;
-    //   alert('Inserted Data' + inputTest);
     var loanholder = document.getElementById("LoanVal"); 
     loanholder.innerHTML=inputTest;
 
-  localStorage.removeItem( 'valueToPass' ); // Clear the localStorage
+    var inputTest2 = localStorage.getItem('yearToPass'); 
+    var valyr = document.getElementById("LoanYr"); 
+    valyr.innterHTML=inputTest2;
+  
+    // Clear the localStorage
+    localStorage.removeItem( 'valueToPass' );
+    localStorage.removeItem( 'yearToPass' );
   </script> 
 
 </body>

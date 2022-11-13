@@ -36,7 +36,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body onload = "check()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
@@ -50,16 +50,17 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <!-- <li><a href="about.html">About</a></li> -->
-          <li><a class="active" href="services.html">LoanMe</a></li>
+          <li><a  href="index.html">Home</a></li>
+          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+          <li><a class ="active" href="services.html">LoanMe</a></li>
           <li><a href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
           <li><a href="contact.html">Contact</a></li>
+          <li id = "logout"><a onclick = "logout()">Logout </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
     </div>
   </header><!-- End Header -->
 
@@ -210,7 +211,7 @@
 
           <div class="container d-grid gap-2 d-md-flex mt-2 ms-6 ps-4 justify-content-md-end">
             <button class="btn btn-outline-danger me-md-2" type="button">Cancel</button>
-            <button class="btn btn-outline-success" type="button"><a href="captcha.html" class="text-success"> Apply</a></button>
+            <button class="btn btn-outline-success" type="button" id="ApplyButton"><a href="captcha.html" class="text-success"> Apply</a></button>
           </div>
 
         </div>
@@ -284,22 +285,34 @@
         }
 
     //passing value input to captcha.html
-  var form = document.getElementById("formTest");
-  form.addEventListener("button", function(){ 
-    var inputTest = document.getElementById('box1').value; 
-    localStorage.setItem('valueToPass', inputTest); 
+  // var form = document.getElementById("formTest");
+  ApplyButton.addEventListener('click', function(){ 
+    var inputTest = document.getElementById('box1').value;
+    var inputTest2 = document.getElementById("box2");
+    var numyear = inputTest2.value;   
 
+    // var newval2 = document.getElementById("box2"); 
+    // var valyr = newval2.value; 
+    // document.getElementById("LoanYr").innerHTML=valyr + " Year(s)"
+
+    localStorage.setItem('valueToPass', 'S$ '+inputTest); 
+    localStorage.setItem('yearToPass', numyear + ' year(s)'); 
     window.location="captcha.html"; 
   })
 
-// // Now, set up a submit event handler for the form
-// form.addEventListener("submit", function(){
+  function check(){
+        if(sessionStorage.getItem("username") != null){
+            document.getElementById("navbar_signin").style.display = "none";
+            document.getElementById("navbar_profile").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+        }
 
-//   // Only when the form has been submitted do you want the textbox value
-//   var inputTest = document.getElementById('userInput').value;
-//   localStorage.setItem( 'objectToPass', inputTest );
-
-//   window.location = "NEW URL";
+        else{
+          document.getElementById("navbar_signin").style.display = "block";
+          document.getElementById("navbar_profile").style.display = "none";
+          document.getElementById("logout").style.display = "none";
+        }
+  }
 
     </script>
 
