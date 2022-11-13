@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="captcha.css">
+
+    <link href="services.html"> 
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      
+        <title>Loan Verification</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <!-- Vendor CSS Files -->
+        <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+      </head>
+</head>
+<body class="center">
+    <div class="bigbox">
+        <h4>Please confirm your loan details</h4> 
+            <br> 
+        <div class="container">
+            <div class="row text-start"> 
+            <div class="col-lg-5 p-0">
+                <p>Loan Value: <br> <a id="LoanVal"></a></p>
+        
+                <p>Loan Term: <br> <a id="LoanYr"></a></p>
+        
+                <p>Interest Rate: <br> <a id="intRate"></a> </p>
+            </div> 
+
+            <div class="col-lg-7 pe-0">
+                <p class="mb-0">One time Processing Fee: <br> <a id="OTPF"></a></p>
+
+                <p class="mt-2">Total Repayment: <br> <a id="TotRep"></a></p> 
+
+                <p class="mt-2">Monthly Repayment: <br> <a id="MonRep"></a></p>
+            </div>
+            </div>
+        </div> 
+        
+    </div>
+
+            <!-- <h1 id="captchaHeading">
+                Captcha Validator Using HTML, CSS and JavaScript
+            </h1> -->
+            <div id="captchaBackground">
+                <canvas id="captcha" class="text-dark">captcha text</canvas>
+                <input type="text" id="textBox" class="form-control">
+                <div id="button"> 
+                    <button id="submitButton" class="btn btn-outline-success me-1" type="button">Submit</button>
+                    <button id="refreshButton" class="btn btn-outline-primary" type="button">Refresh</button>
+                </div>
+                <span id="output"></span>
+            </div>
+     
+
+        <div class="d-flex justify-content-center"> 
+            <a href="services.html"> <button  class="btn btn-outline-danger me-6"> Cancel </button> </a>
+        </div>
+    
+    <script src="captcha.js"></script>
+    <script> 
+    // call text box 
+    var inputTest = localStorage.getItem('valueToPass');
+    var displayData = inputTest;
+    //   alert('Inserted Data' + inputTest);
+    var loanholder = document.getElementById("LoanVal"); 
+    loanholder.innerHTML=inputTest;
+
+  localStorage.removeItem( 'valueToPass' ); // Clear the localStorage
+  </script> 
+
+</body>
+</html>
