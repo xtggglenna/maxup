@@ -256,7 +256,11 @@
 
     localStorage.setItem('valueToPass', 'S$ '+inputTest); 
     localStorage.setItem('yearToPass', numyear +' year(s)'); 
-    window.location="captcha.html"; 
+    localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML); 
+    localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML)
+    localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)
+    localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML)
+    window.location="captcha.html, myloandetails.html"; 
   })
 
   function check(){
