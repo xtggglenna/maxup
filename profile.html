@@ -170,12 +170,48 @@
 
             <div class="blog-author d-flex align-items-center">
               <div>
-                <h4>Past Loan Transactions</h4>
+                <h4>Past Loan-Related Transactions</h4> 
+              </br>
+                <select class="form-select" aria-label="Default select example" id="selectAccLoanHistory">
+                </select>
+                <label for="startDate" class="col control-label">From the Month of:</label>
+                                  <select class="form-select" aria-label="Default select example" name="startDate" id="startDate">
+                                      <option value="" selected>Select Month Below</option>
+                                      <option value="2022-01-01 00:00:00">January</option>
+                                      <option value="2022-02-01 00:00:00">February</option>
+                                      <option value="2022-03-01 00:00:00">March</option>
+                                      <option value="2022-04-01 00:00:00">April</option>
+                                      <option value="2022-05-01 00:00:00">May</option>
+                                      <option value="2022-06-01 00:00:00">June</option>
+                                      <option value="2022-07-01 00:00:00">July</option>
+                                      <option value="2022-08-01 00:00:00">August</option>
+                                      <option value="2022-09-01 00:00:00">September</option>
+                                      <option value="2022-10-01 00:00:00">October</option>
+                                      <option value="2022-11-01 00:00:00">November</option>
+                                      <option value="2022-12-01 00:00:00">December</option>
+                                  </select>
+  
+                                  <label for="endDate" class="col control-label">To the Month of:</label>
+                                  <select class="form-select" aria-label="Default select example" name="endDate" id="endDate">
+                                      <option value="" selected>Select Month Below</option>
+                                      <option value="2022-01-31 00:00:00">January</option>
+                                      <option value="2022-02-28 00:00:00">February</option>
+                                      <option value="2022-03-31 00:00:00">March</option>
+                                      <option value="2022-04-30 00:00:00">April</option>
+                                      <option value="2022-05-31 00:00:00">May</option>
+                                      <option value="2022-06-30 00:00:00">June</option>
+                                      <option value="2022-07-31 00:00:00">July</option>
+                                      <option value="2022-08-31 00:00:00">August</option>
+                                      <option value="2022-09-30 00:00:00">September</option>
+                                      <option value="2022-10-31 00:00:00">October</option>
+                                      <option value="2022-11-30 00:00:00">November</option>
+                                      <option value="2022-12-31 00:00:00">December</option>
+                                  </select>
                 <br>
                 <table id = "loandetails" class = "table">
-               
                 </table>
                 <span ></span>
+                <button type="button" class="btn btn-primary" onclick  = getLoans()> Submit </button>
               </div>
             </div><!-- End blog author bio -->
             
@@ -459,7 +495,7 @@
                        account = AccountList.account;
 
                        var recordCount = getRecordCount(AccountList);
-                       
+                       var selectcode = "";
                        var htmlcode = "<tr>    <th> Account Number </th>   <th> Currency </th>  <th> Balance </th>  <th> Interest Rate </th>           <th> Opening Date </th>        <th> Status </th>                  </tr>"
                       var x = 0
                         for(var i = 0; i < recordCount; i++){
@@ -476,9 +512,11 @@
                             htmlcode += "<td>" + acc.currentStatus + "</td>";
                             htmlcode += "</tr>";
                             
+                            selectcode += "<option value='" + acc.accountID + "''>" + acc.accountID + "</option>"
                           }
                         }
                         document.getElementById("bankdetails").innerHTML = htmlcode;
+                        document.getElementById("selectAccLoanHistory").innerHTML = selectcode;
                         sessionStorage.setItem("recordCount", x)
                    }
 
@@ -669,21 +707,157 @@
         xmlHttp.send();
 
         getBank();
-
-        getLoans();
     }
 
     //call current loans 
-    var inputTest = localStorage.getItem('valueToPass');
-        var inputTest2 = localStorage.getItem('yearToPass'); 
-        var loanholder = document.getElementById("LoanVal"); 
-        loanholder.innerHTML=inputTest;
-        document.getElementById("LoanYear").innerHTML=inputTest2; 
+    //var inputTest = localStorage.getItem('valueToPass');
+      //  var inputTest2 = localStorage.getItem('yearToPass'); 
+      //  var loanholder = document.getElementById("LoanVal"); 
+ //       loanholder.innerHTML=inputTest;
+ //       document.getElementById("LoanYear").innerHTML=inputTest2; 
 
-        document.getElementById("intRate").innerHTML=localStorage.getItem('intToPass');
-        document.getElementById("OTPF").innerHTML=localStorage.getItem('OTPFtoPass');
-        document.getElementById("TotRep").innerHTML=localStorage.getItem('TotRepToPass');
-        document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
+     //   document.getElementById("intRate").innerHTML=localStorage.getItem('intToPass');
+     //   document.getElementById("OTPF").innerHTML=localStorage.getItem('OTPFtoPass');
+     //   document.getElementById("TotRep").innerHTML=localStorage.getItem('TotRepToPass');
+       // document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
+
+function getLoans(){
+
+  function getApiURL(){
+    var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+    return ApiURL;
+  }
+
+
+  userID = sessionStorage.getItem("userID")
+  PIN = sessionStorage.getItem("pin")
+  
+
+    var selectedAcc = document.getElementById("selectAccLoanHistory").value
+    var startDate = document.getElementById("startDate").value
+    var endDate = document.getElementById("endDate").value
+
+
+  var headerObj = {
+
+    Header: {
+        serviceName:  "getTransactionHistory",
+        userID: userID,
+        PIN: PIN,
+        OTP: "999999"
+    }
+
+    };
+
+    var contentObj = {
+
+    Content: {
+
+        accountID: selectedAcc,
+        startDate: startDate,
+        endDate: endDate,
+        numRecordsPerPage: "10",
+        pageNum: "1"
+
+    }
+
+    };
+
+
+
+    var header = JSON.stringify(headerObj);
+    var content = JSON.stringify(contentObj);
+
+    var xmlHttp = new XMLHttpRequest();
+                    if (xmlHttp === null){
+                        alert("Browser does not support HTTP request.");
+                        return;
+                    }
+                    xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                    xmlHttp.timeout = 5000;
+                    
+                    // setup http event handlers
+                    xmlHttp.onreadystatechange = function() {
+                        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                            responseObj = JSON.parse(xmlHttp.responseText);
+                            serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                            globalErrorID = serviceRespHeader.GlobalErrorID;
+                            if (globalErrorID === "010041"){
+                                showOTPModal();
+                                return;
+                            }
+                            else if (globalErrorID !== "010000"){
+                                console.log(serviceRespHeader.ErrorDetails);
+                                return;
+                            }
+                            
+                            // get data
+                            CDMTransactionDetail = responseObj.Content.ServiceResponse.CDMTransactionDetail;
+                            transaction_Detail = CDMTransactionDetail.transaction_Detail;
+                            
+                            var recordCount = getRecordCount(CDMTransactionDetail);
+                            
+                            // display data
+                            var htmlcode = "";
+                            htmlcode = `<thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Transaction ID</th>
+                                                <th>Account From</th>
+                                                <th>Transaction Amount</th>
+                                                <th>Account To</th>
+                                                <th>Reference Number</th>
+                                                <th>Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="account_table">
+                                        </tbody>`
+                            for(var i = 0; i < recordCount; i++){
+                                var d = (recordCount===1)?transaction_Detail:transaction_Detail[i];
+
+
+                                if(d.narrative == "Investment Loan from MAXUP" || d.narrative == "Investment Loan"){
+                                htmlcode += "<tr>";
+                                htmlcode += "<td>" + d.transactionDate + "</td>";
+                                htmlcode += "<td>" + d.transactionID + "</td>";
+                                // htmlcode += "<td>" + d.transactionType + "</td>";
+                                // htmlcode += "<td>" + d.bankID_from + "</td>";
+                                htmlcode += "<td>" + "MAXUP" + "</td>";
+                                htmlcode += "<td>" + d.transactionAmount + "</td>";
+                                // htmlcode += "<td>" + d.bankID_to + "</td>";
+                                htmlcode += "<td>" + d.accountTo + "</td>";
+                                // htmlcode += "<td>" + d.exchangeRate + "</td>";
+                                // htmlcode += "<td>" + d.currency + "</td>";
+                                // htmlcode += "<td>" + d.quoteCurrency + "</td>";
+                                htmlcode += "<td>" + d.transactionReferenceNumber + "</td>";
+                                htmlcode += "<td>" + d.narrative + "</td>";
+                                htmlcode += "</tr>";
+                                }
+                            }
+                            
+                            document.getElementById("loandetails").innerHTML = htmlcode;
+                          
+                        }
+                    };
+                    xmlHttp.ontimeout = function (e) {
+                        showErrorModal("Timeout invoking API.");
+                        return;
+                    };					
+    
+                    // send the http request
+                    xmlHttp.send();
+
+              function getRecordCount(CDMTransactionDetail) {
+                if (Object.keys(CDMTransactionDetail).length === 0){
+                    document.getElementById("loandetails").innerHTML = "<tr> <td> Customer has no transaction history </td> </tr> ";
+                    return 0;
+                }
+                if (CDMTransactionDetail.transaction_Detail.length === undefined)
+                    return 1;
+                return CDMTransactionDetail.transaction_Detail.length;
+            }
+
+}
 
 </script>
 </html>
