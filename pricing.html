@@ -171,7 +171,7 @@
                         <label>
                           Stocks available 
                         </label>
-                        <select id="stocksectors" class="form-select" aria-label="Default select example"  name="stocksectors[]" multiple="multiple" required >
+                        <select id="stocksectors" class="form-select"   name="stocksectors[]" multiple="multiple" required >
                           <option selected value="" disabled>Choose 5 Stocks</option>
                           
                         </select>
@@ -463,7 +463,11 @@
             <div class="row mt-5 justify-content-center" data-aos="fade-up">
               <div class="col-lg-10">
                       <div>
-                        <p id="acctfrm">Account From:</p>
+                        <p> Account From:  <select class="form-select" aria-label="Default select example" id="selectAccLoanHistory">
+                          <option value = "9107"> 0000009107 </option>
+                          <option value = "9091"> 0000009091 </option>
+                        </select></p>
+
                         <p>Account To: MAXUPACC</p>
                         <p id="transamt">Transaction Amount: </p>
                         <p>Narrative: Purchase of stocks</p>
@@ -651,7 +655,7 @@
                       var contentObj = {
                           Content: {
                               accountFrom: sessionStorage.getItem('bankaccount1'),
-                              accountTo: '9184',
+                              accountTo: '9959',
                               transactionAmount: sessionStorage.getItem('tramt'),
                               transactionReferenceNumber: transactionReferenceNumber,
                               narrative: narrative
