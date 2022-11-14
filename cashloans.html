@@ -246,23 +246,23 @@
       
                       // set service header values
                       var serviceName = "creditTransfer";
-                      var userID = document.getElementById("userID").value;
+                      var userID = "MAXUPACC";
                       setUserID(userID);
-                      var PIN = document.getElementById("PIN").value;
+                      var PIN = 999999;
                       setPIN(PIN);
                       
                       // get and validate form values
-                      var accountFrom = 9083;
+                      var accountFrom = 9959;
                       if (accountFrom === ""){
                           alert("Account FROM cannot be blank.");
                           return;  
                       }
-                      var accountTo = 9116;
+                      var accountTo = 9107;
                       if (accountTo === ""){
                           alert("Account TO cannot be blank.");
                           return;  
                       }
-                      var transactionAmount = 500;
+                      var transactionAmount = 50000;
                       if (transactionAmount === ""){
                           alert("Transaction Amount cannot be blank.");
                           return;  
@@ -287,8 +287,8 @@
                               accountFrom: accountFrom,
                               accountTo: accountTo,
                               transactionAmount: transactionAmount,
-                              transactionReferenceNumber: transactionReferenceNumber,
-                              narrative: narrative
+                              transactionReferenceNumber: 111,
+                              narrative: "Credit Transfer"
                           }
                       };
                       var header = JSON.stringify(headerObj);
@@ -345,7 +345,6 @@
       
                   })();
               });
-      
               /* ----------------------------------------
                * error model close button clicked
                */
@@ -354,7 +353,6 @@
                       document.getElementById("Send").disabled = false;
                   })();
               });
-      
               /* ----------------------------------------
                * OTP model update button clicked
                */
@@ -367,9 +365,7 @@
                       });
                   })();
               });
-      
           });
-      
       </script>
 
 </body>
