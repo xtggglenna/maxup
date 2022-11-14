@@ -45,7 +45,8 @@ submitButton.addEventListener('click', function() {
         addBeneficiary()
         creditTransfer()
          output.innerHTML = "Correct!";
-         alert("Congratulations! Your Loan Application is Successful!");
+         if(confirm("Congratulations! Your Loan Application is Successful!")) document.location = 'myloandetails.html';
+         
 //
     } else {
         output.classList.add("incorrectCaptcha");
@@ -83,7 +84,7 @@ function addBeneficiary(){
    
     // get and validate form values
 
-    var AccountID = sessionStorage.getItem("chosenAcc")
+    var AccountID = sessionStorage.getItem("accountToXfer")
     var Description = sessionStorage.getItem("username")
 
 
@@ -150,11 +151,14 @@ function addBeneficiary(){
             else if (globalErrorID !== "010000"){
 
                 console.log(serviceRespHeader.ErrorDetails);
-
+                
                 return;
 
             }
 
+            else{
+                console.log("success 2")
+            }
         }
 
     };
@@ -184,9 +188,7 @@ function creditTransfer(){
     PIN = "999999"
     OTP = "999999"
 
-    var accountFrom = "9959"
-    var accountTo = sessionStorage.getItem("chosenAcc")
-    accountTo = "9107"
+    var accountTo = sessionStorage.getItem("accountToXfer")
     var transactionAmount = localStorage.getItem("valueToPass")
     var transactionReferenceNumber = "0"
     var narrative = "Investment Loan of amount " + transactionAmount + " from MAXUP"
@@ -211,7 +213,7 @@ function creditTransfer(){
 
                    Content: {
 
-                       accountFrom: accountFrom,
+                       accountFrom: "9959",
 
                        accountTo: accountTo,
 
@@ -276,9 +278,9 @@ function creditTransfer(){
 
                        }
 
-                       
-
-                       // get data
+                       else{
+                        console.log("success 1")
+                    }
 
                        transactionID = responseObj.Content.ServiceResponse.TransactionID._content_;
 
