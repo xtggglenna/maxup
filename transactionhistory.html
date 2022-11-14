@@ -86,12 +86,9 @@
                   <th>Date</th>
                   <th>Transaction ID</th>
                   <th>Transaction Name</th>
-                  <th>Bank ID From</th>
                   <th>Account From</th>
                   <th>Transaction Amount</th>
-                  <th>Bank ID To</th>
                   <th>Account To</th>
-                  <th>Exchange Rate</th>
                   <th>Currency</th>
                   <th>Quote Currency</th>
                   <th>Reference Number</th>
@@ -290,8 +287,6 @@
         }
     
         function showErrorModal(errorMessage) {
-            document.getElementById("errorMsg").innerHTML = errorMessage;
-            $('#errorModal').modal('show');
         }
     
         $(document).ready(function(){
@@ -351,19 +346,24 @@
                     // disable Send button
                     // document.getElementById("Send").disabled = true;
                     $("#account_table").html("");
+
+
+                    userID = sessionStorage.getItem("userID");
+                    pin = sessionStorage.getItem("pin");
+
     
                     // set request parameters
                     var headerObj = {
                         Header: {
                             serviceName: serviceName,
-                            userID: "glenna",
-                            PIN: "090701",
+                            userID: userID,
+                            PIN: pin,
                             OTP: "999999"
                         }
                     };
                     var contentObj = {
                         Content: {
-                            accountID: "9164",
+                            accountID: "9107",
                             startDate: "2021-11-11 00:00:00",
                             endDate: "2022-14-11 00:00:00",
                             numRecordsPerPage: "10",
@@ -394,35 +394,32 @@
                                 return;
                             }
                             else if (globalErrorID !== "010000"){
-                                showErrorModal(serviceRespHeader.ErrorDetails);
+                                console.log(serviceRespHeader.ErrorDetails);
                                 return;
                             }
                             
                             // get data
                             CDMTransactionDetail = responseObj.Content.ServiceResponse.CDMTransactionDetail;
                             transaction_Detail = CDMTransactionDetail.transaction_Detail;
-                            console.log(transaction_Detail)
                             var recordCount = getRecordCount(CDMTransactionDetail);
-                            console.log(recordCount)
-                            // display data
                             var htmlcode = "";
                             for(var i = 0; i < recordCount; i++){
                                 var d = (recordCount===1)?transaction_Detail:transaction_Detail[i];
-                                htmlcode += "<tr>";
-                                htmlcode += "<td>" + d.transactionDate + "</td>";
-                                htmlcode += "<td>" + d.transactionID + "</td>";
-                                htmlcode += "<td>"  + newtranlist[d.transactionType]["TransactionTypeName"] +  "</td>";
-                                htmlcode += "<td>" + d.bankID_from + "</td>";
-                                htmlcode += "<td>" + d.accountFrom + "</td>";
-                                htmlcode += "<td>" + d.transactionAmount + "</td>";
-                                htmlcode += "<td>" + d.bankID_to + "</td>";
-                                htmlcode += "<td>" + d.accountTo + "</td>";
-                                htmlcode += "<td>" + d.exchangeRate + "</td>";
-                                htmlcode += "<td>" + d.currency + "</td>";
-                                htmlcode += "<td>" + d.quoteCurrency + "</td>";
-                                htmlcode += "<td>" + d.transactionReferenceNumber + "</td>";
-                                htmlcode += "<td>" + d.narrative + "</td>";
-                                htmlcode += "</tr>";
+
+                                if(d.narrative == "Purchase of stocks" || d.accountFrom == "0000009107"){
+                                    htmlcode += "<tr>";
+                                    htmlcode += "<td>" + d.transactionDate + "</td>";
+                                    htmlcode += "<td>" + d.transactionID + "</td>";
+                                    htmlcode += "<td>"  + newtranlist[d.transactionType]["TransactionTypeName"] +  "</td>";
+                                    htmlcode += "<td>" + d.accountFrom + "</td>";
+                                    htmlcode += "<td>" + d.transactionAmount + "</td>";
+                                    htmlcode += "<td>" + d.accountTo + "</td>";
+                                    htmlcode += "<td>" + d.currency + "</td>";
+                                    htmlcode += "<td>" + d.quoteCurrency + "</td>";
+                                    htmlcode += "<td>" + d.transactionReferenceNumber + "</td>";
+                                    htmlcode += "<td>" + d.narrative + "</td>";
+                                    htmlcode += "</tr>";
+                                }
                                 // htmlcode += "<td>" + getTransactionTypeName(d.transactionType) + "</td>";
     
                             }
@@ -497,13 +494,7 @@
 
   window.sessionStorage
 
-  if(sessionStorage.getItem("username") != null){
-    document.getElementById("welcomesg").style.display = "block";
-    document.getElementById("welcomesg").innerHTML= "Welcome, " + sessionStorage.getItem("username") ;
-  }
-  else{
-    document.getElementById("welcomesg").style.display = "none";
-  }
+
   function logout(){
         sessionStorage.clear();
         window.location.href = "index.html";
