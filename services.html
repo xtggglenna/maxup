@@ -85,11 +85,11 @@
     <section id="services" class="services">
       <div class="container">
 
-            <div class="icon-box" data-aos="fade-up">
+            <div class="icon-box pb-4" data-aos="fade-up">
               <div class="icon"><i class="bi bi-bank"></i></div>
               <h4 class="title"><a href="cashloans.html">Investment Loan</a></h4>
               <p class="description">Never worry about your investment capital anymore, loan with us now!</p>
-              <p> My Credit Score </p>
+              <p id="showscore" class="fw-bold"></p>
               <a href="myloandetails.html">See My Current Loans</a>
             </div>
    
@@ -299,6 +299,11 @@
           document.getElementById("logout").style.display = "none";
         }
   }
+
+
+  if(sessionStorage.getItem("creditscore") != null){ 
+          document.getElementById("showscore").innerHTML = "Your Credit Score is: "+sessionStorage.getItem("creditscore"); 
+        }
     </script>
 
 </body>
