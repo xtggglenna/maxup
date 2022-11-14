@@ -279,40 +279,54 @@
     var inputTest2 = document.getElementById("box2");
     var numyear = inputTest2.value;   
 
-    localStorage.setItem('valueToPass',inputTest) 
-    if(localStorage.setItem('valueToPass',inputTest) != null){ 
-      localStorage.setItem('valueToPass2',inputTest);
-    }
+    
+    if(localStorage.getItem('valueToPass') == null){ 
+      localStorage.setItem('valueToPass',inputTest)}
+    
+    else if(localStorage.getItem('valueToPass') != null){ 
+    localStorage.setItem('valueToPass2',inputTest)}
 
-    localStorage.setItem('yearToPass', numyear +' year(s)')
-    if(localStorage.setItem('yearToPass', numyear +' year(s)') != null){ 
-      localStorage.setItem('yearToPass2', numyear +' year(s)'); 
+    
+    if(localStorage.getItem('yearToPass') == null){ 
+      localStorage.setItem('yearToPass', numyear +' year(s)'); 
     }
+    else if(localStorage.getItem('yearToPass') != null){
+    localStorage.setItem('yearToPass2', numyear +' year(s)')}
 
-    localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML)
-    if(localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML) != null){ 
-      localStorage.setItem('intToPass', document.getElementById("intRate2").innerHTML); 
+    
+    if(localStorage.getItem('intToPass') == null){ 
+      localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML); 
     }
+    else if(localStorage.getItem('intToPass') != null){
+      localStorage.setItem('intToPass2', document.getElementById("intRate2").innerHTML)} 
 
-    localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML)
-    if(localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML) != null){ 
-      localStorage.setItem('OTPFtoPass',document.getElementById("OTPF2").innerHTML);
+    
+    if(localStorage.getItem('OTPFtoPass') == null){ 
+      localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML);
     }
+    else if(localStorage.getItem('OTPFtoPass') != null){
+      localStorage.setItem('OTPFtoPass2',document.getElementById("OTPF2").innerHTML)} 
 
-    localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)
-    if(localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)!= null){ 
-      localStorage.setItem('TotRepToPass',document.getElementById("TotRep2").innerHTML);
+    
+    if(localStorage.getItem('TotRepToPass')== null){ 
+      localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML);
     }
+    else if(localStorage.getItem('TotRepToPass')!= null){ 
+      localStorage.setItem('TotRepToPass2',document.getElementById("TotRep2").innerHTML)}
 
-    localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML)
-    if(localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML) != null){ 
-      localStorage.setItem('MonRepToPass',document.getElementById("MonRep2").innerHTML);
+    
+    if(localStorage.getItem('MonRepToPass') == null){ 
+      localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML);
     }
+    else if(localStorage.getItem('MonRepToPass') != null){ 
+      localStorage.setItem('MonRepToPass2',document.getElementById("MonRep2").innerHTML)} 
 
-    sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value)
-    if(sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value) != null){ 
-      sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect2").value)
-    }
+   
+    if(sessionStorage.getItem('accountToXfer') == null){ 
+      sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value)
+    } 
+    else if(sessionStorage.getItem('accountToXfer') != null){
+      sessionStorage.setItem('accountToXfer2',document.getElementById("accountSelect2").value)}
     
        //alert section 
        var amount = document.getElementById("box1").value; 
