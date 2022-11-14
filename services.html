@@ -113,24 +113,24 @@
               </br> 
             <div class="text-start ps-4"> 
                   <div class ="row"> 
-                      <div class="col-lg-5 p-0"> 
+                      <div class="col-lg-6 p-0"> 
                         <form id="formTest">
-                        <label class="p-2">Loan Value (SGD $)</label>
+                        <label for="box1" class="p-2">Loan Value (SGD $)</label>
                       </div> 
 
-                      <div class="col-lg-7"> 
-                        <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
+                      <div class="col-lg-6"> 
+                        <input class="form-control" id="box1" type="number" min="500" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
                         <p style="color:grey; font-size: x-small; text-align:left;" class="ms-2 mt-1">Minimum Amount $500</p>
                         </form>
                       </div>
                   </div>
                   <!-- close loan value box -->
                     <div class="row">
-                      <div class="col-lg-5 p-0"> 
+                      <div class="col-lg-6 p-0"> 
                         <label class="p-2">Term Loan (Year) </label>
                       </div>
 
-                      <div class="col-lg-7">
+                      <div class="col-lg-6">
                           <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();monthlyrepayment()" >
                               <option value="1" selected="selected">1 Year</option>
                               <option value="2">2 Years</option>
@@ -142,16 +142,16 @@
                       </div>
                     </div> 
                     <!-- close term loan box -->
-                      <div class="col-lg-7">
+                      <div class="col-lg-6">
                         <p></p>
                       </div>
 
                     <div class="row">
-                      <div class="col-lg-5 p-0"> 
+                      <div class="col-lg-6 p-0"> 
                         <label class="p-2"> Account To Transfer To </label>
                       </div>
 
-                      <div class="col-lg-7">
+                      <div class="col-lg-6">
                       
                           <select class="form-select text-secondary col-lg-4" aria-label="Default select example" 
                           id="accountSelect" >
@@ -302,7 +302,28 @@
 
 
   if(sessionStorage.getItem("creditscore") != null){ 
-          document.getElementById("showscore").innerHTML = "Your Credit Score is: "+sessionStorage.getItem("creditscore"); 
+          var creditsc = sessionStorage.getItem("creditscore"); 
+          document.getElementById("showscore").innerHTML = "Your Credit Score is: "+creditsc; 
+
+          // if(creditsc < 730){ 
+          //   document.getElementById("box1").setAttribute("max", "10,000"); 
+          // }
+          // else if (creditsc > 739 && creditsc <800 ){ 
+          //   document.getElementById("box1").setAttribute("max", "20,000"); 
+          // }
+          // else{ 
+          //   document.getElementById("box1").setAttribute("max", "100,000"); 
+          // }
+
+          if(creditsc < 730){ 
+            document.getElementById("box1").max = 10,000; 
+          }
+          else if (creditsc > 739 && creditsc <800 ){ 
+            document.getElementById("box1").max= 20,000; 
+          }
+          else{ 
+            document.getElementById("box1").max=100,000; 
+          }
         }
 
   function getAccounts(){
