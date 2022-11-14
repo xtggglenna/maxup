@@ -105,8 +105,6 @@
         </div>
       </section>
       <!-- End Services Section -->
-
-
       <section id="services2" class="services">
       
       </section>
@@ -127,6 +125,9 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script> 
+
+  
+
     // call text box 
     var inputTest = localStorage.getItem('valueToPass');
     var inputTest2 = localStorage.getItem('yearToPass'); 
@@ -134,14 +135,16 @@
     loanholder.innerHTML+=inputTest;
     document.getElementById("LoanYear").innerHTML=inputTest2; 
 
+
     document.getElementById("intRate").innerHTML=localStorage.getItem('intToPass');
-    document.getElementById("OTPF").innerHTML=localStorage.getItem('OTPFtoPass');
     document.getElementById("TotRep").innerHTML=localStorage.getItem('TotRepToPass');
+    document.getElementById("OTPF").innerHTML=localStorage.getItem('OTPFtoPass');
     document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
 
     // call text box 2 
     var inputTest01 = localStorage.getItem('valueToPass2');
     var inputTest02 = localStorage.getItem('yearToPass2'); 
+
 
     if (inputTest01 != null){ 
       document.getElementById("services2").innerHTML=

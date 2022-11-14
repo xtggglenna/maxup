@@ -167,6 +167,21 @@
                 
               </div>
             </div><!-- End blog author bio -->
+            <div class="blog-author d-flex align-items-center">
+              <div>
+                <h4>Paid Loans Amount</h4>
+                <br>
+                <table id = "repayment_det" class = "table">
+               
+                </table>
+                <span ></span>
+
+                <br> 
+                <span id = "loanpay"><i> No loans yet </i> </span>
+                <!-- <a href="myloandetails.html" class="btn btn-light" role="button">Loan Details</a> -->
+
+              </div>
+            </div><!-- End blog author bio -->
 
             <div class="blog-author d-flex align-items-center">
               <div>
@@ -325,18 +340,12 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
 </body>
-
 <script>
     function logout(){
         sessionStorage.clear();
         window.location.href = "index.html";
     }
-
-    
-    
-
 
     function getBank(){
 
@@ -408,7 +417,25 @@
 
                        }
 
-                       
+                       var tablecode = "<tr>    <th> Loan Number </th>  <th> Balance To Be Paid </th>  <th> Interest Rate </th>      <th> Action </th>                  </tr>";
+                       tablecode += "<tr>";
+                        if(localStorage.getItem("MonRepToPass") != null){
+                        tablecode += "<td>" + "1" + "</td>";
+                        }
+                        if(sessionStorage.getItem("Repayment")!=null){
+
+                          var ttl = localStorage.getItem("TotRepToPass");
+                          var rep = sessionStorage.getItem("Repayment");
+                          var calc = ttl - rep;
+
+                        tablecode += "<td> " + calc + "</td>";
+                        }
+                        tablecode += "<td>" + localStorage.getItem("intToPass") + "</td>";
+                        tablecode += "<td>" + "<a href='payloans.html'>"+ "Pay Now" + "</a>"+ "</td>";
+
+                        tablecode += "</tr>";
+
+                       document.getElementById("repayment_det").innerHTML = tablecode;
 
                        // get data
 
@@ -424,7 +451,7 @@
                             var acc = (recordCount===1)?account:account[i];
                             if(acc.productID == "101"){
                               x += 1
-                             sessionStorage.setItem("bankaccount"+i,  acc.accountID)
+                            sessionStorage.setItem("bankaccount"+i,  acc.accountID)
                             htmlcode += "<tr>";
                             htmlcode += "<td>" + acc.accountID + "</td>";
                             htmlcode += "<td>" + acc.currency + "</td>";
@@ -491,6 +518,16 @@
       if(sessionStorage.getItem("creditscore") != null){
         document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
         document.getElementById("currentloans").innerHTML = "Or apply for a new loan <a href = 'services.html'> here</a>"
+      }
+
+      if(localStorage.getItem("MonRepToPass") != null){
+        document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
+        document.getElementById("loanpay").innerHTML = "No paid loans yet, pay your loan now <a href = 'payloans.html'> here</a>"
+      }
+
+      if(sessionStorage.getItem("Repayment") != null){
+        document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
+        document.getElementById("loanpay").innerHTML = ""
       }
     }
 
