@@ -37,29 +37,32 @@
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 
-<body>
+<body onload="check()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex justify-content-between">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html">MaxUp</a></h1>
+        <h1 class="text-light"><a href="index.html">MAXUP</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <!-- <li><a href="about.html">About</a></li> -->
-          <li><a href="services.html">LoanMe</a></li>
-          <li><a class="active" href="pricing.html">Portfolio</a></li>
+          <li><a  href="index.html">Home</a></li>
+          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+          <li><a  href="services.html">LoanMe</a></li>
+          <li><a class ="active" href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="transactionhistory.html">Transactions</a></li>
+          <li id = "logout"><a onclick = "logout()">Logout </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -74,7 +77,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Risk Preferece</h2>
+          <h2>Risk Preference</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Portfolio</li>
@@ -92,12 +95,12 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="box" data-aos="fade-right">
-              <h3>Convervative</h3>
+              <h3>Conservative</h3>
               <ul>
                 <li>Your priority is to keep your portfolio balance up with inflation, but not to increase its real value</li><br><br>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy"  data-toggle="modal" data-target="#exampleModal">SELECT</a>
+                <a href="#" id="conservative" class="btn-buy"  data-toggle="modal" data-target="#exampleModal" onclick="getValue(this)">SELECT</a>
               </div>
             </div>
           </div>
@@ -108,8 +111,8 @@
               <ul>
                 <li>With a balanced risk profile, you prefer to take a moderate level of risk under normal market conditions to increase your potential medium-to-long term returns.<br></li>
               </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy" data-toggle="modal" data-target="#exampleModal">SELECT</a>
+              <div class="btn-wrap Send">
+                <a href="#" class="btn-buy" id="balance" data-toggle="modal" data-target="#exampleModal" onclick="getValue(this)">SELECT</a>
               </div>
             </div>
           </div>
@@ -126,7 +129,7 @@
                 <li>Massa ultricies mi</li> -->
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy"  data-toggle="modal" data-target="#exampleModal">SELECT</a>
+                <a href="#" class="btn-buy"  id="growth" data-toggle="modal" data-target="#exampleModal" onclick="getValue(this)">SELECT</a>
               </div>
             </div>
           </div>
@@ -142,11 +145,12 @@
     </button> -->
 
     <!-- Modal -->
+    <form id="formmodal">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Generate Portfolio</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Portfolio Risk Chosen: </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -154,78 +158,284 @@
           <div class="modal-body">
             <div class="row mt-5 justify-content-center" data-aos="fade-up">
               <div class="col-lg-10">
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                   <div class="row">
                     <div class="col-md-6 form-group">
                       <!-- need to get api to generate stock industries -->
                       <!-- <input type="text" name="name" class="form-control" id="name" placeholder="Choose Industries" required> -->
                       <div class="dropdown">
-                        <select class="form-select" onchange="filterbyindustry(value)" aria-label="Default select example" id="stocksectors">
+                        <!-- <select class="form-select" onchange="filterbyindustry(value)" aria-label="Default select example" id="stocksectors">
                           <option selected value="">Choose Industries</option>
                          
+                        </select> -->
+                        <label>
+                          Stocks available 
+                        </label>
+                        <select id="stocksectors" name="stocksectors[]" multiple="multiple" required >
+                          <option selected value="" disabled>Choose 5 Stocks</option>
+                          
                         </select>
-
-              
+                        <p class="text-danger" id="choosestocks"></p>
                       </div>
                     </div>
                     <div class="col-md-6 form-group mt-3 mt-md-0">
                       <!-- need to get api to generate stocks in the industry  -->
                       <!-- <input type="email" class="form-control" name="email" id="email" placeholder="Choose 5 Stocks" required> -->
-                      <select disabled class="form-select" aria-label="Default select example" placeholder="Choose 5 Stocks" id="stocksbyindustry">
+                      <!-- <select disabled class="form-select" aria-label="Default select example" placeholder="Choose 5 Stocks" id="stocksbyindustry">
                         <option selected value="">Choose 5 Stocks</option>
                        
-                      </select>
+                      </select> -->
                     </div>
                   </div>
                   <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Investment Amount ($)" required>
+                    <input type="text" class="form-control" name="customeramount" id="customeramount" placeholder="Investment Amount ($)" required>
+                    <p class="text-danger" id="nomoney"></p>
+                    
                   </div>
-               
-
-                </form>
+                
               </div>
     
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a class="nav-link scrollto active" href="#cta-pricing"><button type="button" class="btn btn-primary" onclick="generateportfolio()" data-dismiss="modal">
+            <a class="nav-link scrollto active" href="#cta-pricing"><button type="submit" class="btn btn-primary"  onclick="generateportfolio()" data-dismiss="modal">
               Generate Portfolio</button></a>
           </div>
+        
         </div>
       </div>
     </div>
+
+    
+  </form>
     <script>
+      userID = sessionStorage.getItem("userID")
+      console.log(userID)
+      accountFrom = sessionStorage.getItem("bankaccount1")
+      PIN = sessionStorage.getItem("pin")
+      accountTo = '9959'
+      // customerAAmount = 0
+      function getValue(val){
+        let selectedrisk = val.id;
+        globalThis.selectedrisk = selectedrisk     
+
+      }
+
+      function getRandomDecimal(max) {
+        
+        return Math.floor(Math.random() * max)
+      }
       
+
+
+      function shuffle(array) {
+        let currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element.
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+      }
+       
+      
+
+      //console.log(getRandomDecimal(total))
+      function randomiseSecondDecimal(){
+        store_arr = []
+        remaining = 10
+        while (remaining > 0){
+
+          if (remaining == 1){
+            remaining -=1
+            store_arr.push(0.01)
+          }
+          next_return = getRandomDecimal(remaining)
+          if (next_return != 0){
+            store_arr.push(next_return/100)
+            remaining -= next_return  
+          }             
+        }
+        console.log(store_arr) 
+        if (store_arr.length >5 ){
+          randomiseSecondDecimal()
+        }
+        return store_arr
+      }
+
+      function risk(riskType, stockdictkeys){
+        portfolio = {}
+        for(k of stockdictkeys){
+          portfolio[k] = 0
+        }
+        console.log(portfolio)
+        // portfolio = {'AAPL':0, 'GOOG':0, 'TSLA':0, 'META':0, 'BABA':0}
+        conservative = [0.2, 0.1, 0.2, 0.3, 0.1] // proportionate
+
+
+        randomArr = randomiseSecondDecimal()
+        random_len = randomArr.length
+        balance = [0.3, 0.2, 0.1, 0.1, 0.2] // max of a stock proportion is 30%
+        growth = [0.4, 0.1, 0.1, 0.1,0.2] // stock proportion of a single can be above 40%
+
+        shuffle(selectedrisk)
+        console.log(shuffle(selectedrisk))
+        let i = 0
+
+        for([key, value] of Object.entries(portfolio) ){
+          if (selectedrisk == 'conservative'){
+            if(i< random_len){
+              portfolio[key] = parseFloat((conservative[i] + randomArr[i]).toFixed(2))
+            }else{
+              portfolio[key] = conservative[i] 
+            }i += 1    
+          } 
+          else if (selectedrisk == 'balance'){
+            if(i< random_len){
+              portfolio[key] = parseFloat((balance[i] + randomArr[i]).toFixed(2))
+            }else{
+              portfolio[key] = balance[i] 
+            }i += 1    
+          }       
+          else{
+            if(i< random_len){
+              portfolio[key] = parseFloat((growth[i] + randomArr[i]).toFixed(2))
+            }else{
+              portfolio[key] = growth[i] 
+            }i += 1    
+
+          }       
+        }
+        
+
+        const sum = Object.values(portfolio).reduce((accumulator, value) => {
+          return accumulator + value;
+        }, 0);
+        if (sum < 1){
+        for (k in portfolio){
+          portfolio[k] = parseFloat((portfolio[k]/sum).toFixed(3))
+        }
+        }
+        console.log(portfolio)
+        return portfolio
+
+      }
+
+      // document.getElementById("customeramount").addEventListener('change', doThing);
+      // function doThing(){
+      //   var stocks = $('#stocksectors option:selected')
+      //           .toArray().map(item => item.text);
+      //   if(stocks.length> 5 || stocks.length < 2){
+      //     document.querySelector('#portfoliobutton').disabled = false;
+      //   }
+      // }
+
       function generateportfolio() {
-          
+
+        var stocks = $('#stocksectors option:selected')
+                .toArray().map(item => item.text);
+        document.getElementById('choosestocks').innerHTML = ''
+        
+                
+        if (stocks.includes('Choose 5 Stocks')){
+            document.getElementById('choosestocks').innerHTML += 'Please choose stocks'
+        }
+        else if(stocks.length > 5 || stocks.length < 2){
+          console.log('hi')
+          document.getElementById('choosestocks').innerHTML += 'Select 2-5 stocks'
+        }
+        customeramount = document.getElementById('customeramount').value
+        console.log(customeramount)
+
+        if (customeramount == ''){
+          console.log('hi')
+          // document.getElementById('exampleModal').hidden = false
+
+          $("#exampleModal").on('hide.bs.modal', function(){
+            document.getElementById('nomoney').innerHTML = ''
+
+            document.getElementById('nomoney').innerHTML += 'Please enter an investment amount'
+            return false;
+          });
+          return false
+        }
+        else{
+          console.log($("#exampleModal"))
+          document.getElementById('exampleModal').style.display = 'none'
+          customeramount = document.getElementById('customeramount').value
+          console.log(customeramount)
+          globalThis.customerAAmount = customeramount
+          // document.getElementById('exampleModal').hidden = true
+          // document.getElementById('exampleModal').isContentEditable = true
+          // $("#exampleModal").modal('hide')
+          // document.getElementById('exampleModal').style.display = 'none'
+        }
+        // if (customeramount == ''){
+        //   $("#exampleModal").on('hide.bs.modal', function(){
+        //     document.getElementById('choosestocks').innerHTML = ''
+        //     document.getElementById('choosestocks').innerHTML += 'Please select 1-5 stocks'
+        //     return false;
+        //   });
+        //   return false
+        // }
+        // else if (customeramount < sessionStorage.getItem('amount')){
+        //   $("#exampleModal").on('hide.bs.modal', function(){
+        //     document.getElementById('nomoney').innerHTML = ''
+        //     document.getElementById('nomoney').innerHTML += 'Not enough money in bank. Click <a href="finloans.html">here</a> to loan'
+        //     return false;
+        //   });
+        //   return false
+        // }
+        
+        // else{
+        //     $("#exampleModal").on('hide.bs.modal', function(){
+        //     return true;
+        //   });
+        //   // return true
+        // }
+        
+        stockdict = {}
+        
+        for (stock of stocks){
+          stockarr = stock.split(", ")
+          stockdict[stockarr[0]] = stockarr[1]
+        }
+        console.log(stockdict)
+        // stockdict = {"A":0.3, "AAPL":0.5, "5PC.SI":0.2}/////////////tobedleted
+        stockdictkeys = Object.keys(stockdict)
+        console.log(stockdictkeys)
+        randportfolio =risk(selectedrisk, stockdictkeys) ///////
         document.getElementById('popportfolio').innerHTML += `
         <div id="donutchart" style=" height: 500px;"></div> 
                   <div class="container">
-                    <h3 class="display-4">Recommend Portfolio Weightage</h3>
-                    <p class="lead">AAPL 0.2</p>
-                    <p class="lead">GOOG 0.2</p>
-                    <p class="lead">TSLA 0.1</p>
-                    <p class="lead">META 0.3</p>
-                    <p class="lead">BABA 0.2</p>
-\                  
-                    <a href="#" class="nav-link scrollto active" data-toggle="modal" data-target="#accountModal">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <h3 class="display-4">Recommend Portfolio Weightage</h3>`
+
+        toinsertgoog = [['Stock', 'Weightage']]
+        
+        for(stock in randportfolio){
+          document.getElementById('popportfolio').innerHTML += `<p class="lead">${stock}: ${randportfolio[stock]}</p>`
+          toinsertgoog.push([stock,randportfolio[stock]])
+        }
+        console.log(toinsertgoog)
+        document.getElementById('popportfolio').innerHTML += `<a href="#" class="nav-link scrollto active" data-toggle="modal" data-target="#accountModal">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editpage()">
                         Confirm Order</button>
                     </a>
                   </div>
         `
+        
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Stock', 'Weightage'],
-            ['GOOG',     0.2],
-            ['GOOG',     0.2],
-            ['TSLA',      0.1],
-            ['META',  0.3],
-            ['BABA', 0.2]
-          ]);
+          var data = google.visualization.arrayToDataTable(toinsertgoog);
 
           var options = {
             title: 'Portfolio allocation',
@@ -251,18 +461,18 @@
           <div class="modal-body" data-aos="fade-up">
             <div class="row mt-5 justify-content-center" data-aos="fade-up">
               <div class="col-lg-10">
-                <form class="php-email-form">
-                    <div class="form-group">
-                      <!-- user id -->
-                        <label for="userID">User ID</label>
-                        <input id="userID" type="text" class="form-control"/>
-                    </div>
-                      <!-- pin -->
-                    <div class="form-group">
+                      <div>
+                        <p id="acctfrm">Account From:</p>
+                        <p>Account To: MAXUPACC</p>
+                        <p id="transamt">Transaction Amount: </p>
+                        <p>Narrative: Purchase of stocks</p>
+                      </div>
+                    <!-- <div class="form-group">
                         <label for="PIN">PIN</label>
                         <input id="PIN" type="password" class="form-control"/>
                     </div>
-                  <div class="form-group">
+                    <p class="text-danger" id="wrongpin"></p> -->
+                  <!-- <div class="form-group">
                     <div class="form-group">
                       <label for="accountFrom">Account From</label>
                       <input id="accountFrom" type="text" class="form-control"/>
@@ -283,21 +493,46 @@
                       <label for="narrative">Narrative</label>
                       <input id="narrative" type="text" class="form-control"/>
                     </div>
-                  </div>
+                  </div> -->
               </div>
             </div>
           </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a class="nav-link scrollto active " href="#cta-pricing" data-dismiss="modal"><button id="Send" type="button" class="btn btn-primary" >
+                    <a class="nav-link scrollto active " href="#cta-pricing" data-dismiss="modal"><button onclick="nextpage()" id="Send" type="button" class="btn btn-primary" >
                       Confirm</button></a>
                   </div>
-        </form>
+        <!-- </form> -->
 
         </div>
       </div>
     </div>
     <script type="text/javascript">
+      userID = sessionStorage.getItem("userID")
+      console.log(userID)
+      accountFrom = sessionStorage.getItem("bankaccount1")
+      PIN = sessionStorage.getItem("pin")
+      accountTo = '9959'
+      // customeramount = document.getElementById('customeramount').value
+      // document.getElementById('transamt').innerHTML +=  customeramount.value
+      // document.getElementById('acctfrm').innerHTML = acctfrm
+      // console.log(customerAAmount)
+      // sessionStorage.setItem("customerAAmount", customerAAmount)
+      function nextpage(){
+        // document.getElementById('wrongpin').innerHTML = ''
+        // pinstored = sessionStorage.getItem('pin')
+        // if (document.getElementById('PIN')== pinstored){
+        //   window.location.href = 'transactionhistory.html'
+        // }
+        // else{
+        //   $("#accountModal").on('hide.bs.modal', function(){
+        //     document.getElementById('wrongpin').innerHTML += "Wrong Pin"
+        //     return false;
+        //   });
+        //   return false
+        // }
+        window.location.href = 'transactionhistory.html'
+                        }
 
       var ApiURL = "http://tbankonline.com/SMUtBank_API/Gateway";
       function getApiURL() {
@@ -305,7 +540,7 @@
       }
       
       //UserID
-      var userID = "";
+      // var userID = "";
       function getUserID() {
           return userID;
       }
@@ -314,70 +549,109 @@
       }
       
       //PIN
-      var PIN = "";
+      // var PIN = "";
       function getPIN() {
           return PIN;
       }
       function setPIN(x) {
           PIN = x;
       }
+      function editpage(){
+        // console.log(document.getElementById('customeramount').value)
+        amt = document.getElementById('customeramount').value
+        sessionStorage.setItem('tramt', amt) 
+        document.getElementById('transamt').innerHTML += '$'+ amt
+        document.getElementById('acctfrm').innerHTML += accountFrom
+        // console.log(sessionStorage.getItem('userID'))
+        // console.log(pin)
+      }
+      console.log(userID)
       
-      
-          $(document).ready(function () {
+          // $(document).ready(function () {
               
               // init user credentials
-              document.getElementById("userID").value = getUserID();
-              document.getElementById("PIN").value = getPIN();
+              // document.getElementById("userID").value = getUserID();
+              // document.getElementById("PIN").value = getPIN();
       
               /*----------------------------------------
                * [Send] button clicked
                */
               $("#Send").click(function (event) {
                   (function() {
-      
                       // set service header values
                       var serviceName = "creditTransfer";
-                      var userID = document.getElementById("userID").value;
-                      setUserID(userID);
-                      var PIN = document.getElementById("PIN").value;
-                      setPIN(PIN);
+                      
+                      // var userID = document.getElementById("userID").value;
+
+                      // userID = sessionStorage.getItem('') //////////
+                      // setUserID(userID);
+                      // var pin = document.getElementById("PIN").value;
+                      pinstored = sessionStorage.getItem('pin')
+
+
+                      // if (pin == ''){
+                      //   document.getElementById.innerHTML = 'Please enter your PIN number'
+                      // }
+                      // else if (pin != pinstored){
+                      //   document.getElementById.innerHTML = 'Wrong PIN number'
+                      // }
+
+                      // if (customeramount < sessionStorage.getItem('amount')){
+                      //   $("#accountmodal").on('hide.bs.modal', function(){
+                      //     document.getElementById('nomoney').innerHTML = ''
+                      //     document.getElementById('nomoney').innerHTML += 'Not enough money in bank. Click <a href="finloans.html">here</a> to loan'
+                      //     return false;
+                      //   });
+                      //   return false
+                      // }
+
+                      // setPIN(PIN);
                       
                       // get and validate form values
-                      var accountFrom = document.getElementById("accountFrom").value;
-                      if (accountFrom === ""){
-                          alert("Account FROM cannot be blank.");
-                          return;  
-                      }
-                      var accountTo = document.getElementById("accountTo").value;
-                      if (accountTo === ""){
-                          alert("Account TO cannot be blank.");
-                          return;  
-                      }
-                      var transactionAmount = document.getElementById("transactionAmount").value;
-                      if (transactionAmount === ""){
-                          alert("Transaction Amount cannot be blank.");
-                          return;  
-                      }
-                      var transactionReferenceNumber = document.getElementById("transactionReferenceNumber").value;
-                      var narrative = document.getElementById("narrative").value;
+
+                      // accountFrom = sessionStorage.getItem('')
+                      // accountTo = 9959 //////maxup account
+                      // transactionAmount = customerAAmount
+                      // console.log(customerAAmount)
+                      transactionReferenceNumber = 5
+                      narrative = 'Purchase of stocks'
+                      amt = document.getElementById('transamt').value
+                      console.log(sessionStorage.getItem('tramt'))
+                      // var accountFrom = document.getElementById("accountFrom").value;
+                      // if (accountFrom === ""){
+                      //     alert("Account FROM cannot be blank.");
+                      //     return;  
+                      // }
+                      // var accountTo = document.getElementById("accountTo").value;
+                      // if (accountTo === ""){
+                      //     alert("Account TO cannot be blank.");
+                      //     return;  
+                      // }
+                      // var transactionAmount = document.getElementById("transactionAmount").value;
+                      // if (transactionAmount === ""){
+                      //     alert("Transaction Amount cannot be blank.");
+                      //     return;  
+                      // }
+                      // var transactionReferenceNumber = document.getElementById("transactionReferenceNumber").value;
+                      // var narrative = document.getElementById("narrative").value;
       
                       // disable Send button
-                      document.getElementById("Send").disabled = true;
+                      // document.getElementById("Send").disabled = true;
                       OTP = "999999"
                       // set request parameters
                       var headerObj = {
                           Header: {
                               serviceName: serviceName,
-                              userID: userID,
-                              PIN: PIN,
+                              userID: sessionStorage.getItem('userID'),
+                              PIN: sessionStorage.getItem('pin'),
                               OTP: OTP
                           }
                       };
                       var contentObj = {
                           Content: {
-                              accountFrom: accountFrom,
-                              accountTo: accountTo,
-                              transactionAmount: transactionAmount,
+                              accountFrom: sessionStorage.getItem('bankaccount1'),
+                              accountTo: '9184',
+                              transactionAmount: sessionStorage.getItem('tramt'),
                               transactionReferenceNumber: transactionReferenceNumber,
                               narrative: narrative
                           }
@@ -433,54 +707,91 @@
       
                       // send the http request
                       xmlHttp.send();
-      
+
                   })();
+
               });
       
               /* ----------------------------------------
                * error model close button clicked
                */
-              $("#CloseError").click(function (event) {
-                  (function() {
-                      document.getElementById("Send").disabled = false;
-                  })();
-              });
+              // $("#CloseError").click(function (event) {
+              //     (function() {
+              //         document.getElementById("Send").disabled = false;
+              //     })();
+              // });
       
               /* ----------------------------------------
                * OTP model update button clicked
                */
-              $("#UpdateOTP").click(function (event) {
-                  (function() {
-                      var OTP = document.getElementById("OTP").value;
-                      setOTP(OTP, function() { // ensure OTP set before clicking Send
-                          document.getElementById("Send").disabled = false;
-                          document.getElementById("Send").click();
-                      });
-                  })();
-              });
+              // $("#UpdateOTP").click(function (event) {
+              //     (function() {
+              //         var OTP = document.getElementById("OTP").value;
+              //         setOTP(OTP, function() { // ensure OTP set before clicking Send
+              //             document.getElementById("Send").disabled = false;
+              //             document.getElementById("Send").click();
+              //         });
+              //     })();
+              // });
       
-          });
-      
+          // });
+    //   function check(){
+    //     if(sessionStorage.getItem("username") != null){
+    //         document.getElementById("navbar_signin").style.display = "none";
+    //         document.getElementById("navbar_profile").style.display = "block";
+    //         document.getElementById("logout").style.display = "block";
+    //     }
+
+    //     else{
+    //       document.getElementById("navbar_signin").style.display = "block";
+    //       document.getElementById("navbar_profile").style.display = "none";
+    //       document.getElementById("logout").style.display = "none";
+    //     }
+
+    //   if(sessionStorage.getItem("creditscore") != null){
+    //     document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
+    //     document.getElementById("currentloans").innerHTML = "Or apply for a new loan <a href = 'services.html'> here</a>"
+    //   }
+    // }
+    function check(){
+        if(sessionStorage.getItem("username") != null){
+            document.getElementById("navbar_signin").style.display = "none";
+            document.getElementById("navbar_profile").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+            
+        }
+
+        else{
+          document.getElementById("navbar_signin").style.display = "block";
+          document.getElementById("navbar_profile").style.display = "none";
+          document.getElementById("logout").style.display = "none";
+        }
+    }
+
+  window.sessionStorage
+
+  if(sessionStorage.getItem("username") != null){
+    document.getElementById("welcomesg").style.display = "block";
+    document.getElementById("welcomesg").innerHTML= "Welcome, " + sessionStorage.getItem("username") ;
+  }
+  else{
+    document.getElementById("welcomesg").style.display = "none";
+  }
+  function logout(){
+        sessionStorage.clear();
+        window.location.href = "index.html";
+        localStorage.clear();
+    }
+
       </script>
 
-    <!-- generate portfolio -->
-    <!-- <div class="jumbotron jumbotron-fluid" id = 'popportfolio'>
-      
-    </div> -->
-
-    <!-- <script>$('#myModal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
-    })</script> -->
-    
 
     <!-- ======= Cta Pricing Section ======= -->
     <section id="cta-pricing">
       <div class="container"> 
 
         <div class="text-center cta-pricing" id="popportfolio">
-          <!-- <div id="donutchart" style="width: 900px; height: 500px;"></div> -->
-          <!-- <p> Select based on your risk preference</p>
-          <a class="cta-btn" href="#">Submit</a> -->
+
         </div>
 
       </div>
@@ -505,7 +816,11 @@
   <script src="assets/js/main.js"></script>
 
   <!-- personal JS -->
-  <script src="assets/js/portfolio.js"></script>
+  <!-- <script src="assets/js/portfolio.js"></script> -->
+  <script src="assets/js/stockprice.js"></script>
+  <!-- <script src="assets/js/stocklist.js"></script> -->
+
+
 
 </body>
 

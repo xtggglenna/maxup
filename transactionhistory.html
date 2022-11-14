@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Transaction History</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- =======================================================
+  * Template Name: Flattern - v4.9.1
+  * Template URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body onload="check()">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between">
+
+      <div class="logo">
+        <h1 class="text-light"><a href="index.html">maxup</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a  href="index.html">Home</a></li>
+          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+          <li><a  href="services.html">LoanMe</a></li>
+          <li><a href="pricing.html">Portfolio</a></li>
+          <!-- <li><a href="blog.html">Blog</a></li> -->
+          <li><a class ="active" href="transactionhistory.html">Transactions</a></li>
+          <li id = "logout"><a onclick = "logout()">Logout </a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <!-- <button id="Send" type="button" class="btn btn-primary">Send</button> -->
+
+
+    <div class="container">
+      <div class="row">
+          <h3 style="color:#937851">Output</h3>
+      </div>
+      <table class="table table-striped col-md-12 well">
+          <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>Transaction ID</th>
+                  <th>Transaction Name</th>
+                  <th>Bank ID From</th>
+                  <th>Account From</th>
+                  <th>Transaction Amount</th>
+                  <th>Bank ID To</th>
+                  <th>Account To</th>
+                  <th>Exchange Rate</th>
+                  <th>Currency</th>
+                  <th>Quote Currency</th>
+                  <th>Reference Number</th>
+                  <th>Narrative</th>
+              </tr>
+          </thead>
+          <tbody id="account_table">
+          </tbody>
+      </table>
+  </div>
+  </main><!-- End #main -->
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script type="text/javascript">
+
+    trans_list = [
+        {
+            "TransactionTypeName": "CASH_WITHDRAWAL",
+            "TransactionTypeID": "100",
+            "TransactionCode": "WTH"
+        },
+        {
+            "TransactionTypeName": "ATM_WITHDRAWAL",
+            "TransactionTypeID": "101",
+            "TransactionCode": "ATM"
+        },
+        {
+            "TransactionTypeName": "FEE_DEDUCTION",
+            "TransactionTypeID": "150",
+            "TransactionCode": "FEE"
+        },
+        {
+            "TransactionTypeName": "FX_FEE",
+            "TransactionTypeID": "151",
+            "TransactionCode": "FXF"
+        },
+        {
+            "TransactionTypeName": "ATM_FEE",
+            "TransactionTypeID": "152",
+            "TransactionCode": "ATF"
+        },
+        {
+            "TransactionTypeName": "PAYMENT_FEE",
+            "TransactionTypeID": "153",
+            "TransactionCode": "PYF"
+        },
+        {
+            "TransactionTypeName": "CREDIT_CARD_FEE",
+            "TransactionTypeID": "154",
+            "TransactionCode": "CCF"
+        },
+        {
+            "TransactionTypeName": "PENALTY",
+            "TransactionTypeID": "155",
+            "TransactionCode": "PEN"
+        },
+        {
+            "TransactionTypeName": "CASH_DEPOSIT",
+            "TransactionTypeID": "200",
+            "TransactionCode": "DEP"
+        },
+        {
+            "TransactionTypeName": "TERM_DEPOSIT",
+            "TransactionTypeID": "201",
+            "TransactionCode": "TDP"
+        },
+        {
+            "TransactionTypeName": "CASA_INTEREST",
+            "TransactionTypeID": "202",
+            "TransactionCode": "INT"
+        },
+        {
+            "TransactionTypeName": "TD_INTEREST",
+            "TransactionTypeID": "203",
+            "TransactionCode": "TDI"
+        },
+        {
+            "TransactionTypeName": "DUAL_CURRENCY_DEPOSIT",
+            "TransactionTypeID": "204",
+            "TransactionCode": "DCD"
+        },
+        {
+            "TransactionTypeName": "DCD_INTEREST",
+            "TransactionTypeID": "205",
+            "TransactionCode": "DCI"
+        },
+        {
+            "TransactionTypeName": "CREDIT_TRANSFER",
+            "TransactionTypeID": "300",
+            "TransactionCode": "CRT"
+        },
+        {
+            "TransactionTypeName": "FUND_TRANSFER",
+            "TransactionTypeID": "301",
+            "TransactionCode": "FND"
+        },
+        {
+            "TransactionTypeName": "BILL_PAYMENT",
+            "TransactionTypeID": "302",
+            "TransactionCode": "BPY"
+        },
+        {
+            "TransactionTypeName": "QUIKPAY",
+            "TransactionTypeID": "303",
+            "TransactionCode": "QPY"
+        },
+        {
+            "TransactionTypeName": "POINT_OF_SALES",
+            "TransactionTypeID": "304",
+            "TransactionCode": "POS"
+        },
+        {
+            "TransactionTypeName": "PAYROLL",
+            "TransactionTypeID": "305",
+            "TransactionCode": "PAY"
+        },
+        {
+            "TransactionTypeName": "STANDING_INSTRUCTION",
+            "TransactionTypeID": "306",
+            "TransactionCode": "STI"
+        },
+        {
+            "TransactionTypeName": "LOAN_PRINCIPAL",
+            "TransactionTypeID": "400",
+            "TransactionCode": "LPR"
+        },
+        {
+            "TransactionTypeName": "PARTIAL_LOAN_REPAYMENT",
+            "TransactionTypeID": "401",
+            "TransactionCode": "PLR"
+        },
+        {
+            "TransactionTypeName": "FULL_LOAN_REPAYMENT",
+            "TransactionTypeID": "402",
+            "TransactionCode": "FLR"
+        },
+        {
+            "TransactionTypeName": "LOAN_DISBURSEMENT",
+            "TransactionTypeID": "403",
+            "TransactionCode": "LDI"
+        },
+        {
+            "TransactionTypeName": "LOAN_INTEREST",
+            "TransactionTypeID": "450",
+            "TransactionCode": "LIN"
+        },
+        {
+            "TransactionTypeName": "DIRECT_DEBIT",
+            "TransactionTypeID": "500",
+            "TransactionCode": "DDB"
+        },
+        {
+            "TransactionTypeName": "GIRO",
+            "TransactionTypeID": "501",
+            "TransactionCode": "GRO"
+        },
+        {
+            "TransactionTypeName": "TAX_PAYMENT",
+            "TransactionTypeID": "502",
+            "TransactionCode": "TAX"
+        }
+    ]
+    
+    newtranlist = {}
+    for (tran of trans_list){
+        newtranlist[tran.TransactionTypeID] = tran
+    }
+    
+    console.log(newtranlist)
+    
+    
+    
+        //API URL
+        var ApiURL = "http://tbankonline.com/SMUtBank_API/Gateway";
+            function getApiURL() {
+                return ApiURL;
+            }
+            
+        //UserID
+        var userID = "";
+        function getUserID() {
+            return userID;
+        }
+        function setUserID(x) {
+            userID = x;
+        }
+        
+        //PIN
+        var PIN = "";
+        function getPIN() {
+            return PIN;
+        }
+        function setPIN(x) {
+            PIN = x;
+        }
+    
+        function showErrorModal(errorMessage) {
+            document.getElementById("errorMsg").innerHTML = errorMessage;
+            $('#errorModal').modal('show');
+        }
+    
+        $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+        });
+    
+        function loadTransHist() {
+            // set service header values
+            
+        }
+    
+        $(document).ready(function () {
+            
+            // init user credentials
+            // document.getElementById("tBankID").value = getUserID();
+            // document.getElementById("tBankPIN").value = getPIN();
+    
+            /*----------------------------------------
+             * [Send] button clicked
+             */
+    
+            
+                    var serviceName = "getTransactionHistory";
+                    // var userID = document.getElementById("tBankID").value;
+                    setUserID(userID);
+                    // var PIN = document.getElementById("tBankPIN").value;
+                    setPIN(PIN);
+                    
+                    // get and validate form values
+                    // var accountID = document.getElementById("tBankAcc").value;
+                    // if (accountID === ""){
+                    //     showErrorModal("Account ID cannot be blank.");
+                    //     return;  
+                    // }
+                    // var startDate = document.getElementById("startDate").value;
+                    // if (startDate === ""){
+                    //     showErrorModal("Start Date cannot be blank.");
+                    //     return;  
+                    // }
+                    // var endDate = document.getElementById("endDate").value;
+                    // if (endDate === ""){
+                    //     showErrorModal("End Date cannot be blank.");
+                    //     return;  
+                    // }
+                    // var numRecordsPerPage = document.getElementById("numRecordsPerPage").value;
+                    // if (numRecordsPerPage === ""){
+                    //     showErrorModal("Number of Records Per Page cannot be blank.");
+                    //     return;  
+                    // }
+                    // var pageNum = document.getElementById("pageNum").value;
+                    // if (pageNum === ""){
+                    //     showErrorModal("Page Number cannot be blank.");
+                    //     return;  
+                    // }
+                    
+                    
+                    // disable Send button
+                    // document.getElementById("Send").disabled = true;
+                    $("#account_table").html("");
+    
+                    // set request parameters
+                    var headerObj = {
+                        Header: {
+                            serviceName: serviceName,
+                            userID: "glenna",
+                            PIN: "090701",
+                            OTP: "999999"
+                        }
+                    };
+                    var contentObj = {
+                        Content: {
+                            accountID: "9164",
+                            startDate: "2021-11-11 00:00:00",
+                            endDate: "2022-14-11 00:00:00",
+                            numRecordsPerPage: "10",
+                            pageNum: "1"
+                        }
+                    };
+                    
+                    var header = JSON.stringify(headerObj);
+                    var content = JSON.stringify(contentObj);
+    
+                    // setup http request
+                    var xmlHttp = new XMLHttpRequest();
+                    if (xmlHttp === null){
+                        alert("Browser does not support HTTP request.");
+                        return;
+                    }
+                    xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+                    xmlHttp.timeout = 5000;
+                    
+                    // setup http event handlers
+                    xmlHttp.onreadystatechange = function() {
+                        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                            responseObj = JSON.parse(xmlHttp.responseText);
+                            serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+                            globalErrorID = serviceRespHeader.GlobalErrorID;
+                            if (globalErrorID === "010041"){
+                                showOTPModal();
+                                return;
+                            }
+                            else if (globalErrorID !== "010000"){
+                                showErrorModal(serviceRespHeader.ErrorDetails);
+                                return;
+                            }
+                            
+                            // get data
+                            CDMTransactionDetail = responseObj.Content.ServiceResponse.CDMTransactionDetail;
+                            transaction_Detail = CDMTransactionDetail.transaction_Detail;
+                            console.log(transaction_Detail)
+                            var recordCount = getRecordCount(CDMTransactionDetail);
+                            console.log(recordCount)
+                            // display data
+                            var htmlcode = "";
+                            for(var i = 0; i < recordCount; i++){
+                                var d = (recordCount===1)?transaction_Detail:transaction_Detail[i];
+                                htmlcode += "<tr>";
+                                htmlcode += "<td>" + d.transactionDate + "</td>";
+                                htmlcode += "<td>" + d.transactionID + "</td>";
+                                htmlcode += "<td>"  + newtranlist[d.transactionType]["TransactionTypeName"] +  "</td>";
+                                htmlcode += "<td>" + d.bankID_from + "</td>";
+                                htmlcode += "<td>" + d.accountFrom + "</td>";
+                                htmlcode += "<td>" + d.transactionAmount + "</td>";
+                                htmlcode += "<td>" + d.bankID_to + "</td>";
+                                htmlcode += "<td>" + d.accountTo + "</td>";
+                                htmlcode += "<td>" + d.exchangeRate + "</td>";
+                                htmlcode += "<td>" + d.currency + "</td>";
+                                htmlcode += "<td>" + d.quoteCurrency + "</td>";
+                                htmlcode += "<td>" + d.transactionReferenceNumber + "</td>";
+                                htmlcode += "<td>" + d.narrative + "</td>";
+                                htmlcode += "</tr>";
+                                // htmlcode += "<td>" + getTransactionTypeName(d.transactionType) + "</td>";
+    
+                            }
+                            $("#account_table").html(htmlcode);
+                            
+                            // document.getElementById("status").style.display="none";
+                            // enable Send button
+                            // document.getElementById("Send").disabled = false;
+                        }
+                    };
+                    xmlHttp.ontimeout = function (e) {
+                        showErrorModal("Timeout invoking API.");
+                        return;
+                    };					
+    
+                    // send the http request
+                    xmlHttp.send();
+                    
+    
+    
+            /* ----------------------------------------
+             * error model close button clicked
+             */
+            // $("#CloseError").click(function (event) {
+            //     (function() {
+            //         document.getElementById("Send").disabled = false;
+            //     })();
+            // });
+    
+            /* ----------------------------------------
+             * OTP model update button clicked
+             */
+            // $("#UpdateOTP").click(function (event) {
+            //     (function() {
+            //         var OTP = document.getElementById("OTP").value;
+            //         setOTP(OTP, function() { // ensure OTP set before clicking Send
+            //             document.getElementById("Send").disabled = false;
+            //             document.getElementById("Send").click();
+            //         });
+            //     })();
+            // });
+            
+            /* ----------------------------------------
+             * get record count
+             */
+            function getRecordCount(CDMTransactionDetail) {
+                if (Object.keys(CDMTransactionDetail).length === 0){
+                    showErrorModal("Customer has no transaction history.");
+                    return 0;
+                }
+                if (CDMTransactionDetail.transaction_Detail.length === undefined)
+                    return 1;
+                return CDMTransactionDetail.transaction_Detail.length;
+            }
+    
+        });
+
+        function check(){
+        if(sessionStorage.getItem("username") != null){
+            document.getElementById("navbar_signin").style.display = "none";
+            document.getElementById("navbar_profile").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+            
+        }
+
+        else{
+          document.getElementById("navbar_signin").style.display = "block";
+          document.getElementById("navbar_profile").style.display = "none";
+          document.getElementById("logout").style.display = "none";
+        }
+    }
+
+  window.sessionStorage
+
+  if(sessionStorage.getItem("username") != null){
+    document.getElementById("welcomesg").style.display = "block";
+    document.getElementById("welcomesg").innerHTML= "Welcome, " + sessionStorage.getItem("username") ;
+  }
+  else{
+    document.getElementById("welcomesg").style.display = "none";
+  }
+  function logout(){
+        sessionStorage.clear();
+        window.location.href = "index.html";
+        localStorage.clear();
+    }
+        
+        </script>
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
