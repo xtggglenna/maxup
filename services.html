@@ -175,7 +175,7 @@
                 </br> 
 
                 <div class="text-start">
-                  <p>Loan Value: <a id="LoanVal">500</a></p>
+                  <p>Loan Value: <a id="LoanVal">$ 500</a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
 
@@ -229,8 +229,43 @@
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal"); 
             loanholder.innerHTML=`$ `+newval;
+
+
+        //     var maxx=500; 
+        //     if (loanholder>maxx){ 
+          
+        //         if(sessionStorage.getItem("creditscore") != null){ 
+        //             var creditsc = sessionStorage.getItem("creditscore"); 
+
+        //             if(creditsc < 670){ 
+        //               maxx = 10000; 
+        //               // document.getElementById("maxloanval").innerHTML = "Maximum Amount $10,000";
+        //               console.log(maxx);
+        //             }
+        //             else if (creditsc > 669 && creditsc <740 ){ 
+        //               maxx = 20000
+        //               // document.getElementById("box1").max="20,000"; 
+        //               // document.getElementById("maxloanval").innerHTML = "Maximum Amount $20,000";
+        //             }
+        //             else{ 
+        //               maxx = 1000000; 
+        //               // document.getElementById("box1").max="1,000,000"; 
+        //               // document.getElementById("maxloanval").innerHTML = "Maximum Amount $1,000,000";
+        //             }
+        //           }
+        //           console.log(maxx)
+        //           document.querySelector('#ApplyButton').disabled = true;
+
+        //     }
         } 
         
+
+        
+
+
+
+
+
 
         function insertYear(){ 
             var newval2 = document.getElementById("box2"); 
@@ -310,6 +345,7 @@
         document.getElementById("maxloanval").innerHTML = "Maximum Amount $20,000";
         if(amount > 20000){
           alert("Loan value is more than maximum");
+          window.location="services.html";
         }
         else{
           window.location="captcha.html, myloandetails.html, profile.html";
@@ -320,6 +356,7 @@
         document.getElementById("maxloanval").innerHTML = "Maximum Amount $1,000,000";
         if(amount > 1000000){
           alert("Loan value is more than maximum");
+          window.location="services.html";
         }
         else{
           window.location="captcha.html, myloandetails.html, profile.html";
@@ -343,6 +380,7 @@
 
         getAccounts()}
 
+//Justine 
 
   if(sessionStorage.getItem("creditscore") != null){ 
           var creditsc = sessionStorage.getItem("creditscore"); 
