@@ -97,7 +97,7 @@
               </div>
 
               <div class="col-sm-2"> 
-                <a href="payloans.html" class="btn btn-secondary">Pay Monthly Repayment</a>
+                <a href="profile.html" class="btn btn-secondary">Pay Monthly Repayment</a>
               </div>
         </div>
       </section>
@@ -118,20 +118,140 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script> 
+
+
     document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
+    sessionStorage.setItem("Repayment", document.getElementById("MonRep").innerHTML);
     //====//
     function check(){
             if(sessionStorage.getItem("username") != null){
                 document.getElementById("navbar_signin").style.display = "none";
                 document.getElementById("navbar_profile").style.display = "block";
                 document.getElementById("logout").style.display = "block";
-            }
-
-            else{
+            }else{
             document.getElementById("navbar_signin").style.display = "block";
             document.getElementById("navbar_profile").style.display = "none";
             document.getElementById("logout").style.display = "none";
             }}
+
+            function creditTransfer(){
+              function getApiURL(){
+                  var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+                  return ApiURL;
+                }
+              userID = sessionStorage.getItem("userID")
+              PIN = sessionStorage.getItem("pin")
+              OTP = "999999"
+          
+              var accountTo = sessionStorage.getItem("accountToXfer")
+              var transactionAmount = localStorage.getItem('MonRepToPass')
+              var transactionReferenceNumber = "0"
+              var narrative = "Loan Repayment MaxUp" 
+          
+              console.log(accountTo , transactionAmount, transactionReferenceNumber,narrative)
+                         var headerObj = {
+          
+                             Header: {
+                                 serviceName: "creditTransfer",
+                                 userID: userID,
+                                 PIN: PIN,
+                                 OTP: OTP
+                             }
+                         };
+                         var contentObj = {
+                             Content: {
+          
+                                 accountFrom: accountTo,
+          
+                                 accountTo: "9959",
+          
+                                 transactionAmount: transactionAmount,
+          
+                                 transactionReferenceNumber: transactionReferenceNumber,
+          
+                                 narrative: narrative
+          
+                             }
+          
+                         };
+          
+                         var header = JSON.stringify(headerObj);
+          
+                         var content = JSON.stringify(contentObj);
+          
+          
+          
+                         // setup http request
+          
+                         var xmlHttp = new XMLHttpRequest();
+          
+                         if (xmlHttp === null){
+          
+                             alert("Browser does not support HTTP request.");
+          
+                             return;
+          
+                         }
+          
+                         xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+          
+                         xmlHttp.timeout = 5000;
+          
+          
+          
+                         // setup http event handlers
+          
+                         xmlHttp.onreadystatechange = function() {
+          
+                             if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+          
+                                 responseObj = JSON.parse(xmlHttp.responseText);
+          
+                                 globalErrorID = serviceRespHeader.GlobalErrorID;
+          
+                                 if (globalErrorID === "010041"){
+                                  console.log("globalError")
+          
+                                     return;
+          
+                                 }
+          
+                                 else if (globalErrorID !== "010000"){
+          
+                                     console.log(serviceRespHeader.ErrorDetails);
+          
+                                     return;
+          
+                                 }
+          
+                                 else{
+                                  alert("success transfer");
+                                  console.log("success transfer")
+                                  
+                              }
+          
+                                 transactionID = responseObj.Content.ServiceResponse.TransactionID._content_;
+          
+                                 balanceBefore = responseObj.Content.ServiceResponse.BalanceBefore._content_;
+          
+                                 balanceAfter = responseObj.Content.ServiceResponse.BalanceAfter._content_;
+          
+                                 console.log("transactionID", "balanceBefore", "balanceAfter")
+                             }
+          
+                         };
+          
+                         xmlHttp.ontimeout = function (e) {
+          
+                             showErrorModal("Timeout invoking API.");
+          
+                             return;
+          
+                         }; 
+                         // send the http request
+          
+                         xmlHttp.send();
+          }
     </script>
 </body>
 </html>
