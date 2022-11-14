@@ -172,7 +172,7 @@
               <div>
                 <h4>Past Loan Transactions</h4>
                 <br>
-                <table id = "bankdetails" class = "table">
+                <table id = "loandetails" class = "table">
                
                 </table>
                 <span ></span>
@@ -461,10 +461,11 @@
                        var recordCount = getRecordCount(AccountList);
                        
                        var htmlcode = "<tr>    <th> Account Number </th>   <th> Currency </th>  <th> Balance </th>  <th> Interest Rate </th>           <th> Opening Date </th>        <th> Status </th>                  </tr>"
-
+                      var x = 0
                         for(var i = 0; i < recordCount; i++){
                             var acc = (recordCount===1)?account:account[i];
                             if(acc.productID == "101"){
+                              x += 1
                              sessionStorage.setItem("bankaccount"+i,  acc.accountID)
                             htmlcode += "<tr>";
                             htmlcode += "<td>" + acc.accountID + "</td>";
@@ -478,6 +479,7 @@
                           }
                         }
                         document.getElementById("bankdetails").innerHTML = htmlcode;
+                        sessionStorage.setItem("recordCount", x)
                    }
 
                };
@@ -667,6 +669,8 @@
         xmlHttp.send();
 
         getBank();
+
+        getLoans();
     }
 
     //call current loans 

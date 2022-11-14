@@ -44,6 +44,7 @@ submitButton.addEventListener('click', function() {
         output.classList.add("correctCaptcha");
         addBeneficiary()
         creditTransfer()
+        console.log("hi")
          output.innerHTML = "Correct!";
          if(confirm("Congratulations! Your Loan Application is Successful!")) document.location = 'myloandetails.html';
          
@@ -189,9 +190,12 @@ function creditTransfer(){
     OTP = "999999"
 
     var accountTo = sessionStorage.getItem("accountToXfer")
+    accountTo = sessionStorage.getItem("accountToXfer")
     var transactionAmount = localStorage.getItem("valueToPass")
     var transactionReferenceNumber = "0"
-    var narrative = "Investment Loan of amount " + transactionAmount + " from MAXUP"
+    var narrative = "Investment Loan from MAXUP"
+
+    console.log(accountTo , transactionAmount, transactionReferenceNumber,narrative)
 
                var headerObj = {
 
@@ -258,8 +262,6 @@ function creditTransfer(){
                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
 
                        responseObj = JSON.parse(xmlHttp.responseText);
-
-                       serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
 
                        globalErrorID = serviceRespHeader.GlobalErrorID;
 
