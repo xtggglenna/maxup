@@ -141,12 +141,21 @@
           next_add += old_val +j
           trend_arr.push([i, parseFloat((next_add/3).toFixed(2))])
         }
-        console.log(trend_arr)
-        console.log(trend_arr.length)
+        //console.log(trend_arr)
+        //console.log(trend_arr.length)
         end_length = trend_arr.length -1 
         initial_val = trend_arr[0][1]
         end_val = trend_arr[end_length][1]
-        console.log(end_val)
+        //console.log(end_val)
+        for(i=0; i<=8; i++){
+          let arr_num = Math.floor(Math.random()*30)
+          let second_rand = Math.random()* 80
+          trend_arr[arr_num][1] -= Math.random()*second_rand
+
+        }
+        
+        //console.log(trend_arr[arr_num][1])
+        
         returnVal(end_val)
         //total_return = trend_arr[]
 
