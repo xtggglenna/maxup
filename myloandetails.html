@@ -124,7 +124,7 @@
     var inputTest = localStorage.getItem('valueToPass');
     var inputTest2 = localStorage.getItem('yearToPass'); 
     var loanholder = document.getElementById("LoanVal"); 
-    loanholder.innerHTML=inputTest;
+    loanholder.innerHTML+=inputTest;
     document.getElementById("LoanYear").innerHTML=inputTest2; 
 
     document.getElementById("intRate").innerHTML=localStorage.getItem('intToPass');
@@ -145,22 +145,22 @@
     // document.getElementById("MonRep2").innerHTML=localStorage.getItem('MonRepToPass2');
 
 
-    function second(){ 
-      if (inputTest01 != null){ 
-        document.getElementById("services2").innerHTML=
-        <div class="container">
-            <div class="icon-box text-start pt-4 pb-4" data-aos="fade-up"> 
-              <h3 class=" pb-2">Loan 2</h3>
-              <p>Loan Value: <a id="LoanVal"></a></p>
-              <p>Loan Term: <a id="LoanYear"></a></p>
-              <p>Interest Rate: <a id="intRate"></a> </p>
-              <p>One time Processing Fee: <a id="OTPF"></a></p>
-              <p>Total Repayment: <a id="TotRep"></a> </p> 
-              <p class="m-0">Monthly Repayment: <a id="MonRep"></a> </p>
-            </div>
-        </div>
-      }
-    }
+    // function second(){ 
+    //   if (inputTest01 != null){ 
+    //     document.getElementById("services2").innerHTML=
+    //     <div class="container">
+    //         <div class="icon-box text-start pt-4 pb-4" data-aos="fade-up"> 
+    //           <h3 class=" pb-2">Loan 2</h3>
+    //           <p>Loan Value: <a id="LoanVal"></a></p>
+    //           <p>Loan Term: <a id="LoanYear"></a></p>
+    //           <p>Interest Rate: <a id="intRate"></a> </p>
+    //           <p>One time Processing Fee: <a id="OTPF"></a></p>
+    //           <p>Total Repayment: <a id="TotRep"></a> </p> 
+    //           <p class="m-0">Monthly Repayment: <a id="MonRep"></a> </p>
+    //         </div>
+    //     </div>
+    //   }
+    // }
 
 
     function check(){
