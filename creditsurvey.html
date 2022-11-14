@@ -215,6 +215,7 @@
   function submitscore(){
     creditscore = calculate_score()
     sessionStorage.setItem("creditscore", creditscore)
+    if(confirm("Credit score has been submitted")) document.location = 'profile.html';
   }
 
   function check(){
