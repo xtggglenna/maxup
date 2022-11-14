@@ -175,7 +175,7 @@
                 </br> 
 
                 <div class="text-start">
-                  <p>Loan Value: <a id="LoanVal">$ 500</a></p>
+                  <p>Loan Value: <a id="LoanVal">500</a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
 
@@ -226,6 +226,11 @@
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal"); 
             loanholder.innerHTML=`$ `+newval;
+            if(loanholder<500){ 
+              //change to depending on the max loan amt 
+              document.querySelector('#ApplyButton').disabled = true;
+
+            }
         } 
 
         function insertYear(){ 
@@ -299,8 +304,7 @@
           document.getElementById("logout").style.display = "none";
         }
 
-        getAccounts()
-  }
+        getAccounts()}
 
 
   if(sessionStorage.getItem("creditscore") != null){ 
@@ -310,6 +314,14 @@
           if(creditsc < 730){ 
             document.getElementById("box1").max ="10,000"; 
             document.getElementById("maxloanval").innerHTML = "Maximum Amount $10,000";
+            console.log('happy');
+            console.log(document.getElementById("LoanVal").textContent);
+
+            if((document.getElementById("LoanVal").value)==500){
+              
+              
+              
+            }
           }
           else if (creditsc > 739 && creditsc <800 ){ 
             document.getElementById("box1").max="20,000"; 
