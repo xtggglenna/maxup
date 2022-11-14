@@ -110,40 +110,42 @@
                 </div>
               </div>
 
-            </br> 
+              </br> 
             
             <div class ="row"> 
                 <div class="col-lg-5 p-0"> 
-                <form id="formTest">
-                <label class="p-2">Loan Value (SGD $)</label>
+                  <form id="formTest">
+                  <label class="p-2">Loan Value (SGD $)</label>
                 </div> 
 
                 <div class="col-lg-7"> 
-                <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
-                <p style="color:grey; font-size: x-small; text-align:left;" class="ms-2 mt-1">Minimum Amount $500</p>
-                </form>
+                  <input class="form-control" id="box1" type="text" value="500" name="amount" onkeyup="insertValue(this.value);onetimeprocfee();monthlyrepayment()"/> 
+                  <p style="color:grey; font-size: x-small; text-align:left;" class="ms-2 mt-1">Minimum Amount $500</p>
+                  </form>
                 </div>
             </div>
+            <!-- close loan value box -->
+              <div class="row">
+                <div class="col-lg-5 p-0"> 
+                  <label class="p-2">Term Loan (Year) </label>
+                </div>
 
-            <div class="row">
-              <div class="col-lg-5 p-0">  
-              <label class="p-2">Term Loan (Year) </label>
-              </div>
-              <div class="col-lg-7">
-                  <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();monthlyrepayment()" >
-                      <option value="1" selected="selected">1 Year</option>
-                      <option value="2">2 Years</option>
-                      <option value="3">3 Years</option>
-                      <option value="4">4 Years</option>
-                      <option value="5">5 Years</option>
-                      <br>
-                  </select>
-                
-              </div>
-          </div>
+                <div class="col-lg-7">
+                    <select class="form-select text-secondary col-lg-4" aria-label="Default select example" id="box2" onchange="insertYear();intRates();monthlyrepayment()" >
+                        <option value="1" selected="selected">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="4">4 Years</option>
+                        <option value="5">5 Years</option>
+                        <br>
+                    </select>
+                </div>
+              </div> 
+              <!-- close term loan box -->
             </div> 
+            <!-- close col-lg-6 left -->
 
-            <div class="col-lg-6 text-start"> 
+            <div class="col-lg-6"> 
               
                 <div class ="row"> 
                     <div class="col-lg-12 ps-2"> 
@@ -153,7 +155,7 @@
 
                 </br> 
 
-                <div>
+                <div class="text-start">
                   <p>Loan Value: <a id="LoanVal">$ 500</a></p>
                   
                   <p>Loan Term: <a id="LoanYr">1 Year</a></p>
@@ -169,6 +171,7 @@
                 </div>
            
             </div>
+            <!-- close col-lg-6 right -->
 
           </div>
 
