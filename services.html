@@ -226,11 +226,6 @@
             var newval = document.getElementById("box1").value;
             var loanholder = document.getElementById("LoanVal"); 
             loanholder.innerHTML=`$ `+newval;
-            if(loanholder<500){ 
-              //change to depending on the max loan amt 
-              document.querySelector('#ApplyButton').disabled = true;
-
-            }
         } 
 
         function insertYear(){ 
