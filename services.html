@@ -198,7 +198,7 @@
             <button class="btn btn-outline-danger me-md-2" type="button">Cancel</button>
 
             <button class="btn btn-outline-success" type="button" id="ApplyButton">
-              <a class="text-success"> Apply</a>
+              <a href="captcha.html" class="text-success"> Apply</a>
             </button>
           </div>
 
@@ -321,7 +321,7 @@
          document.getElementById("showscore").innerHTML = "Your Credit Score is: "+creditsc;  
     
          if(creditsc < 730){  
-
+          
            document.getElementById("box1").max ="10,000";  
            document.getElementById("maxloanval").innerHTML = "Maximum Amount $10,000"; 
 
@@ -329,19 +329,12 @@
              alert("Loan value is more than maximum"); 
              window.location="services.html"; 
            } 
-           else{ 
-             window.location="captcha.html, myloandetails.html, profile.html"; 
-           } 
-
          } 
          else if (creditsc > 739 && creditsc <800 ){  
            document.getElementById("box1").max="20,000";  
            document.getElementById("maxloanval").innerHTML = "Maximum Amount $20,000"; 
            if(amount > 20000){ 
              alert("Loan value is more than maximum"); 
-           } 
-           else{ 
-             window.location="captcha.html, myloandetails.html, profile.html"; 
            } 
          } 
          else{  
@@ -350,11 +343,10 @@
            if(amount > 1000000){ 
              alert("Loan value is more than maximum"); 
            } 
-           else{ 
-             window.location="captcha.html, myloandetails.html, profile.html"; 
-           } 
+
          } 
-       }  
+       }
+       window.location="captcha.html";   
    
   })
 
