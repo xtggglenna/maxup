@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
       
-        <title>Pay Loans</title>
+        <title>My Loan Details</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
       
@@ -35,55 +34,104 @@
         * License: https://bootstrapmade.com/license/
         ======================================================== -->
       </head>
-      
-</head>
-<body>
-    
+
+    <body onload ="check()">
+
     <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-between">
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex justify-content-between">
 
-      <div class="logo">
-        <h1 class="text-light"><a href="index.html">MAXUP</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
-          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
-          <li><a href="services.html">LoanMe</a></li>
-          <li><a href="pricing.html">Portfolio</a></li>
-          <!-- <li><a href="blog.html">Blog</a></li> -->
-          <li><a href="contact.html">Contact</a></li>
-          <li id = "logout"><a onclick = "logout()">Logout </a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+        <div class="logo">
+            <h1 class="text-light"><a href="index.html">MaxUp</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
 
-    </div>
-  </header><!-- End Header -->
+        <nav id="navbar" class="navbar">
+            <ul>
+            <li><a  href="index.html">Home</a></li>
+            <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
+            <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+            <li><a class ="active" href="services.html">LoanMe</a></li>
+            <li><a href="pricing.html">Portfolio</a></li>
+            <!-- <li><a href="blog.html">Blog</a></li> -->
+            <li><a href="contact.html">Contact</a></li>
+            <li id = "logout"><a onclick = "logout()">Logout </a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
 
-  <main id="main">
+    <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
+      <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>My Loan Details</h2>
-            <ol>
+          <h2>My Loan Details</h2>
+          <ol>
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">LoanMe</a></li>
-            <li><a href="myloandetails.html">My Loan Details</a></li>
-            <li>Pay Loans</li> 
-            </ol>
+            <li>My Loan Details</li>
+          </ol>
         </div>
 
-        </div>
+      </div>
     </section><!-- End Breadcrumbs -->
 
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container">
+              <div class="icon-box text-start pt-4 pb-4" data-aos="fade-up">
+                <!-- <div class="icon"><i class="bi bi-bank"></i></div> -->
+                <div class="row"> 
+                  <div class="col-sm-10"> 
+                    <h3 class=" pb-2">Repayment</h3>
+                  </div>
+                </div>
+                <br>
 
+                <p class="m-0">Monthly Repayment: <a id="MonRep"></a> </p>
+              </div>
+              
+              <div class="col-sm-2"> 
+                <a href="payloans.html" class="btn btn-secondary">Pay Here</a>
+              </div>
+        </div>
+      </section>
+      <!-- End Services Section -->
+    </main>
+ 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script> 
+    document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
+    //====//
+    function check(){
+            if(sessionStorage.getItem("username") != null){
+                document.getElementById("navbar_signin").style.display = "none";
+                document.getElementById("navbar_profile").style.display = "block";
+                document.getElementById("logout").style.display = "block";
+            }
+
+            else{
+            document.getElementById("navbar_signin").style.display = "block";
+            document.getElementById("navbar_profile").style.display = "none";
+            document.getElementById("logout").style.display = "none";
+            }}
+    </script>
 </body>
 </html>
