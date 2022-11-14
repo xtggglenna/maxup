@@ -83,7 +83,7 @@
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
-      <div class="container">
+      <div class="container pt-3">
 
             <div class="icon-box pb-4" data-aos="fade-up">
               <div class="icon"><i class="bi bi-bank"></i></div>
@@ -381,19 +381,20 @@
   if(sessionStorage.getItem("creditscore") != null){ 
           var creditsc = sessionStorage.getItem("creditscore"); 
           document.getElementById("showscore").innerHTML = "Your Credit Score is: "+creditsc; 
+          var maxamt=10000; 
 
           if(creditsc < 730){ 
-            var maxamt = 1000000;
+            // var maxamt = 1000000;
             document.getElementById("box1").max=maxamt;  
             document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
           }
           else if (creditsc > 739 && creditsc <800 ){ 
-            var maxamt = 2000000;
+            maxamt = 20000; 
             document.getElementById("box1").max=maxamt;  
             document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
           }
           else{ 
-            var maxamt = 1000000;
+            maxamt = 1000000;
             document.getElementById("box1").max=maxamt;  
             document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
           }
