@@ -42,9 +42,11 @@ userText.addEventListener('keyup', function(e) {
 submitButton.addEventListener('click', function() {
     if (userText.value === c) {
         output.classList.add("correctCaptcha");
+        addBeneficiary()
+        creditTransfer()
         // output.innerHTML = "Correct!";
-        alert("Congratulations! Your Loan Application is Successful!");
-        window.location.href = "myloandetails.html"; 
+        // alert("Congratulations! Your Loan Application is Successful!");
+//
     } else {
         output.classList.add("incorrectCaptcha");
         output.innerHTML = "Incorrect, please try again";
@@ -66,3 +68,242 @@ refreshButton.addEventListener('click', function() {
 });
 
 
+function addBeneficiary(){
+
+    function getApiURL(){
+        var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+        return ApiURL;
+      }
+
+    userID = "MAXUPACC" 
+    PIN = "999999"
+    OTP = "999999"
+
+    var serviceName = "addBeneficiary";
+   
+    // get and validate form values
+
+    var AccountID = sessionStorage.getItem("chosenAcc")
+    var Description = sessionStorage.getItem("username")
+
+
+    var headerObj = {
+        Header: {
+            serviceName: serviceName,
+            userID: userID,
+            PIN: PIN,
+            OTP: OTP
+        }
+
+    };
+
+    var contentObj = {
+
+        Content: {
+            AccountID: AccountID,
+            Description: Description
+        }
+
+    };
+
+    var header = JSON.stringify(headerObj);
+
+    var content = JSON.stringify(contentObj);
+
+
+
+    // setup http request
+
+    var xmlHttp = new XMLHttpRequest();
+
+    if (xmlHttp === null){
+
+        alert("Browser does not support HTTP request.");
+
+        return;
+
+    }
+
+    xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+
+    xmlHttp.timeout = 5000;
+
+
+
+    // setup http event handlers
+
+    xmlHttp.onreadystatechange = function() {
+
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
+            responseObj = JSON.parse(xmlHttp.responseText);
+
+            serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+
+            globalErrorID = serviceRespHeader.GlobalErrorID;
+
+            if (globalErrorID === "010041"){
+                console.log("hi")
+                return;
+
+            }
+
+            else if (globalErrorID !== "010000"){
+
+                console.log(serviceRespHeader.ErrorDetails);
+
+                return;
+
+            }
+
+        }
+
+    };
+
+    xmlHttp.ontimeout = function (e) {
+
+        showErrorModal("Timeout invoking API.");
+
+        return;
+
+    };                                        
+
+
+
+    // send the http request
+
+    xmlHttp.send();
+}
+
+function creditTransfer(){
+    function getApiURL(){
+        var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+        return ApiURL;
+      }
+
+    userID = "MAXUPACC" 
+    PIN = "999999"
+    OTP = "999999"
+
+    var accountFrom = "9959"
+    var accountTo = sessionStorage.getItem("chosenAcc")
+    accountTo = "9107"
+    var transactionAmount = localStorage.getItem("valueToPass")
+    var transactionReferenceNumber = "0"
+    var narrative = "Investment Loan of amount " + transactionAmount + " from MAXUP"
+
+               var headerObj = {
+
+                   Header: {
+
+                       serviceName: "creditTransfer",
+
+                       userID: userID,
+
+                       PIN: PIN,
+
+                       OTP: OTP
+
+                   }
+
+               };
+
+               var contentObj = {
+
+                   Content: {
+
+                       accountFrom: accountFrom,
+
+                       accountTo: accountTo,
+
+                       transactionAmount: transactionAmount,
+
+                       transactionReferenceNumber: transactionReferenceNumber,
+
+                       narrative: narrative
+
+                   }
+
+               };
+
+               var header = JSON.stringify(headerObj);
+
+               var content = JSON.stringify(contentObj);
+
+
+
+               // setup http request
+
+               var xmlHttp = new XMLHttpRequest();
+
+               if (xmlHttp === null){
+
+                   alert("Browser does not support HTTP request.");
+
+                   return;
+
+               }
+
+               xmlHttp.open("POST", getApiURL()+"?Header="+header+"&Content="+content, true);
+
+               xmlHttp.timeout = 5000;
+
+
+
+               // setup http event handlers
+
+               xmlHttp.onreadystatechange = function() {
+
+                   if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
+                       responseObj = JSON.parse(xmlHttp.responseText);
+
+                       serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+
+                       globalErrorID = serviceRespHeader.GlobalErrorID;
+
+                       if (globalErrorID === "010041"){
+
+
+                           return;
+
+                       }
+
+                       else if (globalErrorID !== "010000"){
+
+                           console.log(serviceRespHeader.ErrorDetails);
+
+                           return;
+
+                       }
+
+                       
+
+                       // get data
+
+                       transactionID = responseObj.Content.ServiceResponse.TransactionID._content_;
+
+                       balanceBefore = responseObj.Content.ServiceResponse.BalanceBefore._content_;
+
+                       balanceAfter = responseObj.Content.ServiceResponse.BalanceAfter._content_;
+
+                       console.log("transactionID", "balanceBefore", "balanceAfter")
+
+                   }
+
+               };
+
+               xmlHttp.ontimeout = function (e) {
+
+                   showErrorModal("Timeout invoking API.");
+
+                   return;
+
+               };                                        
+
+
+
+               // send the http request
+
+               xmlHttp.send();
+}
