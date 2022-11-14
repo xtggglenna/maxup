@@ -44,8 +44,8 @@ submitButton.addEventListener('click', function() {
         output.classList.add("correctCaptcha");
         addBeneficiary()
         creditTransfer()
-        // output.innerHTML = "Correct!";
-        // alert("Congratulations! Your Loan Application is Successful!");
+         output.innerHTML = "Correct!";
+         alert("Congratulations! Your Loan Application is Successful!");
 //
     } else {
         output.classList.add("incorrectCaptcha");
@@ -143,7 +143,6 @@ function addBeneficiary(){
             globalErrorID = serviceRespHeader.GlobalErrorID;
 
             if (globalErrorID === "010041"){
-                console.log("hi")
                 return;
 
             }

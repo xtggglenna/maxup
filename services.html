@@ -154,10 +154,7 @@
                       <div class="col-lg-7">
                       
                           <select class="form-select text-secondary col-lg-4" aria-label="Default select example" 
-                          id="accountNum" >
-                              <option id="ba0" selected="selected">  </option>
-                              <option id="ba1">2 Years</option>
-                              <br>
+                          id="accountSelect" >
                           </select>
                       </div>
                     </div> 
@@ -283,6 +280,7 @@
     localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML)
     localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)
     localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML)
+    sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value)
     window.location="captcha.html, myloandetails.html"; 
   })
 
@@ -298,12 +296,137 @@
           document.getElementById("navbar_profile").style.display = "none";
           document.getElementById("logout").style.display = "none";
         }
+
+        getAccounts()
   }
 
 
   if(sessionStorage.getItem("creditscore") != null){ 
           document.getElementById("showscore").innerHTML = "Your Credit Score is: "+sessionStorage.getItem("creditscore"); 
         }
+
+  function getAccounts(){
+    userID = sessionStorage.getItem("userID")
+    PIN = sessionStorage.getItem("pin")
+
+    var serviceName = "getCustomerAccounts";
+
+    var headerObj = {
+      Header: {
+        serviceName: serviceName,
+        userID: userID,
+        PIN: PIN,
+        OTP: "999999"
+      }
+    };
+
+    var header = JSON.stringify(headerObj);
+
+       function getRecordCount(AccountList) {
+
+           if (Object.keys(AccountList).length === 0){
+
+               showErrorModal("Customer has no accounts.");
+
+               return 0;
+
+           }
+
+           if (AccountList.account.length === undefined)
+
+               return 1;
+
+           return AccountList.account.length;
+
+       }
+
+    function getApiURL(){
+    var ApiURL  = "http://tbankonline.com/SMUtBank_API/Gateway";
+    return ApiURL;
+  }
+      // setup http request
+
+      var xmlHttp = new XMLHttpRequest();
+
+      if (xmlHttp === null){
+
+          alert("Browser does not support HTTP request.");
+
+          return;
+
+      }
+
+      xmlHttp.open("POST", getApiURL()+"?Header="+header, true);
+
+      xmlHttp.timeout = 5000;
+
+
+
+      // setup http event handlers
+
+      xmlHttp.onreadystatechange = function() {
+
+          if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
+              responseObj = JSON.parse(xmlHttp.responseText);
+
+              serviceRespHeader = responseObj.Content.ServiceResponse.ServiceRespHeader;
+
+              globalErrorID = serviceRespHeader.GlobalErrorID;
+
+              if (globalErrorID === "010041"){
+                  return;
+
+              }
+
+              else if (globalErrorID !== "010000"){
+                  console.log(serviceRespHeader.ErrorDetails);
+                  return;
+              }
+
+
+              AccountList = responseObj.Content.ServiceResponse.AccountList;
+              account = AccountList.account;
+              console.log(account)
+              var recordCount = getRecordCount(AccountList);
+
+              var htmlcode = "";
+            
+
+              for(var i = 0; i < recordCount; i++){
+
+                  var acc = (recordCount===1)?account:account[i];
+                  if(acc.productID == "101"){
+                  htmlcode += "<option value=" + acc.accountID + ">"
+
+                  htmlcode += acc.accountID + "</option>"
+
+              }
+            }
+
+              document.getElementById("accountSelect").innerHTML  = htmlcode;
+
+            
+
+          }
+
+      };
+
+      xmlHttp.ontimeout = function (e) {
+
+          showErrorModal("Timeout invoking API.");
+
+          return;
+
+      };                                        
+
+
+
+      // send the http request
+
+      xmlHttp.send();
+
+  }
     </script>
 
 </body>
