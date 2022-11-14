@@ -228,7 +228,7 @@
             loanholder.innerHTML=`$ `+newval;
 
             // var maxx = 500; 
-            if(loanholder<100){ 
+            if(loanholder>10000){ 
               //change to depending on the max loan amt 
               document.querySelector('#ApplyButton').disabled = true;
 
@@ -317,15 +317,44 @@
     var inputTest2 = document.getElementById("box2");
     var numyear = inputTest2.value;   
 
-    localStorage.setItem('valueToPass',inputTest); 
-    localStorage.setItem('yearToPass', numyear +' year(s)'); 
-    localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML); 
+    localStorage.setItem('valueToPass',inputTest) 
+    if(localStorage.setItem('valueToPass',inputTest) != null){ 
+      localStorage.setItem('valueToPass2',inputTest);
+    }
+
+    localStorage.setItem('yearToPass', numyear +' year(s)')
+    if(localStorage.setItem('yearToPass', numyear +' year(s)') != null){ 
+      localStorage.setItem('yearToPass2', numyear +' year(s)'); 
+    }
+
+    localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML)
+    if(localStorage.setItem('intToPass', document.getElementById("intRate").innerHTML) != null){ 
+      localStorage.setItem('intToPass', document.getElementById("intRate2").innerHTML); 
+    }
+
     localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML)
+    if(localStorage.setItem('OTPFtoPass',document.getElementById("OTPF").innerHTML) != null){ 
+      localStorage.setItem('OTPFtoPass',document.getElementById("OTPF2").innerHTML);
+    }
+
     localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)
+    if(localStorage.setItem('TotRepToPass',document.getElementById("TotRep").innerHTML)!= null){ 
+      localStorage.setItem('TotRepToPass',document.getElementById("TotRep2").innerHTML);
+    }
+
     localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML)
+    if(localStorage.setItem('MonRepToPass',document.getElementById("MonRep").innerHTML) != null){ 
+      localStorage.setItem('MonRepToPass',document.getElementById("MonRep2").innerHTML);
+    }
+
     sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value)
+    if(sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect").value) != null){ 
+      sessionStorage.setItem('accountToXfer',document.getElementById("accountSelect2").value)
+    }
+    
     window.location="captcha.html, myloandetails.html, profile.html"; 
   })
+
 
   function check(){
         if(sessionStorage.getItem("username") != null){
