@@ -155,7 +155,16 @@
               <div>
                 <h4>Current Loans</h4>
                 <br>
+                
+                <!-- <br>  -->
+                <span> See your loan details <a href="myloandetails.html">here</a></span>
+                <br> 
                 <span id = "currentloans"><i> No loans at the moment, start loaning by completing this <a href = "creditsurvey.html"> credit survey now </a> </i> </span>
+                <!-- <a href="myloandetails.html" class="btn btn-light" role="button">Loan Details</a> -->
+                  
+        
+                
+                
               </div>
             </div><!-- End blog author bio -->
 
@@ -519,7 +528,7 @@
 
       if(sessionStorage.getItem("creditscore") != null){
         document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
-        document.getElementById("currentloans").innerHTML = "Start applying for <a href = 'services.html'> loans now </a>"
+        document.getElementById("currentloans").innerHTML = "Or apply for a new loan <a href = 'services.html'> here</a>"
       }
     }
 
@@ -660,7 +669,17 @@
         getBank();
     }
 
+    //call current loans 
+    var inputTest = localStorage.getItem('valueToPass');
+        var inputTest2 = localStorage.getItem('yearToPass'); 
+        var loanholder = document.getElementById("LoanVal"); 
+        loanholder.innerHTML=inputTest;
+        document.getElementById("LoanYear").innerHTML=inputTest2; 
 
+        document.getElementById("intRate").innerHTML=localStorage.getItem('intToPass');
+        document.getElementById("OTPF").innerHTML=localStorage.getItem('OTPFtoPass');
+        document.getElementById("TotRep").innerHTML=localStorage.getItem('TotRepToPass');
+        document.getElementById("MonRep").innerHTML=localStorage.getItem('MonRepToPass');
 
 </script>
 </html>
