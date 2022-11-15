@@ -324,8 +324,31 @@
     else if(sessionStorage.getItem('accountToXfer') != null){
       sessionStorage.setItem('accountToXfer2',document.getElementById("accountSelect").value)}
     
+
+       //alert section 
+       var amount = document.getElementById("box1").value; 
+       if(sessionStorage.getItem("creditscore") != null){  
+         var creditsc = sessionStorage.getItem("creditscore");  
+    
+         if(creditsc < 730){  
+           if(amount > 10000){ 
+             alert("Loan value is more than maximum"); 
+             window.location="services.html"; 
+           } 
+         } 
+         else if (creditsc > 739 && creditsc <800 ){  
+           if(amount > 20000){ 
+             alert("Loan value is more than maximum"); 
+           } 
+         } 
+         else{  
+           if(amount > 1000000){ 
+             alert("Loan value is more than maximum"); 
+           } 
+
+         } 
+       }
        window.location="captcha.html, myloandetails.html, profile.html";   
-   
   })
 
   function check(){
@@ -345,26 +368,30 @@
 
 
   if(sessionStorage.getItem("creditscore") != null){ 
-          var creditsc = sessionStorage.getItem("creditscore"); 
-          document.getElementById("showscore").innerHTML = "Your Credit Score is: "+creditsc; 
-          var maxamt=10000; 
+    var creditsc = sessionStorage.getItem("creditscore"); 
+    document.getElementById("showscore").innerHTML = "Your Credit Score is: "+creditsc; 
+    localStorage.setItem('maxamt', (10000)); 
 
-          if(creditsc < 730){ 
-            // var maxamt = 1000000;
-            document.getElementById("box1").max=maxamt;  
-            document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
-          }
-          else if (creditsc > 739 && creditsc <800 ){ 
-            maxamt = 20000; 
-            document.getElementById("box1").max=maxamt;  
-            document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
-          }
-          else{ 
-            maxamt = 1000000;
-            document.getElementById("box1").max=maxamt;  
-            document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+maxamt.toLocaleString();
-          }
-        }
+    if(creditsc < 730){ 
+      // document.getElementById("box1").max=maxamt;  
+      if(localStorage.getItem('valueToPass') == null){ 
+      localStorage.setItem('maxamt', (10000)); 
+      }
+      else if(localStorage.getItem('valueToPass') != null){
+      localStorage.setItem('maxamt', parseInt(localStorage.getItem('maxamt'))-parseInt(localStorage.getItem('valueToPass')))} 
+      document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+localStorage.getItem('maxamt');
+    }
+    else if (creditsc > 739 && creditsc <800 ){ 
+      maxamt = 20000; 
+      document.getElementById("box1").max=maxamt;  
+      document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+localStorage.getItem('maxamt').toLocaleString();
+    }
+    else{ 
+      maxamt = 1000000;
+      document.getElementById("box1").max=maxamt;  
+      document.getElementById("maxloanval").innerHTML = "Maximum Amount $"+localStorage.getItem('maxamt').toLocaleString();
+    }
+  }
 
   function getAccounts(){
     userID = sessionStorage.getItem("userID")
