@@ -49,9 +49,9 @@
       </div>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li id = "navbar_signin"><a href="signin.html">Sign Up/Login</a></li>
-          <li id = "navbar_profile"><a href="profile.html">My Profile</a></li> 
+          <li id = "navbar_profile"><a href="profile.html" class="active">My Profile</a></li> 
           <li><a href="services.html">LoanMe</a></li>
           <li><a href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
@@ -159,7 +159,7 @@
                 <!-- <br>  -->
                 <span> See your loan details <a href="myloandetails.html">here</a></span>
                 <br> 
-                <span id = "currentloans"><i> No loans at the moment, start loaning by completing this <a href = "creditsurvey.html"> credit survey now </a> </i> </span>
+                <span id = "currentloans"></span>
                 <!-- <a href="myloandetails.html" class="btn btn-light" role="button">Loan Details</a> -->
                   
         
@@ -235,7 +235,8 @@
               <div>
                 <h4>Portfolios</h4>
                 <br>
-                <table id = "bankdetails" class = "table">
+                <span id = "emptyportfolio"></span>
+                <table id = "portfolios" class = "table">
                
                 </table>
                 <span ></span>
@@ -342,6 +343,11 @@
   <script src="assets/js/main.js"></script>
 </body>
 <script>
+
+  if(sessionStorage.getItem("portfolio1") != null){
+    
+  }
+
     function logout(){
         sessionStorage.clear();
         window.location.href = "index.html";
@@ -508,6 +514,35 @@
     }
 
     function check(){
+      if(sessionStorage.getItem("portfolio1") == null & sessionStorage.getItem("portfolio2")){
+        document.getElementById("emptyportfolio").innerHTML = "Portfolio is empty, start investing <a href = 'pricing.html'> now </a>"
+      }
+      else{
+        document.getElementById("emptyportfolio").innerHTML = " View transaction history for portfolio transfers <a href = 'transactionhistory.html'> here</a>"
+        var portfolio1 = sessionStorage.getItem("portfolio1")
+        var portfolio2 = sessionStorage.getItem("portfolio2")
+        var amt1 = sessionStorage.getItem("transamt1")
+        var amt2 = sessionStorage.getItem("transamt2")
+
+        htmlcode = "<tr> <th> No. </th> <th> Description </th> <th> Net Amount </th>  <th> See Profit </th> </tr>"
+      
+        function portfoliotostr(portfolio, htmlcode,transamt,no){
+          if(portfolio != null){
+          array = portfolio.split(",")
+          array.shift()
+          array.shift()
+          newstring = array.join(",")
+          htmlcode += "<tr> <td>" + no + "</td> <td> " +newstring + "</td> <td>" + transamt +"</td>  <td> <a href = 'progress.html?portfolio=" + newstring + "&netamt=" + transamt+"''> Check here </a></td> <tr> "
+            return htmlcode;
+          }
+        }
+
+        htmlcode = portfoliotostr(portfolio1,htmlcode,amt1,"1")
+        htmlcode = portfoliotostr(portfolio2, htmlcode,amt2,"2")
+
+        document.getElementById("portfolios").innerHTML = htmlcode;
+      }
+
         if(sessionStorage.getItem("username") != null){
             document.getElementById("navbar_signin").style.display = "none";
             document.getElementById("navbar_profile").style.display = "block";
@@ -523,6 +558,10 @@
       if(sessionStorage.getItem("creditscore") != null){
         document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
         document.getElementById("currentloans").innerHTML = "Or apply for a new loan <a href = 'services.html'> here</a>"
+      }
+
+      else{
+        document.getElementById("currentloans").innerHTML = "<i> No loans at the moment, start loaning by completing this <a href = 'creditsurvey.html'> credit survey now </a> </i>" 
       }
 
       if(localStorage.getItem("MonRepToPass") != null){
