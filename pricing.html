@@ -421,7 +421,7 @@
         toinsertgoog = [['Stock', 'Weightage']]
         
         for(stock in randportfolio){
-          document.getElementById('popportfolio').innerHTML += `<p class="lead">${stock}: ${randportfolio[stock]}</p>`
+          document.getElementById('popportfolio').innerHTML += `<p class="lead">${stock}: ${randportfolio[stock] * 100}%</p>`
           toinsertgoog.push([stock,randportfolio[stock]])
         }
         console.log(toinsertgoog)
