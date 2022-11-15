@@ -89,18 +89,28 @@
   
         </div>
       </section><!-- End Breadcrumbs -->
+
       <section id="pricing" class="pricing">
         <div class="container">
           <br>
             <h5 id ='deposit'>Net Deposit (USD)</h5>
+            <h5 id= "portfoliolist"> </h5>
             <h5 id="totalvalue">Total Value (USD)</h5>
             <h5 id="returns">Total Returns (USD) </h5>
             <br>
             <script>
-       
+              const queryString = window.location.search;
+             const urlParams = new URLSearchParams(queryString);
+             const netamt = urlParams.get('netamt')
+             document.getElementById("deposit").innerHTML += ' '+netamt;
+
+             const portfolio = urlParams.get("portfolio")
+             document.getElementById('portfoliolist').innerHTML += "Stocks and Weightage: <i>" + portfolio + "</i>"
+         </script>
+            <script>
+      
                 function returnVal(result){
-                    let deposit_val = 50
-                    document.getElementById("deposit").innerHTML += ' '+deposit_val
+                    let deposit_val = netamt;
                     document.getElementById('totalvalue').innerHTML += result
 
                     result = (result - deposit_val).toFixed(2)
