@@ -190,7 +190,7 @@ function creditTransfer(){
     OTP = "999999"
 
     var accountTo = sessionStorage.getItem("accountToXfer")
-    var transactionAmount = localStorage.getItem("valueToPass")
+    var transactionAmount = "0.0001"
     var transactionReferenceNumber = "0"
     var narrative = "Investment Loan from MAXUP" 
 
