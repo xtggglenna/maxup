@@ -211,7 +211,7 @@
     <script>
       userID = sessionStorage.getItem("userID")
       console.log(userID)
-      accountFrom = sessionStorage.getItem("bankaccount1")
+      accountFrom = sessionStorage.getItem("bankaccount0")
       PIN = sessionStorage.getItem("pin")
       accountTo = '9959'
       // customerAAmount = 0
@@ -470,8 +470,8 @@
               <div class="col-lg-10">
                       <div>
                         <p> Account From:  <select class="form-select" aria-label="Default select example" id="selectAccLoanHistory">
-                          <option value = "9107"> 0000009107 </option>
-                          <option value = "9091"> 0000009091 </option>
+                          <option value = "9963"> 0000009963</option>
+                          <option value = "9964"> 0000009964 </option>
                         </select></p>
 
                         <p>Account To: MAXUPACC</p>
@@ -666,7 +666,7 @@
                       };
                       var contentObj = {
                           Content: {
-                              accountFrom: sessionStorage.getItem('bankaccount1'),
+                              accountFrom: sessionStorage.getItem('bankaccount0'),
                               accountTo: '9959',
                               transactionAmount: sessionStorage.getItem('tramt'),
                               transactionReferenceNumber: transactionReferenceNumber,
