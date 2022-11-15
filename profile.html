@@ -157,7 +157,7 @@
                 <br>
                 
                 <!-- <br>  -->
-                <span> See your loan details <a href="myloandetails.html">here</a></span>
+                <span id="seeyourloan"> </span>
                 <br> 
                 <span id = "currentloans"></span>
                 <!-- <a href="myloandetails.html" class="btn btn-light" role="button">Loan Details</a> -->
@@ -557,6 +557,7 @@
 
       if(sessionStorage.getItem("creditscore") != null){
         document.getElementById("credit_score_info").value = sessionStorage.getItem("creditscore")
+        document.getElementById("seeyourloan").innerHTML = "See your loan details <a href='myloandetails.html'>here</a>"
         document.getElementById("currentloans").innerHTML = "Or apply for a new loan <a href = 'services.html'> here</a>"
       }
 
