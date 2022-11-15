@@ -61,6 +61,7 @@
           <li><a  href="services.html">LoanMe</a></li>
           <li><a class ="active" href="pricing.html">Portfolio</a></li>
           <!-- <li><a href="blog.html">Blog</a></li> -->
+          <li><a href="transactionhistory.html">Transactions</a></li>
           <li id = "logout"><a onclick = "logout()">Logout </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -425,13 +426,6 @@
           toinsertgoog.push([stock,randportfolio[stock]])
         }
         console.log(toinsertgoog)
-        
-        if(sessionStorage.getItem("portfolio1") != null){
-            sessionStorage.setItem("portfolio2", toinsertgoog)
-          }
-          else{
-            sessionStorage.setItem("portfolio1", toinsertgoog)
-          }
         document.getElementById('popportfolio').innerHTML += `<a href="#" class="nav-link scrollto active" data-toggle="modal" data-target="#accountModal">
                       <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editpage()">
                         Confirm Order</button>
@@ -571,12 +565,6 @@
         // console.log(document.getElementById('customeramount').value)
         amt = document.getElementById('customeramount').value
         sessionStorage.setItem('tramt', amt) 
-        if(sessionStorage.getItem("transamt1") == null){
-          sessionStorage.setItem("transamt1", amt)
-        }
-        else{
-          sessionStorage.setItem("transamt2", amt)
-        }
         document.getElementById('transamt').innerHTML += '$'+ amt
         document.getElementById('acctfrm').innerHTML += accountFrom
         // console.log(sessionStorage.getItem('userID'))
