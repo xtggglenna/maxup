@@ -104,6 +104,7 @@
              const netamt = urlParams.get('netamt')
              document.getElementById("deposit").innerHTML += ' '+netamt;
 
+
              const portfolio = urlParams.get("portfolio")
              document.getElementById('portfoliolist').innerHTML += "Stocks and Weightage: <i>" + portfolio + "</i>"
          </script>
@@ -144,16 +145,18 @@
 
         trend_arr = []
         j = 0
-        day_one = 8.5 // the amount user put inside
+        day_one = netamt/10 // the amount user put inside
         next_add = 0
         test = Math.floor(Math.random()*300)
         while(test<30){
           var test = Math.floor(Math.random()*300)
         }
         console.log(test)
-        
+
+        condition = 0
+      
         for (i=1; i<=test; i++){
-          
+        
           j+= (Math.random()/10) + Math.random()
           old_val = day_one + j
           next_add += old_val +j
@@ -170,6 +173,9 @@
           trend_arr[arr_num][1] += Math.random()*second_rand*17
 
         }
+        trend_arr[trend_arr.length-1][1] = parseFloat([trend_arr.length-2][1]+ (Math.random()))
+        console.log(end_val)
+      
         
         
         returnVal(end_val)
