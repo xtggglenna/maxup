@@ -202,7 +202,7 @@
                                       <option value="2022-08-01 00:00:00">August</option>
                                       <option value="2022-09-01 00:00:00">September</option>
                                       <option value="2022-10-01 00:00:00">October</option>
-                                      <option value="2022-11-01 00:00:00">November</option>
+                                      <option value="2022-11-15 11:11:00">November</option>
                                       <option value="2022-12-01 00:00:00">December</option>
                                   </select>
   
@@ -534,13 +534,14 @@
           newstring = array.join(",")
           htmlcode += "<tr> <td>" + no + "</td> <td> " +newstring + "</td> <td>" + transamt +"</td>  <td> <a href = 'progress.html?portfolio=" + newstring + "&netamt=" + transamt+"''> Check here </a></td> <tr> "
             return htmlcode;
-          }
+          
         }
 
         htmlcode = portfoliotostr(portfolio1,htmlcode,amt1,"1")
         htmlcode = portfoliotostr(portfolio2, htmlcode,amt2,"2")
 
         document.getElementById("portfolios").innerHTML = htmlcode;
+      }
       }
 
         if(sessionStorage.getItem("username") != null){
