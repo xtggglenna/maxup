@@ -419,6 +419,7 @@
 
                        var tablecode = "<tr>    <th> Loan Number </th>  <th> Balance To Be Paid </th>  <th> Interest Rate </th>      <th> Action </th>                  </tr>";
                        tablecode += "<tr>";
+                        if(sessionStorage.getItem("Repayment")!=null){
                         if(localStorage.getItem("MonRepToPass") != null){
                         tablecode += "<td>" + "1" + "</td>";
                         }
@@ -428,7 +429,7 @@
                           var rep = sessionStorage.getItem("Repayment");
                           var calc = ttl - rep;
 
-                        tablecode += "<td> " + calc + "</td>";
+                        tablecode += "<td> $" + calc + ".00</td>";
                         }
                         if(localStorage.getItem("MonRepToPass") != null){
                         tablecode += "<td>" + localStorage.getItem("intToPass") + "</td>";
@@ -436,6 +437,7 @@
                         if(localStorage.getItem("MonRepToPass") != null){
                         tablecode += "<td>" + "<a href='payloans.html'>"+ "Pay Now" + "</a>"+ "</td>";
                         }
+                      }
                         tablecode += "</tr>";
 
                        document.getElementById("repayment_det").innerHTML = tablecode;
