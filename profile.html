@@ -430,9 +430,12 @@
 
                         tablecode += "<td> " + calc + "</td>";
                         }
+                        if(localStorage.getItem("MonRepToPass") != null){
                         tablecode += "<td>" + localStorage.getItem("intToPass") + "</td>";
+                        }
+                        if(localStorage.getItem("MonRepToPass") != null){
                         tablecode += "<td>" + "<a href='payloans.html'>"+ "Pay Now" + "</a>"+ "</td>";
-
+                        }
                         tablecode += "</tr>";
 
                        document.getElementById("repayment_det").innerHTML = tablecode;
